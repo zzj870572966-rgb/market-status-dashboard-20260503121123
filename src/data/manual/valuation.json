@@ -1,0 +1,25 @@
+{
+  "date": "2026-01-02",
+  "source": "manual",
+  "summary": "S&P 500 P/E 与 CAPE 处于偏高但未极端区间，长期回报预期需要保持保守。",
+  "sp500PE": {
+    "value": 22.5,
+    "previous": null,
+    "change": null,
+    "changePercent": null,
+    "date": "2026-01-02",
+    "source": "manual",
+    "unit": "x",
+    "stale": false
+  },
+  "cape": {
+    "value": 34,
+    "previous": null,
+    "change": null,
+    "changePercent": null,
+    "date": "2026-01-02",
+    "source": "manual",
+    "unit": "x",
+    "stale": false
+  }
+}

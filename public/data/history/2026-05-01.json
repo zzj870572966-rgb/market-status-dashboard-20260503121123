@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-05-01",
+  "generatedAt": "2026-05-02T17:40:14.758Z",
+  "status": {
+    "isPartial": false,
+    "message": "所有数据源已成功更新。",
+    "sources": {
+      "stooq": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-05-02T17:40:14.758Z",
+        "message": "更新成功",
+        "succeeded": [
+          "S&P 500",
+          "Nasdaq 100"
+        ],
+        "failed": []
+      },
+      "fred": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-05-02T17:40:14.758Z",
+        "message": "更新成功",
+        "succeeded": [
+          "VIX",
+          "VXN",
+          "10Y Treasury",
+          "2Y Treasury"
+        ],
+        "failed": []
+      },
+      "alternative": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-05-02T17:40:14.758Z",
+        "message": "更新成功",
+        "succeeded": [
+          "Crypto Fear & Greed"
+        ],
+        "failed": []
+      },
+      "manual": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-05-02T17:40:14.758Z",
+        "message": "更新成功",
+        "succeeded": [
+          "CNN Fear & Greed",
+          "Options Structure",
+          "Valuation"
+        ],
+        "failed": []
+      }
+    }
+  },
+  "indices": {
+    "sp500": {
+      "value": 7230.1,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-05-01",
+      "source": "S&P 500",
+      "stale": false
+    },
+    "nasdaq100": {
+      "value": 27710.36,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-05-01",
+      "source": "Nasdaq 100",
+      "stale": false
+    }
+  },
+  "volatility": {
+    "vix": {
+      "value": 16.89,
+      "previous": 18.81,
+      "change": -1.92,
+      "changePercent": -10.21,
+      "date": "2026-04-30",
+      "source": "VIX",
+      "stale": false
+    },
+    "vxn": {
+      "value": 21.79,
+      "previous": 23.76,
+      "change": -1.97,
+      "changePercent": -8.29,
+      "date": "2026-04-30",
+      "source": "VXN",
+      "stale": false
+    }
+  },
+  "rates": {
+    "us10y": {
+      "value": 4.4,
+      "previous": 4.42,
+      "change": -0.02,
+      "changePercent": -0.45,
+      "date": "2026-04-30",
+      "source": "10Y Treasury",
+      "unit": "%",
+      "stale": false
+    },
+    "us2y": {
+      "value": 3.88,
+      "previous": 3.92,
+      "change": -0.04,
+      "changePercent": -1.02,
+      "date": "2026-04-30",
+      "source": "2Y Treasury",
+      "unit": "%",
+      "stale": false
+    },
+    "yieldCurve2s10s": {
+      "value": 52,
+      "previous": 50,
+      "change": 2,
+      "changePercent": null,
+      "date": "2026-04-30",
+      "source": "FRED",
+      "unit": "bp",
+      "stale": false
+    }
+  },
+  "sentiment": {
+    "cnnFearGreed": {
+      "value": 52,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "classification": "Neutral",
+      "stale": false
+    },
+    "cryptoFearGreed": {
+      "value": 39,
+      "previous": 39,
+      "change": 0,
+      "changePercent": null,
+      "date": "2026-05-02",
+      "source": "Alternative.me",
+      "classification": "Fear",
+      "stale": false
+    }
+  },
+  "valuation": {
+    "date": "2026-01-02",
+    "source": "manual",
+    "summary": "S&P 500 P/E 与 CAPE 处于偏高但未极端区间，长期回报预期需要保持保守。",
+    "sp500PE": {
+      "value": 22.5,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "unit": "x",
+      "stale": false
+    },
+    "cape": {
+      "value": 34,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "unit": "x",
+      "stale": false
+    }
+  },
+  "optionsStructure": {
+    "date": "2026-01-02",
+    "source": "manual",
+    "spxNetGamma": {
+      "status": "neutral",
+      "label": "中性 Gamma",
+      "description": "SPX 当前接近中性 Gamma 区间，价格波动可能更多受宏观与现货动量影响。"
+    },
+    "spxZeroGamma": {
+      "value": 5900,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "spxPutWall": {
+      "value": 5700,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "spxCallWall": {
+      "value": 6100,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "ndxQqqPutWall": "NDX 21000 / QQQ 510",
+    "ndxQqqCallWall": "NDX 22000 / QQQ 535",
+    "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
+  },
+  "score": {
+    "value": 69,
+    "label": "偏积极",
+    "level": "positive",
+    "drivers": [
+      "VIX 仍在可控区间。",
+      "VXN 显示科技股波动温和。",
+      "CNN Fear & Greed 处于相对均衡区间。",
+      "2Y/10Y 利差为正，宏观压力有所缓和。"
+    ]
+  },
+  "assessment": {
+    "title": "今日数据评估",
+    "summary": "市场状态偏积极，但仍需要观察估值和情绪是否过热。",
+    "bullets": [
+      "波动率温和，定投节奏可以保持稳定。"
+    ],
+    "action": "可以正常执行计划，但不追高。",
+    "riskLevel": "偏积极"
+  }
+}

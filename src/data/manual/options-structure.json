@@ -1,0 +1,39 @@
+{
+  "date": "2026-01-02",
+  "source": "manual",
+  "spxNetGamma": {
+    "status": "neutral",
+    "label": "中性 Gamma",
+    "description": "SPX 当前接近中性 Gamma 区间，价格波动可能更多受宏观与现货动量影响。"
+  },
+  "spxZeroGamma": {
+    "value": 5900,
+    "previous": null,
+    "change": null,
+    "changePercent": null,
+    "date": "2026-01-02",
+    "source": "manual",
+    "stale": false
+  },
+  "spxPutWall": {
+    "value": 5700,
+    "previous": null,
+    "change": null,
+    "changePercent": null,
+    "date": "2026-01-02",
+    "source": "manual",
+    "stale": false
+  },
+  "spxCallWall": {
+    "value": 6100,
+    "previous": null,
+    "change": null,
+    "changePercent": null,
+    "date": "2026-01-02",
+    "source": "manual",
+    "stale": false
+  },
+  "ndxQqqPutWall": "NDX 21000 / QQQ 510",
+  "ndxQqqCallWall": "NDX 22000 / QQQ 535",
+  "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
+}
