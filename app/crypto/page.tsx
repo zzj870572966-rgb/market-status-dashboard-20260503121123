@@ -1,6 +1,7 @@
 import AssessmentCard from "@/components/AssessmentCard";
 import MetricCard from "@/components/MetricCard";
 import StatusBadge from "@/components/StatusBadge";
+import { buildCryptoAssessment } from "@/lib/categoryAssessments";
 import { getMarketData } from "@/lib/data";
 import { describePartialSources, formatDate, formatNumber } from "@/lib/format";
 
@@ -9,6 +10,7 @@ export const dynamic = "force-static";
 export default async function CryptoPage() {
   const data = await getMarketData();
   const crypto = data.sentiment.cryptoFearGreed;
+  const cryptoAssessment = buildCryptoAssessment(data);
 
   return (
     <div className="space-y-6">
@@ -55,10 +57,10 @@ export default async function CryptoPage() {
       </div>
 
       <AssessmentCard
-        assessment={data.assessment}
+        assessment={cryptoAssessment.assessment}
         isPartial={data.status.isPartial}
         partialMessage={describePartialSources(data.status.sources) || data.status.message}
-        level={data.score.level}
+        level={cryptoAssessment.level}
       />
     </div>
   );

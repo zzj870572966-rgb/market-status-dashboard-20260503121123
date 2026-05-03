@@ -1,6 +1,7 @@
 import AssessmentCard from "@/components/AssessmentCard";
 import MetricCard from "@/components/MetricCard";
 import StatusBadge from "@/components/StatusBadge";
+import { buildValuationAssessment } from "@/lib/categoryAssessments";
 import { getMarketData } from "@/lib/data";
 import { describePartialSources, formatDate, formatNumber } from "@/lib/format";
 
@@ -11,6 +12,7 @@ export default async function ValuationPage() {
   const valuation = data.valuation;
   const pe = valuation.sp500PE;
   const cape = valuation.cape;
+  const valuationAssessment = buildValuationAssessment(data);
 
   return (
     <div className="space-y-6">
@@ -50,10 +52,10 @@ export default async function ValuationPage() {
       </div>
 
       <AssessmentCard
-        assessment={data.assessment}
+        assessment={valuationAssessment.assessment}
         isPartial={data.status.isPartial}
         partialMessage={describePartialSources(data.status.sources) || data.status.message}
-        level={data.score.level}
+        level={valuationAssessment.level}
       />
     </div>
   );

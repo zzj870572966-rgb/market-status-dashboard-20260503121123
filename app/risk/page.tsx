@@ -2,6 +2,7 @@ import AssessmentCard from "@/components/AssessmentCard";
 import HistoryLineChart from "@/components/HistoryLineChart";
 import MetricCard from "@/components/MetricCard";
 import StatusBadge from "@/components/StatusBadge";
+import { buildRiskAssessment } from "@/lib/categoryAssessments";
 import { getHistoryIndex, getMarketData } from "@/lib/data";
 import { describePartialSources, formatDate, formatNumber } from "@/lib/format";
 
@@ -13,6 +14,7 @@ export default async function RiskPage() {
   const vxn = data.volatility.vxn;
   const curve = data.rates.yieldCurve2s10s;
   const gamma = data.optionsStructure.spxNetGamma;
+  const riskAssessment = buildRiskAssessment(data);
 
   return (
     <div className="space-y-6">
@@ -65,10 +67,10 @@ export default async function RiskPage() {
       </section>
 
       <AssessmentCard
-        assessment={data.assessment}
+        assessment={riskAssessment.assessment}
         isPartial={data.status.isPartial}
         partialMessage={describePartialSources(data.status.sources) || data.status.message}
-        level={data.score.level}
+        level={riskAssessment.level}
       />
     </div>
   );

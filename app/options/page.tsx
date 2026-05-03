@@ -1,5 +1,7 @@
+import AssessmentCard from "@/components/AssessmentCard";
 import MetricCard from "@/components/MetricCard";
 import StatusBadge from "@/components/StatusBadge";
+import { buildOptionsAssessment } from "@/lib/categoryAssessments";
 import { getMarketData } from "@/lib/data";
 import { formatDate, formatNumber } from "@/lib/format";
 import type { StatusLevel } from "@/lib/types";
@@ -10,6 +12,7 @@ export default async function OptionsPage() {
   const data = await getMarketData();
   const options = data.optionsStructure;
   const gammaLevel = gammaStatusToLevel(options.spxNetGamma.status);
+  const optionsAssessment = buildOptionsAssessment(data);
 
   return (
     <div className="space-y-6">
@@ -73,6 +76,11 @@ export default async function OptionsPage() {
           detail="可在 src/data/manual/options-structure.json 中维护。"
         />
       </div>
+
+      <AssessmentCard
+        assessment={optionsAssessment.assessment}
+        level={optionsAssessment.level}
+      />
 
       <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-panel">
         <div className="flex items-center justify-between gap-3">

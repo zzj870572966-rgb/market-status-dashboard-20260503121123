@@ -1,6 +1,7 @@
 import AssessmentCard from "@/components/AssessmentCard";
 import MetricCard from "@/components/MetricCard";
 import StatusBadge from "@/components/StatusBadge";
+import { buildMacroAssessment } from "@/lib/categoryAssessments";
 import { getMarketData } from "@/lib/data";
 import {
   describePartialSources,
@@ -19,6 +20,7 @@ export default async function MacroPage() {
   const curve = data.rates.yieldCurve2s10s;
   const spx = data.indices.sp500;
   const ndx = data.indices.nasdaq100;
+  const macroAssessment = buildMacroAssessment(data);
 
   return (
     <div className="space-y-6">
@@ -90,10 +92,10 @@ export default async function MacroPage() {
       </div>
 
       <AssessmentCard
-        assessment={data.assessment}
+        assessment={macroAssessment.assessment}
         isPartial={data.status.isPartial}
         partialMessage={describePartialSources(data.status.sources) || data.status.message}
-        level={data.score.level}
+        level={macroAssessment.level}
       />
     </div>
   );
