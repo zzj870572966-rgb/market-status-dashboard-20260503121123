@@ -30,9 +30,6 @@ interface RiskFactor {
 }
 
 const marketState = {
-  status: "恐慌" as RiskLevel,
-  score: 72,
-  suggestedPosition: 35,
   generatedAt: "模拟数据 · 未接入后端",
 };
 
@@ -146,6 +143,9 @@ const weightedRisk = factors.reduce(
   (total, factor) => total + factor.weight * factor.zScore,
   0,
 );
+const normalizedRiskScore = normalizeWeightedZ(weightedRisk);
+const currentRiskLevel = getRiskLevel(normalizedRiskScore);
+const suggestedPosition = getSuggestedPosition(normalizedRiskScore);
 
 export default function HomePage() {
   return (
@@ -184,17 +184,17 @@ function Header() {
         <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
           <TopMetric
             label="当前市场状态"
-            value={marketState.status}
+            value={currentRiskLevel}
             tone="orange"
           />
           <TopMetric
             label="市场风险评分"
-            value={`${marketState.score} / 100`}
+            value={`${normalizedRiskScore} / 100`}
             tone="orange"
           />
           <TopMetric
             label="建议仓位"
-            value={`${marketState.suggestedPosition}%`}
+            value={`${suggestedPosition}%`}
             tone="cyan"
           />
         </div>
@@ -241,7 +241,7 @@ function RiskThermometer() {
             主风险温度计
           </h2>
           <p className="mt-2 text-sm text-slate-400">
-            当前风险位置：{marketState.score}/100 → {marketState.status}
+            当前风险位置：{normalizedRiskScore}/100 → {currentRiskLevel}
           </p>
         </div>
         <div className="rounded-md border border-orange-400/30 bg-orange-400/10 px-3 py-2 text-sm font-medium text-orange-200">
@@ -260,7 +260,7 @@ function RiskThermometer() {
           />
           <div
             className="absolute top-1/2 z-10 -translate-y-1/2"
-            style={{ left: `${marketState.score}%` }}
+            style={{ left: `${normalizedRiskScore}%` }}
           >
             <div className="risk-pulse -ml-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-slate-950 shadow-[0_0_28px_rgba(251,146,60,0.7)]">
               <div className="h-3 w-3 rounded-full bg-orange-300" />
@@ -413,7 +413,7 @@ function RiskFormula() {
         <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
           <div className="text-xs text-slate-500">标准化风险分数</div>
           <div className="mt-2 text-2xl font-semibold text-orange-300">
-            {marketState.score} / 100
+            {normalizedRiskScore} / 100
           </div>
         </div>
       </div>
@@ -483,7 +483,7 @@ function AiSummary() {
       <p className="mt-5 max-w-5xl text-base leading-8 text-slate-200">
         当前市场风险主要受到波动率抬升、信用利差扩大以及市场动能转弱的影响。
         收益率曲线仍处于倒挂状态，说明宏观周期压力尚未完全解除。综合五大因子后，
-        市场处于偏防御型风险环境，建议降低进攻性仓位，保留现金弹性，并等待波动率与信用条件同步改善。
+        市场处于极度防御型风险环境，建议显著降低进攻性仓位，保留现金弹性，并等待波动率与信用条件同步改善。
       </p>
     </section>
   );
@@ -520,4 +520,52 @@ function getLevelColor(level: RiskFactor["riskLevel"]) {
 function formatSigned(value: number) {
   const sign = value > 0 ? "+" : "";
   return `${sign}${value.toFixed(2)}`;
+}
+
+function normalizeWeightedZ(value: number) {
+  return Math.round(clamp(50 + value * 25, 0, 100));
+}
+
+function getRiskLevel(score: number): RiskLevel {
+  if (score < 20) {
+    return "极度贪婪";
+  }
+
+  if (score < 40) {
+    return "贪婪";
+  }
+
+  if (score < 60) {
+    return "中性";
+  }
+
+  if (score < 80) {
+    return "恐慌";
+  }
+
+  return "极度恐慌";
+}
+
+function getSuggestedPosition(score: number) {
+  if (score >= 80) {
+    return 20;
+  }
+
+  if (score >= 60) {
+    return 35;
+  }
+
+  if (score >= 40) {
+    return 55;
+  }
+
+  if (score >= 20) {
+    return 75;
+  }
+
+  return 90;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
 }
