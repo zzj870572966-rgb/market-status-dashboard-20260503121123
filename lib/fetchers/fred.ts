@@ -12,7 +12,35 @@ export interface FredObservation {
   } | null;
 }
 
+export interface FredSeriesPoint {
+  date: string;
+  value: number;
+}
+
+export interface FredSeriesHistory {
+  series: string;
+  source: "FRED";
+  url: string;
+  observations: FredSeriesPoint[];
+  latest: FredSeriesPoint;
+  previous: FredSeriesPoint | null;
+}
+
 export async function fetchFredSeries(series: string): Promise<FredObservation> {
+  const history = await fetchFredSeriesHistory(series);
+
+  return {
+    series,
+    source: "FRED",
+    url: history.url,
+    latest: history.latest,
+    previous: history.previous,
+  };
+}
+
+export async function fetchFredSeriesHistory(
+  series: string,
+): Promise<FredSeriesHistory> {
   const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${encodeURIComponent(series)}`;
   const response = await fetch(url, {
     headers: {
@@ -35,6 +63,7 @@ export async function fetchFredSeries(series: string): Promise<FredObservation> 
     series,
     source: "FRED",
     url,
+    observations: rows,
     latest: rows[rows.length - 1],
     previous: rows.length > 1 ? rows[rows.length - 2] : null,
   };

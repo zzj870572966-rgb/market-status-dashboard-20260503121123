@@ -146,7 +146,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
               智能策略解释
             </div>
             <p className="mt-4 text-sm leading-7 text-[#dffdea]">
-              当前市场情绪偏向{strategy.state}，历史上此类阶段通常对应更高的长期资产回报预期。系统建议提高长期定投力度，但仍需保持现金流稳定、分批执行与情绪纪律。
+              当前市场情绪偏向{strategy.state}，系统建议按长期纪律调整定投力度。该模块强调逆向积累、分批执行与现金流稳定，而不是短线择时。
             </p>
             <div className="mt-4 flex items-start gap-2 rounded-md border border-[#2f7b58] bg-[#102d20] px-3 py-2 text-xs leading-5 text-[#a7f3d0]">
               <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />

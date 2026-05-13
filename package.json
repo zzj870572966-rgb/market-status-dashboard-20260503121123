@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "update:data": "tsx scripts/update-market-data.ts"
+    "update:data": "tsx scripts/update-market-data.ts && tsx scripts/update-risk-dashboard.ts",
+    "update:risk": "tsx scripts/update-risk-dashboard.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

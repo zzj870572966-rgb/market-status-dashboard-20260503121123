@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "市场温度计",
-  description: "机构级市场温度与风险状态监控首页。",
+  description: "基于上一交易日收盘数据的机构级市场温度与风险状态监控首页。",
 };
 
 export default function RootLayout({
