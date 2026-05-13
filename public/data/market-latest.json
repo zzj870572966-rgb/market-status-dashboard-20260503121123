@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-13",
-  "generatedAt": "2026-05-13T16:57:46.571Z",
+  "generatedAt": "2026-05-13T17:14:48.187Z",
   "status": {
     "isPartial": false,
     "message": "所有数据源已成功更新。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T16:57:46.571Z",
+        "updatedAt": "2026-05-13T17:14:48.187Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500",
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T16:57:46.571Z",
+        "updatedAt": "2026-05-13T17:14:48.187Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T16:57:46.571Z",
+        "updatedAt": "2026-05-13T17:14:48.187Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,11 +43,11 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T16:57:46.571Z",
+        "updatedAt": "2026-05-13T17:14:48.187Z",
         "message": "更新成功",
         "succeeded": [
-          "Valuation",
           "CNN Fear & Greed",
+          "Valuation",
           "Options Structure"
         ],
         "failed": []
@@ -56,19 +56,19 @@
   },
   "indices": {
     "sp500": {
-      "value": 7443.1,
-      "previous": 7412.8,
-      "change": 30.3,
-      "changePercent": 0.41,
+      "value": 7449,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
       "date": "2026-05-13",
       "source": "S&P 500",
       "stale": false
     },
     "nasdaq100": {
-      "value": 29345.56,
-      "previous": 29320.66,
-      "change": 24.9,
-      "changePercent": 0.08,
+      "value": 29381.645,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
       "date": "2026-05-13",
       "source": "Nasdaq 100",
       "stale": false
@@ -139,8 +139,8 @@
     },
     "cryptoFearGreed": {
       "value": 42,
-      "previous": 49,
-      "change": -7,
+      "previous": 42,
+      "change": 0,
       "changePercent": null,
       "date": "2026-05-13",
       "source": "Alternative.me",
