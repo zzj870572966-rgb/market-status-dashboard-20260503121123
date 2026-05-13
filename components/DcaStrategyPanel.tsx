@@ -1,8 +1,8 @@
 import {
   BrainCircuit,
   CalendarClock,
-  DollarSign,
   LockKeyhole,
+  Percent,
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
@@ -49,17 +49,12 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
 
       <div className="grid gap-5 p-5 sm:p-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-5">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-3">
             <DcaMetric label="当前市场状态" value={strategy.state} tone="orange" />
             <DcaMetric label="当前风险评分" value={`${strategy.riskScore}`} tone="orange" />
             <DcaMetric
               label="当前定投倍率"
               value={`${strategy.multiplier.toFixed(1)}x`}
-              tone="green"
-            />
-            <DcaMetric
-              label="本月建议定投金额"
-              value={`${formatUsd(strategy.actualAmount)} USD`}
               tone="green"
             />
           </div>
@@ -71,7 +66,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
                 当前建议
               </div>
               <div className="text-xs text-[#8aa595]">
-                基础月度投入：{formatUsd(strategy.baseAmount)} USD
+                执行口径：以个人长期计划为基准
               </div>
             </div>
             <p className="text-base leading-7 text-[#dffdea]">{strategy.description}</p>
@@ -114,7 +109,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
         <div className="space-y-5">
           <div className="rounded-lg border border-[#1f513c] bg-[#0a1d14] p-4">
             <div className="flex items-center gap-2 text-sm font-medium text-[#e8fff2]">
-              <DollarSign className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
+              <Percent className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
               定投倍率映射表
             </div>
             <div className="mt-4 overflow-hidden rounded-lg border border-[#1f513c]">
@@ -178,10 +173,4 @@ function DcaMetric({
       </div>
     </div>
   );
-}
-
-function formatUsd(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    maximumFractionDigits: 0,
-  }).format(value);
 }

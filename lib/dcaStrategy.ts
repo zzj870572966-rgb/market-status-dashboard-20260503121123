@@ -10,17 +10,14 @@ export interface DcaBand {
 }
 
 export interface DcaStrategy {
-  baseAmount: number;
   maxMultiplier: number;
   riskScore: number;
   state: DcaState;
   multiplier: number;
-  actualAmount: number;
   advice: string;
   description: string;
 }
 
-export const BASE_MONTHLY_INVESTMENT_USD = 1000;
 export const MAX_DCA_MULTIPLIER = 3;
 
 export const DCA_BANDS: DcaBand[] = [
@@ -70,10 +67,7 @@ export const DCA_BANDS: DcaBand[] = [
   },
 ];
 
-export function getDcaStrategy(
-  riskScore: number,
-  baseAmount = BASE_MONTHLY_INVESTMENT_USD,
-): DcaStrategy {
+export function getDcaStrategy(riskScore: number): DcaStrategy {
   const safeScore = clamp(Math.round(riskScore), 0, 100);
   const band =
     DCA_BANDS.find((item) =>
@@ -84,12 +78,10 @@ export function getDcaStrategy(
   const multiplier = Math.min(band.multiplier, MAX_DCA_MULTIPLIER);
 
   return {
-    baseAmount,
     maxMultiplier: MAX_DCA_MULTIPLIER,
     riskScore: safeScore,
     state: band.state,
     multiplier,
-    actualAmount: Math.round(baseAmount * multiplier),
     advice: band.advice,
     description: band.description,
   };
