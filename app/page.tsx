@@ -140,6 +140,25 @@ const ranges: Array<{
   },
 ];
 
+const indexSnapshots = [
+  {
+    name: "标普500",
+    ticker: "SPX",
+    level: "5,412.8",
+    change: -1.18,
+    distance: "-3.8%",
+    note: "低于 200日均线",
+  },
+  {
+    name: "纳斯达克100",
+    ticker: "NDX",
+    level: "18,706.4",
+    change: -1.74,
+    distance: "-5.2%",
+    note: "成长股动能偏弱",
+  },
+];
+
 const weightedRisk = factors.reduce(
   (total, factor) => total + factor.weight * factor.zScore,
   0,
@@ -152,12 +171,12 @@ export default function HomePage() {
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#edf7ef] text-emerald-950">
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <Header />
+        <RiskFactors />
         <RiskThermometer />
         <DcaStrategyPanel riskScore={normalizedRiskScore} />
-        <RiskFactors />
         <section className="mt-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
           <RiskFormula />
-          <RiskMapping />
+          <MarketIndexPanel />
         </section>
         <AiSummary />
       </div>
@@ -375,85 +394,157 @@ function DataRow({ label, value }: { label: string; value: string }) {
 }
 
 function RiskFormula() {
+  const contributions = factors.map((factor) => ({
+    ...factor,
+    contribution: factor.weight * factor.zScore,
+  }));
+  const maxContribution = Math.max(
+    ...contributions.map((factor) => Math.abs(factor.contribution)),
+  );
+
   return (
     <section className="risk-glass rounded-lg p-5">
-      <div className="flex items-center gap-2">
-        <Sigma className="h-5 w-5 text-cyan-300" aria-hidden="true" />
-        <h2 className="text-lg font-semibold tracking-normal text-white">
-          风险评分公式
-        </h2>
-      </div>
-      <p className="mt-2 text-sm text-slate-400">
-        每个因子先做滚动 Z 值标准化，再按权重合成，并映射至 0-100 区间。
-      </p>
-
-      <div className="mt-5 rounded-lg border border-slate-800 bg-slate-950/70 p-4 font-mono text-sm leading-7 text-slate-200">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <span className="text-cyan-300">风险</span> =
+          <div className="flex items-center gap-2">
+            <Sigma className="h-5 w-5 text-cyan-300" aria-hidden="true" />
+            <h2 className="text-lg font-semibold tracking-normal text-white">
+              量化风险评分模型
+            </h2>
+          </div>
+          <p className="mt-2 text-sm text-slate-400">
+            将五个风险因子做滚动 Z 值标准化，统一方向后按权重合成。
+          </p>
         </div>
-        <div className="pl-4 text-slate-300">
-          0.25 × VIX_z
-          <br />
-          + 0.25 × 信用利差_z
-          <br />
-          + 0.15 × 收益率曲线_z
-          <br />
-          + 0.15 × 趋势_z
-          <br />
-          + 0.20 × 动能_z
+        <div className="rounded-md border border-slate-800 bg-slate-950/70 px-3 py-2 text-xs text-slate-500">
+          模型版本：多因子逆周期风控
         </div>
       </div>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
-          <div className="text-xs text-slate-500">当前加权 Z 值</div>
-          <div className="mt-2 text-2xl font-semibold text-cyan-300">
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
+          <div className="text-xs text-slate-500">加权风险 Z 值</div>
+          <div className="mt-2 text-3xl font-semibold text-cyan-300">
             {formatSigned(weightedRisk)}
+          </div>
+          <div className="mt-3 h-2 rounded-full bg-slate-800">
+            <div
+              className="h-full rounded-full bg-teal-500"
+              style={{ width: `${Math.min(Math.abs(weightedRisk) * 32, 100)}%` }}
+            />
           </div>
         </div>
         <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
           <div className="text-xs text-slate-500">标准化风险分数</div>
-          <div className="mt-2 text-2xl font-semibold text-orange-300">
+          <div className="mt-2 text-3xl font-semibold text-orange-300">
             {normalizedRiskScore} / 100
           </div>
+          <div className="mt-3 text-xs text-slate-500">
+            分数 = 截断(50 + 25 × 加权风险Z值)
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 rounded-lg border border-slate-800 bg-slate-950/70 p-4">
+        <div className="mb-4 grid grid-cols-[1.2fr_0.65fr_0.65fr_0.75fr] gap-3 text-xs font-medium text-slate-500">
+          <div>风险因子</div>
+          <div>权重</div>
+          <div>Z 值</div>
+          <div>贡献</div>
+        </div>
+        <div className="space-y-3">
+          {contributions.map((factor) => (
+            <div
+              key={factor.name}
+              className="grid grid-cols-[1.2fr_0.65fr_0.65fr_0.75fr] items-center gap-3 text-sm"
+            >
+              <div>
+                <div className="font-medium text-slate-100">{factor.name}</div>
+                <div className="mt-1 text-xs text-slate-500">{factor.window}</div>
+              </div>
+              <div className="font-mono text-slate-300">
+                {factor.weight.toFixed(2)}
+              </div>
+              <div className="font-mono text-slate-300">
+                {formatSigned(factor.zScore)}
+              </div>
+              <div>
+                <div className="font-mono text-slate-100">
+                  {formatSigned(factor.contribution)}
+                </div>
+                <div className="mt-1 h-1.5 rounded-full bg-slate-800">
+                  <div
+                    className="h-full rounded-full bg-emerald-400"
+                    style={{
+                      width: `${Math.max(
+                        8,
+                        (Math.abs(factor.contribution) / maxContribution) * 100,
+                      )}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function RiskMapping() {
+function MarketIndexPanel() {
   return (
     <section className="risk-glass rounded-lg p-5">
       <div className="flex items-center gap-2">
-        <Target className="h-5 w-5 text-emerald-300" aria-hidden="true" />
+        <LineChart className="h-5 w-5 text-emerald-300" aria-hidden="true" />
         <h2 className="text-lg font-semibold tracking-normal text-white">
-          风险状态映射表
+          主要指数观察区
         </h2>
       </div>
       <p className="mt-2 text-sm text-slate-400">
-        最终风险分数统一映射为五档市场状态，用于仓位和防御强度判断。
+        后续用于接入标普500、纳斯达克100等核心指数涨跌与趋势状态。
       </p>
 
-      <div className="mt-5 overflow-hidden rounded-lg border border-slate-800">
-        <div className="grid grid-cols-[0.8fr_1fr_1.2fr] border-b border-slate-800 bg-slate-950/80 px-4 py-3 text-xs font-medium text-slate-400">
-          <div>分数区间</div>
-          <div>状态</div>
-          <div>含义</div>
-        </div>
-        {ranges.map((item) => (
+      <div className="mt-5 grid gap-3">
+        {indexSnapshots.map((item) => (
           <div
-            key={item.label}
-            className="grid grid-cols-[0.8fr_1fr_1.2fr] items-center border-b border-slate-800/70 px-4 py-3 text-sm last:border-b-0"
+            key={item.ticker}
+            className="rounded-lg border border-slate-800 bg-slate-950/70 p-4"
           >
-            <div className="font-mono text-slate-300">{item.range}</div>
-            <div className="flex items-center gap-2 font-medium text-white">
-              <span className={`h-2.5 w-2.5 rounded-full ${item.color}`} />
-              {item.label}
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="text-sm font-semibold text-white">{item.name}</div>
+                <div className="mt-1 text-xs text-slate-500">{item.ticker}</div>
+              </div>
+              <div className="text-right">
+                <div className="font-mono text-lg font-semibold text-slate-100">
+                  {item.level}
+                </div>
+                <div
+                  className={`mt-1 text-sm font-medium ${
+                    item.change >= 0 ? "text-emerald-300" : "text-orange-300"
+                  }`}
+                >
+                  {formatSigned(item.change)}%
+                </div>
+              </div>
             </div>
-            <div className="text-slate-400">{item.text}</div>
+            <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
+              <div className="rounded-md border border-slate-800 bg-slate-950/60 px-3 py-2">
+                <div className="text-slate-500">相对 200日均线</div>
+                <div className="mt-1 font-medium text-slate-100">{item.distance}</div>
+              </div>
+              <div className="rounded-md border border-slate-800 bg-slate-950/60 px-3 py-2">
+                <div className="text-slate-500">趋势备注</div>
+                <div className="mt-1 font-medium text-slate-100">{item.note}</div>
+              </div>
+            </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-4 rounded-lg border border-dashed border-slate-800 bg-slate-950/40 px-4 py-3 text-xs leading-5 text-slate-500">
+        预留：后续可加入日涨跌、周涨跌、月涨跌、成交量、200日均线距离和趋势确认信号。
       </div>
     </section>
   );
