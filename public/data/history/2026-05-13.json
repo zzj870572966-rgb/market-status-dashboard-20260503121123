@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-13",
-  "generatedAt": "2026-05-13T17:25:34.104Z",
+  "generatedAt": "2026-05-13T17:35:27.829Z",
   "status": {
     "isPartial": false,
     "message": "所有数据源已成功更新。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T17:25:34.104Z",
+        "updatedAt": "2026-05-13T17:35:27.829Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500",
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T17:25:34.104Z",
+        "updatedAt": "2026-05-13T17:35:27.829Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T17:25:34.104Z",
+        "updatedAt": "2026-05-13T17:35:27.829Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,7 +43,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T17:25:34.104Z",
+        "updatedAt": "2026-05-13T17:35:27.829Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -56,7 +56,7 @@
   },
   "indices": {
     "sp500": {
-      "value": 7445.5,
+      "value": 7444.5,
       "previous": null,
       "change": null,
       "changePercent": null,
@@ -65,7 +65,7 @@
       "stale": false
     },
     "nasdaq100": {
-      "value": 29363.973,
+      "value": 29365.223,
       "previous": null,
       "change": null,
       "changePercent": null,

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-12",
-  "generatedAt": "2026-05-13T17:31:52.280Z",
+  "generatedAt": "2026-05-13T17:35:29.546Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T17:31:52.280Z",
+        "updatedAt": "2026-05-13T17:35:29.546Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,7 +24,7 @@
       "fallback": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-05-13T17:31:52.280Z",
+        "updatedAt": "2026-05-13T17:35:29.546Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
