@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import DcaStrategyPanel from "@/components/DcaStrategyPanel";
+import ManualRiskOverridePanel from "@/components/ManualRiskOverridePanel";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
 import { formatSigned, type RiskDashboardFactor, type RiskDashboardSnapshot } from "@/lib/riskDashboard";
 
@@ -72,6 +73,7 @@ export default function HomePage() {
           <RiskFormula />
           <MarketIndexPanel />
         </section>
+        <ManualRiskOverridePanel snapshot={snapshot} />
         <AiSummary />
       </div>
     </main>

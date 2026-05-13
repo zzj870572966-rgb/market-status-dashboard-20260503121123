@@ -28,9 +28,13 @@ export interface RiskDashboardFactor {
   source: string;
   rawDisplay: string;
   rawValue: number;
+  rawStdDev: number;
   benchmarkDisplay: string;
   benchmarkValue: number;
   benchmarkLabel: string;
+  riskValue: number;
+  riskBenchmarkValue: number;
+  riskStdDev: number;
   zScore: number;
   weight: number;
   contribution: number;
@@ -40,6 +44,9 @@ export interface RiskDashboardFactor {
   window: string;
   windowDays: number;
   note: string;
+  manualLabel: string;
+  manualUnit: string;
+  manualStep: number;
   date: string;
   stale: boolean;
 }
@@ -134,6 +141,9 @@ export function buildSimpleFactor({
     benchmarkValue: stats.mean,
     benchmarkDisplay: formatValue(stats.mean, unit),
     benchmarkLabel: `${windowDays}日均值`,
+    rawStdDev: stats.std,
+    riskBenchmarkValue: stats.mean,
+    riskStdDev: stats.std,
     zScore,
     weight,
     previousRiskValue: previous.value,
@@ -177,6 +187,9 @@ export function buildYieldCurveFactor({
     benchmarkValue: rawStats.mean,
     benchmarkDisplay: formatCurveSpread(rawStats.mean),
     benchmarkLabel: `${windowDays}日均值`,
+    rawStdDev: rawStats.std,
+    riskBenchmarkValue: riskStats.mean,
+    riskStdDev: riskStats.std,
     zScore,
     weight: RISK_FACTOR_WEIGHTS.yieldCurve,
     previousRiskValue: previous.riskValue,
@@ -229,6 +242,9 @@ export function buildTrendFactor(sp500: FredSeriesPoint[]): RiskDashboardFactor 
     benchmarkValue: rawStats.mean,
     benchmarkDisplay: formatSignedPercent(rawStats.mean),
     benchmarkLabel: `${windowDays}日均值`,
+    rawStdDev: rawStats.std,
+    riskBenchmarkValue: riskStats.mean,
+    riskStdDev: riskStats.std,
     zScore,
     weight: RISK_FACTOR_WEIGHTS.trend,
     previousRiskValue: previous.riskValue,
@@ -282,6 +298,9 @@ export function buildMomentumFactor(sp500: FredSeriesPoint[]): RiskDashboardFact
     benchmarkValue: rawStats.mean,
     benchmarkDisplay: formatSignedPercent(rawStats.mean),
     benchmarkLabel: `${windowDays}日均值`,
+    rawStdDev: rawStats.std,
+    riskBenchmarkValue: riskStats.mean,
+    riskStdDev: riskStats.std,
     zScore,
     weight: RISK_FACTOR_WEIGHTS.momentum,
     previousRiskValue: previous.riskValue,
@@ -428,9 +447,12 @@ function buildFactor({
   source,
   rawValue,
   rawDisplay,
+  rawStdDev,
   benchmarkValue,
   benchmarkDisplay,
   benchmarkLabel,
+  riskBenchmarkValue,
+  riskStdDev,
   zScore,
   weight,
   previousRiskValue,
@@ -445,9 +467,12 @@ function buildFactor({
   source: string;
   rawValue: number;
   rawDisplay: string;
+  rawStdDev: number;
   benchmarkValue: number;
   benchmarkDisplay: string;
   benchmarkLabel: string;
+  riskBenchmarkValue: number;
+  riskStdDev: number;
   zScore: number;
   weight: number;
   previousRiskValue: number;
@@ -465,9 +490,13 @@ function buildFactor({
     source,
     rawValue: round(rawValue, 4),
     rawDisplay,
+    rawStdDev: round(rawStdDev, 4),
     benchmarkValue: round(benchmarkValue, 4),
     benchmarkDisplay,
     benchmarkLabel,
+    riskValue: round(currentRiskValue, 4),
+    riskBenchmarkValue: round(riskBenchmarkValue, 4),
+    riskStdDev: round(riskStdDev, 4),
     zScore: round(zScore, 2),
     weight,
     contribution: round(weight * zScore, 2),
@@ -477,8 +506,49 @@ function buildFactor({
     window: `${windowDays} 个交易日`,
     windowDays,
     note,
+    ...getManualMeta(id),
     date,
     stale,
+  };
+}
+
+function getManualMeta(id: RiskFactorId) {
+  if (id === "volatility") {
+    return {
+      manualLabel: "VIX",
+      manualUnit: "",
+      manualStep: 0.01,
+    };
+  }
+
+  if (id === "credit") {
+    return {
+      manualLabel: "高收益债利差",
+      manualUnit: "%",
+      manualStep: 0.01,
+    };
+  }
+
+  if (id === "yieldCurve") {
+    return {
+      manualLabel: "10Y - 2Y 利差",
+      manualUnit: "bp",
+      manualStep: 1,
+    };
+  }
+
+  if (id === "trend") {
+    return {
+      manualLabel: "SPX 相对 200MA",
+      manualUnit: "%",
+      manualStep: 0.01,
+    };
+  }
+
+  return {
+    manualLabel: "50MA 斜率",
+    manualUnit: "%",
+    manualStep: 0.01,
   };
 }
 
