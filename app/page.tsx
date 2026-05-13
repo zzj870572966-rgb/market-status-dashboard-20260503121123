@@ -203,10 +203,10 @@ function Header() {
         <div>
           <div className="inline-flex items-center gap-2 rounded-md border border-slate-700/70 bg-slate-950/60 px-3 py-1.5 text-xs text-slate-300">
             <Gauge className="h-4 w-4 text-cyan-300" aria-hidden="true" />
-            机构风险监控终端
+            机构市场温度终端
           </div>
           <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl">
-            市场风险仪表盘
+            市场温度计
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
             基于滚动标准化风险因子构建的市场状态首页，当前展示为模拟数据。
