@@ -1,6 +1,9 @@
 name: Update market data
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # 23:00 UTC is about 08:00 the next day in Japan.
     - cron: "0 23 * * 1-5"
@@ -11,6 +14,7 @@ permissions:
 
 jobs:
   update-market-data:
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
@@ -44,3 +48,10 @@ jobs:
           git add public/data
           git commit -m "chore: update market data"
           git push
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN"
