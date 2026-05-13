@@ -12,6 +12,7 @@ import {
   Waves,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import DcaStrategyPanel from "@/components/DcaStrategyPanel";
 
 type RiskLevel = "极度贪婪" | "贪婪" | "中性" | "恐慌" | "极度恐慌";
 
@@ -145,7 +146,6 @@ const weightedRisk = factors.reduce(
 );
 const normalizedRiskScore = normalizeWeightedZ(weightedRisk);
 const currentRiskLevel = getRiskLevel(normalizedRiskScore);
-const suggestedPosition = getSuggestedPosition(normalizedRiskScore);
 
 export default function HomePage() {
   return (
@@ -153,6 +153,7 @@ export default function HomePage() {
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <Header />
         <RiskThermometer />
+        <DcaStrategyPanel riskScore={normalizedRiskScore} />
         <RiskFactors />
         <section className="mt-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
           <RiskFormula />
@@ -193,8 +194,8 @@ function Header() {
             tone="orange"
           />
           <TopMetric
-            label="建议仓位"
-            value={`${suggestedPosition}%`}
+            label="组合风险姿态"
+            value="防御"
             tone="cyan"
           />
         </div>
@@ -544,26 +545,6 @@ function getRiskLevel(score: number): RiskLevel {
   }
 
   return "极度恐慌";
-}
-
-function getSuggestedPosition(score: number) {
-  if (score >= 80) {
-    return 20;
-  }
-
-  if (score >= 60) {
-    return 35;
-  }
-
-  if (score >= 40) {
-    return 55;
-  }
-
-  if (score >= 20) {
-    return 75;
-  }
-
-  return 90;
 }
 
 function clamp(value: number, min: number, max: number) {
