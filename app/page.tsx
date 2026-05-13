@@ -20,6 +20,8 @@ interface RiskFactor {
   name: string;
   source: string;
   value: string;
+  benchmark: string;
+  benchmarkLabel: string;
   zScore: number;
   weight: number;
   riskLevel: "低风险" | "中性" | "高风险" | "极高风险";
@@ -39,6 +41,8 @@ const factors: RiskFactor[] = [
     name: "波动率风险",
     source: "VIX",
     value: "28.4",
+    benchmark: "19.7",
+    benchmarkLabel: "250日均值",
     zScore: 1.82,
     weight: 0.25,
     riskLevel: "高风险",
@@ -52,6 +56,8 @@ const factors: RiskFactor[] = [
     name: "信用风险",
     source: "ICE BofA 美国高收益利差",
     value: "4.92%",
+    benchmark: "3.41%",
+    benchmarkLabel: "250日均值",
     zScore: 1.35,
     weight: 0.25,
     riskLevel: "高风险",
@@ -65,6 +71,8 @@ const factors: RiskFactor[] = [
     name: "收益率曲线风险",
     source: "10年期 - 2年期美债利差",
     value: "倒挂 42 bp",
+    benchmark: "倒挂 8 bp",
+    benchmarkLabel: "250日均值",
     zScore: 1.14,
     weight: 0.15,
     riskLevel: "高风险",
@@ -78,6 +86,8 @@ const factors: RiskFactor[] = [
     name: "趋势风险",
     source: "标普500 相对 200日均线",
     value: "-3.8%",
+    benchmark: "+1.1%",
+    benchmarkLabel: "120日均值",
     zScore: 0.94,
     weight: 0.15,
     riskLevel: "中性",
@@ -91,6 +101,8 @@ const factors: RiskFactor[] = [
     name: "动能风险",
     source: "50日均线斜率",
     value: "-0.31%",
+    benchmark: "+0.08%",
+    benchmarkLabel: "120日均值",
     zScore: 1.48,
     weight: 0.2,
     riskLevel: "高风险",
@@ -445,47 +457,58 @@ function RiskFormula() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-        <div className="mb-4 grid grid-cols-[1.2fr_0.65fr_0.65fr_0.75fr] gap-3 text-xs font-medium text-slate-500">
-          <div>风险因子</div>
-          <div>权重</div>
-          <div>Z 值</div>
-          <div>贡献</div>
-        </div>
-        <div className="space-y-3">
-          {contributions.map((factor) => (
-            <div
-              key={factor.name}
-              className="grid grid-cols-[1.2fr_0.65fr_0.65fr_0.75fr] items-center gap-3 text-sm"
-            >
-              <div>
-                <div className="font-medium text-slate-100">{factor.name}</div>
-                <div className="mt-1 text-xs text-slate-500">{factor.window}</div>
-              </div>
-              <div className="font-mono text-slate-300">
-                {factor.weight.toFixed(2)}
-              </div>
-              <div className="font-mono text-slate-300">
-                {formatSigned(factor.zScore)}
-              </div>
-              <div>
-                <div className="font-mono text-slate-100">
-                  {formatSigned(factor.contribution)}
+      <div className="mt-5 overflow-x-auto rounded-lg border border-slate-800 bg-slate-950/70">
+        <div className="min-w-[760px] p-4">
+          <div className="mb-4 grid grid-cols-[1.15fr_1.05fr_0.5fr_0.55fr_0.7fr] gap-3 text-xs font-medium text-slate-500">
+            <div>风险因子</div>
+            <div>当前 / 对比基准</div>
+            <div>权重</div>
+            <div>Z 值</div>
+            <div>贡献</div>
+          </div>
+          <div className="space-y-3">
+            {contributions.map((factor) => (
+              <div
+                key={factor.name}
+                className="grid grid-cols-[1.15fr_1.05fr_0.5fr_0.55fr_0.7fr] items-center gap-3 text-sm"
+              >
+                <div>
+                  <div className="font-medium text-slate-100">{factor.name}</div>
+                  <div className="mt-1 text-xs text-slate-500">{factor.window}</div>
                 </div>
-                <div className="mt-1 h-1.5 rounded-full bg-slate-800">
-                  <div
-                    className="h-full rounded-full bg-emerald-400"
-                    style={{
-                      width: `${Math.max(
-                        8,
-                        (Math.abs(factor.contribution) / maxContribution) * 100,
-                      )}%`,
-                    }}
-                  />
+                <div>
+                  <div className="font-mono font-medium text-slate-100">
+                    {factor.value}
+                  </div>
+                  <div className="mt-1 text-xs text-slate-500">
+                    {factor.benchmarkLabel}：{factor.benchmark}
+                  </div>
+                </div>
+                <div className="font-mono text-slate-300">
+                  {factor.weight.toFixed(2)}
+                </div>
+                <div className="font-mono text-slate-300">
+                  {formatSigned(factor.zScore)}
+                </div>
+                <div>
+                  <div className="font-mono text-slate-100">
+                    {formatSigned(factor.contribution)}
+                  </div>
+                  <div className="mt-1 h-1.5 rounded-full bg-slate-800">
+                    <div
+                      className="h-full rounded-full bg-emerald-400"
+                      style={{
+                        width: `${Math.max(
+                          8,
+                          (Math.abs(factor.contribution) / maxContribution) * 100,
+                        )}%`,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
