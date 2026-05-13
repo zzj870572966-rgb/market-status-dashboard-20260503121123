@@ -15,6 +15,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import DcaStrategyPanel from "@/components/DcaStrategyPanel";
 import ManualRiskOverridePanel from "@/components/ManualRiskOverridePanel";
+import TerminalHoverNav from "@/components/TerminalHoverNav";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
 import { formatSigned, type RiskDashboardFactor, type RiskDashboardSnapshot } from "@/lib/riskDashboard";
 
@@ -64,6 +65,7 @@ const ranges = [
 export default function HomePage() {
   return (
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#edf7ef] text-emerald-950">
+      <TerminalHoverNav active="overview" tone="light" />
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <Header />
         <RiskFactors />
