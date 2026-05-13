@@ -149,7 +149,7 @@ const weightedRisk = factors.reduce(
 
 export default function HomePage() {
   return (
-    <main className="terminal-grid min-h-screen overflow-hidden bg-[#05070b] text-slate-100">
+    <main className="light-risk-dashboard terminal-grid min-h-screen overflow-hidden bg-[#edf7ef] text-emerald-950">
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <Header />
         <RiskThermometer />
