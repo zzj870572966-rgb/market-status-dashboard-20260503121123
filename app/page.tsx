@@ -276,7 +276,7 @@ function RiskThermometer() {
             className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             style={{ left: `${snapshot.riskScore}%` }}
           >
-            <div className="risk-pulse flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-slate-950 shadow-[0_0_28px_rgba(251,146,60,0.7)]">
+            <div className="risk-pulse flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-slate-950 shadow-[0_0_14px_rgba(251,146,60,0.32)]">
               <div className="h-3 w-3 rounded-full bg-orange-300" />
             </div>
           </div>

@@ -16,7 +16,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
   const strategy = getDcaStrategy(riskScore);
 
   return (
-    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-800/15 bg-[#fffdf6]/85 text-emerald-950 shadow-[0_28px_90px_rgba(67,96,70,0.13)] backdrop-blur-xl">
+    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-800/15 bg-[#fffdf6]/90 text-emerald-950 shadow-[0_14px_36px_rgba(67,96,70,0.12)]">
       <div className="border-b border-emerald-800/10 bg-[linear-gradient(135deg,rgba(255,253,246,0.96),rgba(239,250,238,0.9))] p-5 sm:p-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div>
@@ -32,7 +32,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </p>
           </div>
 
-          <div className="rounded-lg border border-emerald-800/15 bg-white/64 p-4 shadow-[0_18px_50px_rgba(67,96,70,0.09)]">
+          <div className="rounded-lg border border-emerald-800/15 bg-white/64 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
             <div className="flex items-center gap-2 text-xs text-emerald-900/55">
               <LockKeyhole className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               风控保护
@@ -92,7 +92,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
                 className="absolute top-1/2 -translate-y-1/2"
                 style={{ left: `${strategy.riskScore}%` }}
               >
-                <div className="-ml-3 h-6 w-6 rounded-full border border-white bg-[#fb923c] shadow-[0_0_26px_rgba(251,146,60,0.42)]" />
+                <div className="-ml-3 h-6 w-6 rounded-full border border-white bg-[#fb923c] shadow-[0_0_14px_rgba(251,146,60,0.3)]" />
               </div>
             </div>
             <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[10px] text-emerald-900/52 sm:text-xs">
@@ -135,7 +135,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg border border-emerald-800/12 bg-[linear-gradient(180deg,rgba(255,253,246,0.92),rgba(239,250,238,0.8))] p-4 shadow-[0_0_44px_rgba(34,197,94,0.06)]">
+          <div className="rounded-lg border border-emerald-800/12 bg-[linear-gradient(180deg,rgba(255,253,246,0.92),rgba(239,250,238,0.8))] p-4 shadow-[0_12px_30px_rgba(34,197,94,0.05)]">
             <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
               <BrainCircuit className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               智能策略解释

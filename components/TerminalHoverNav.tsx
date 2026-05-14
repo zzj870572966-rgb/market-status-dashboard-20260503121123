@@ -27,8 +27,8 @@ export default function TerminalHoverNav({
 }: TerminalHoverNavProps) {
   const shellClass =
     tone === "light"
-      ? "border-emerald-700/20 bg-white/80 text-emerald-950 shadow-[0_18px_48px_rgba(15,84,53,0.16)]"
-      : "border-emerald-400/15 bg-[#06120d]/90 text-emerald-50 shadow-[0_18px_60px_rgba(0,0,0,0.35)]";
+      ? "border-emerald-700/20 bg-white/92 text-emerald-950 shadow-[0_10px_26px_rgba(15,84,53,0.12)]"
+      : "border-emerald-400/15 bg-[#06120d]/95 text-emerald-50 shadow-[0_10px_30px_rgba(0,0,0,0.28)]";
   const menuClass =
     tone === "light"
       ? "border-emerald-700/15 bg-white/95"
@@ -45,7 +45,7 @@ export default function TerminalHoverNav({
   return (
     <nav className="group fixed left-4 top-4 z-50 w-fit" aria-label="页面导航">
       <div
-        className={`flex w-fit cursor-default items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium backdrop-blur-xl transition duration-300 ${shellClass}`}
+        className={`flex w-fit cursor-default items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition duration-300 ${shellClass}`}
       >
         <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]" />
         <span>导航</span>
@@ -59,7 +59,7 @@ export default function TerminalHoverNav({
         className="pointer-events-none absolute left-0 top-full w-56 pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
       >
         <div
-          className={`w-52 translate-y-1 rounded-lg border p-2 backdrop-blur-xl transition duration-300 group-hover:translate-y-0 group-focus-within:translate-y-0 ${menuClass}`}
+          className={`w-52 translate-y-1 rounded-lg border p-2 transition duration-300 group-hover:translate-y-0 group-focus-within:translate-y-0 ${menuClass}`}
         >
           {items.map((item) => {
             const Icon = item.icon;

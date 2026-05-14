@@ -101,7 +101,7 @@ function Header({
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[420px]">
-          <div className="rounded-lg border border-emerald-800/12 bg-white/64 p-4 shadow-[0_18px_50px_rgba(67,96,70,0.09)]">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/64 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
             <div className="flex items-center gap-2 text-xs text-emerald-900/55">
               <CalendarDays className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               最新完整交易日
@@ -110,7 +110,7 @@ function Header({
               {latestDate}
             </div>
           </div>
-          <div className="rounded-lg border border-emerald-800/12 bg-white/64 p-4 shadow-[0_18px_50px_rgba(67,96,70,0.09)]">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/64 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
             <div className="text-xs text-emerald-900/55">记录数量</div>
             <div className="mt-3 font-mono text-2xl font-semibold text-emerald-950">
               {recordsCount}
@@ -178,7 +178,7 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
 
       <div className="max-h-[680px] overflow-auto">
         <table className="w-full min-w-[900px] border-collapse text-left">
-          <thead className="sticky top-0 z-10 bg-[#fffdf6]/98 backdrop-blur-xl">
+          <thead className="sticky top-0 z-10 bg-[#fffdf6]">
             <tr className="border-b border-emerald-800/12 text-[11px] uppercase tracking-[0.12em] text-emerald-900/48">
               <th className="px-5 py-3 font-medium">日期</th>
               <th className="px-5 py-3 font-medium">风险评分</th>
