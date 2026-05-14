@@ -10,9 +10,10 @@ import {
   buildSimpleFactor,
   buildTrendFactor,
   buildYieldCurveFactor,
+  calculateRawWeightedRiskZ,
   calculateWeightedRiskZ,
   convertWeightedZToRiskScore,
-  detectCrisisFlag,
+  getCrisisStatus,
   getMarketState,
   getRiskPosture,
   markFactorStale,
@@ -77,11 +78,12 @@ async function main() {
   }
 
   const weightedZ = calculateWeightedRiskZ(factors);
-  const crisisFlag = detectCrisisFlag({
-    weightedRiskZ: weightedZ,
+  const rawWeightedZ = calculateRawWeightedRiskZ(factors);
+  const crisisStatus = getCrisisStatus({
+    rawWeightedRiskZ: rawWeightedZ,
     factors,
   });
-  const riskScore = convertWeightedZToRiskScore(weightedZ, crisisFlag);
+  const riskScore = convertWeightedZToRiskScore(weightedZ, crisisStatus.crisisFlag);
   const riskLevel = getMarketState(riskScore);
   const isPartial =
     fredStatus.failed.length > 0 ||
@@ -104,6 +106,9 @@ async function main() {
     },
     riskScore,
     weightedZ,
+    rawWeightedZ,
+    crisisFlag: crisisStatus.crisisFlag,
+    crisisReason: crisisStatus.crisisReason,
     riskLevel,
     posture: getRiskPosture(riskScore),
     factors,
@@ -116,11 +121,11 @@ async function main() {
     }),
     model: {
       formula:
-        "RiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
+        "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
       normalization:
-        "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(RiskZ / 2))))",
+        "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",
       scoreMapping:
-        "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-80 恐慌；80-95 极度恐慌；95-100 危机级恐慌",
+        "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-75 恐慌；75-90 高恐慌；90-97 极度恐慌；97-100 危机级恐慌",
       dataFrequency: "上一交易日收盘数据，每日由 GitHub Actions 自动更新",
     },
   };

@@ -10,11 +10,12 @@ import {
 } from "lucide-react";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
 import {
+  calculateRawWeightedRiskZ,
   calculateWeightedRiskZ,
   clipZScore,
   convertWeightedZToRiskScore,
-  detectCrisisFlag,
   formatSigned,
+  getCrisisStatus,
   getMarketState,
   getRiskPosture,
   type RiskDashboardFactor,
@@ -46,32 +47,40 @@ export default function ManualRiskOverridePanel({
         Number.isFinite(factor.riskStdDev) && factor.riskStdDev > 0
           ? factor.riskStdDev
           : Math.max(Math.abs(factor.rawStdDev), 0.0001);
-      const zScore = clipZScore((riskValue - riskBenchmark) / riskStdDev);
+      const rawZScore = (riskValue - riskBenchmark) / riskStdDev;
+      const clippedZScore = clipZScore(rawZScore);
 
       return {
         ...factor,
         manualRawValue: rawValue,
-        manualZScore: zScore,
-        manualContribution: factor.weight * zScore,
+        manualRawZScore: rawZScore,
+        manualZScore: clippedZScore,
+        manualContribution: factor.weight * clippedZScore,
       };
     });
     const weightedInputs = factors.map((factor) => ({
       id: factor.id,
       weight: factor.weight,
-      zScore: factor.manualZScore,
+      zScore: factor.manualRawZScore,
+      rawZScore: factor.manualRawZScore,
+      clippedZScore: factor.manualZScore,
+      rawValue: factor.manualRawValue,
     }));
     const weightedZ = calculateWeightedRiskZ(weightedInputs);
-    const crisisFlag = detectCrisisFlag({
-      weightedRiskZ: weightedZ,
+    const rawWeightedZ = calculateRawWeightedRiskZ(weightedInputs);
+    const crisisStatus = getCrisisStatus({
+      rawWeightedRiskZ: rawWeightedZ,
       factors: weightedInputs,
     });
-    const riskScore = convertWeightedZToRiskScore(weightedZ, crisisFlag);
+    const riskScore = convertWeightedZToRiskScore(weightedZ, crisisStatus.crisisFlag);
     const riskLevel = getMarketState(riskScore);
     const dca = getDcaStrategy(riskScore);
 
     return {
       factors,
       weightedZ,
+      rawWeightedZ,
+      crisisReason: crisisStatus.crisisReason,
       riskScore,
       riskLevel,
       posture: getRiskPosture(riskScore),

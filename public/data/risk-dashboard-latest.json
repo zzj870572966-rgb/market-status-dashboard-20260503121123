@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-13",
-  "generatedAt": "2026-05-14T15:50:13.343Z",
+  "generatedAt": "2026-05-14T16:57:05.395Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-14T15:50:13.343Z",
+        "updatedAt": "2026-05-14T16:57:05.395Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,7 +24,7 @@
       "fallback": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-05-14T15:50:13.343Z",
+        "updatedAt": "2026-05-14T16:57:05.395Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -33,6 +33,9 @@
   },
   "riskScore": 39,
   "weightedZ": -0.4535,
+  "rawWeightedZ": -0.4535,
+  "crisisFlag": false,
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.45",
   "riskLevel": "贪婪",
   "posture": "偏进攻",
   "factors": [
@@ -49,6 +52,8 @@
       "riskValue": 17.87,
       "riskBenchmarkValue": 18.2121,
       "riskStdDev": 3.2925,
+      "rawZScore": -0.1,
+      "clippedZScore": -0.1,
       "zScore": -0.1,
       "weight": 0.25,
       "contribution": -0.03,
@@ -77,6 +82,8 @@
       "riskValue": 2.82,
       "riskBenchmarkValue": 2.9362,
       "riskStdDev": 0.155,
+      "rawZScore": -0.75,
+      "clippedZScore": -0.75,
       "zScore": -0.75,
       "weight": 0.25,
       "contribution": -0.19,
@@ -105,6 +112,8 @@
       "riskValue": -46,
       "riskBenchmarkValue": -55.936,
       "riskStdDev": 6.9676,
+      "rawZScore": 1.43,
+      "clippedZScore": 1.43,
       "zScore": 1.43,
       "weight": 0.15,
       "contribution": 0.21,
@@ -133,6 +142,8 @@
       "riskValue": -9.98,
       "riskBenchmarkValue": -6.316,
       "riskStdDev": 3.7892,
+      "rawZScore": -0.97,
+      "clippedZScore": -0.97,
       "zScore": -0.97,
       "weight": 0.15,
       "contribution": -0.15,
@@ -161,6 +172,8 @@
       "riskValue": -2,
       "riskBenchmarkValue": -0.416,
       "riskStdDev": 1.0221,
+      "rawZScore": -1.55,
+      "clippedZScore": -1.55,
       "zScore": -1.55,
       "weight": 0.2,
       "contribution": -0.31,
@@ -211,9 +224,9 @@
   },
   "summary": "当前市场温度为 39/100，处于贪婪区间。主要风险贡献来自动能、收益率曲线、信用。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
-    "formula": "RiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
-    "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(RiskZ / 2))))",
-    "scoreMapping": "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-80 恐慌；80-95 极度恐慌；95-100 危机级恐慌",
+    "formula": "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
+    "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",
+    "scoreMapping": "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-75 恐慌；75-90 高恐慌；90-97 极度恐慌；97-100 危机级恐慌",
     "dataFrequency": "上一交易日收盘数据，每日由 GitHub Actions 自动更新"
   }
 }

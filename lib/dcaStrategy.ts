@@ -55,16 +55,25 @@ export const DCA_BANDS: DcaBand[] = [
   },
   {
     min: 60,
-    max: 80,
+    max: 75,
     state: "恐慌",
-    multiplier: 1.7,
+    multiplier: 1.4,
     advice: "增加定投",
     description:
-      "市场进入恐慌区间，长期指数资产的风险补偿上升，可提高分批投入力度。",
+      "市场进入恐慌区间，长期指数资产的风险补偿开始改善，可温和提高分批投入力度。",
   },
   {
-    min: 80,
-    max: 95,
+    min: 75,
+    max: 90,
+    state: "高恐慌",
+    multiplier: 1.8,
+    advice: "提高定投",
+    description:
+      "市场处于高恐慌阶段，逆向定投价值上升，但仍需保持现金流稳定与分批纪律。",
+  },
+  {
+    min: 90,
+    max: 97,
     state: "极度恐慌",
     multiplier: 2.5,
     advice: "强力加仓",
@@ -72,7 +81,7 @@ export const DCA_BANDS: DcaBand[] = [
       "市场处于极度恐慌阶段，逆向定投价值提升，但仍需遵守现金流与风控边界。",
   },
   {
-    min: 95,
+    min: 97,
     max: 100,
     state: "危机级恐慌",
     multiplier: 3,

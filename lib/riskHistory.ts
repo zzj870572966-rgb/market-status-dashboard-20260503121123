@@ -1,26 +1,47 @@
 import type { FredSeriesPoint } from "./fetchers/fred";
 import {
   RISK_FACTOR_WEIGHTS,
+  calculateRawWeightedRiskZ,
   calculateRollingZ,
   calculateWeightedRiskZ,
   clipZScore,
   convertWeightedZToRiskScore,
-  detectCrisisFlag,
+  getCrisisStatus,
   getDcaMultiplier,
   getMarketState,
   type RiskLevel,
+  type RiskFactorId,
+  type WeightedRiskInput,
 } from "./riskDashboard";
 
 export interface DailyRiskRecord {
   date: string;
   riskScore: number;
   weightedZ: number;
+  clippedWeightedRiskZ: number;
+  rawWeightedRiskZ: number;
   sentiment: RiskLevel;
   spxChange: number;
   ndxChange: number;
   vix: number;
   dcaMultiplier: number;
+  crisisFlag: boolean;
+  crisisReason: string;
+  debug: RiskRecordDebug;
   source: "FRED";
+}
+
+export interface RiskRecordDebug {
+  clippedWeightedRiskZ: number;
+  rawWeightedRiskZ: number;
+  factors: Record<RiskFactorId, RiskRecordFactorDebug>;
+  crisisFlag: boolean;
+  crisisReason: string;
+}
+
+export interface RiskRecordFactorDebug {
+  rawZ: number;
+  clippedZ: number;
 }
 
 export interface RealRiskHistory {
@@ -51,6 +72,8 @@ interface ScoredPoint {
   date: string;
   value: number;
   zScore: number;
+  rawZScore: number;
+  clippedZScore: number;
 }
 
 const DEFAULT_START_DATE = "2025-01-01";
@@ -92,49 +115,87 @@ export function buildRealRiskHistory(
         return null;
       }
 
-      const factorInputs = [
+      const factorInputs: WeightedRiskInput[] = [
         {
           id: "volatility" as const,
           weight: RISK_FACTOR_WEIGHTS.volatility,
-          zScore: volatility.zScore,
+          zScore: volatility.rawZScore,
+          rawZScore: volatility.rawZScore,
+          clippedZScore: volatility.clippedZScore,
+          rawValue: volatility.value,
         },
         {
           id: "credit" as const,
           weight: RISK_FACTOR_WEIGHTS.credit,
-          zScore: credit.zScore,
+          zScore: credit.rawZScore,
+          rawZScore: credit.rawZScore,
+          clippedZScore: credit.clippedZScore,
+          rawValue: credit.value,
         },
         {
           id: "yieldCurve" as const,
           weight: RISK_FACTOR_WEIGHTS.yieldCurve,
-          zScore: yieldCurve.zScore,
+          zScore: yieldCurve.rawZScore,
+          rawZScore: yieldCurve.rawZScore,
+          clippedZScore: yieldCurve.clippedZScore,
+          rawValue: yieldCurve.value,
         },
         {
           id: "trend" as const,
           weight: RISK_FACTOR_WEIGHTS.trend,
-          zScore: trend.zScore,
+          zScore: trend.rawZScore,
+          rawZScore: trend.rawZScore,
+          clippedZScore: trend.clippedZScore,
+          rawValue: trend.value,
         },
         {
           id: "momentum" as const,
           weight: RISK_FACTOR_WEIGHTS.momentum,
-          zScore: momentum.zScore,
+          zScore: momentum.rawZScore,
+          rawZScore: momentum.rawZScore,
+          clippedZScore: momentum.clippedZScore,
+          rawValue: momentum.value,
         },
       ];
-      const weightedZ = calculateWeightedRiskZ(factorInputs);
-      const crisisFlag = detectCrisisFlag({
-        weightedRiskZ: weightedZ,
+      const clippedWeightedRiskZ = calculateWeightedRiskZ(factorInputs);
+      const rawWeightedRiskZ = calculateRawWeightedRiskZ(factorInputs);
+      const crisisStatus = getCrisisStatus({
+        rawWeightedRiskZ,
         factors: factorInputs,
+        vix: volatility.value,
       });
-      const riskScore = convertWeightedZToRiskScore(weightedZ, crisisFlag);
+      const riskScore = convertWeightedZToRiskScore(
+        clippedWeightedRiskZ,
+        crisisStatus.crisisFlag,
+      );
+      const debug = buildRecordDebug({
+        clippedWeightedRiskZ,
+        rawWeightedRiskZ,
+        factors: {
+          volatility,
+          credit,
+          yieldCurve,
+          trend,
+          momentum,
+        },
+        crisisFlag: crisisStatus.crisisFlag,
+        crisisReason: crisisStatus.crisisReason,
+      });
 
       return {
         date,
         riskScore,
-        weightedZ,
+        weightedZ: clippedWeightedRiskZ,
+        clippedWeightedRiskZ,
+        rawWeightedRiskZ,
         sentiment: getMarketState(riskScore),
         spxChange: round(percentChange(spx.value, spx.previous), 2),
         ndxChange: round(percentChange(ndx.value, ndx.previous), 2),
         vix: round(volatility.value, 2),
         dcaMultiplier: getDcaMultiplier(riskScore),
+        crisisFlag: crisisStatus.crisisFlag,
+        crisisReason: crisisStatus.crisisReason,
+        debug,
         source: "FRED" as const,
       };
     })
@@ -248,6 +309,41 @@ function buildMomentumRiskSeries(sp500: FredSeriesPoint[]) {
   return scoreRiskSeries(series, 120);
 }
 
+function buildRecordDebug({
+  clippedWeightedRiskZ,
+  rawWeightedRiskZ,
+  factors,
+  crisisFlag,
+  crisisReason,
+}: {
+  clippedWeightedRiskZ: number;
+  rawWeightedRiskZ: number;
+  factors: Record<RiskFactorId, ScoredPoint>;
+  crisisFlag: boolean;
+  crisisReason: string;
+}): RiskRecordDebug {
+  return {
+    clippedWeightedRiskZ: round(clippedWeightedRiskZ, 4),
+    rawWeightedRiskZ: round(rawWeightedRiskZ, 4),
+    factors: {
+      volatility: formatDebugFactor(factors.volatility),
+      credit: formatDebugFactor(factors.credit),
+      yieldCurve: formatDebugFactor(factors.yieldCurve),
+      trend: formatDebugFactor(factors.trend),
+      momentum: formatDebugFactor(factors.momentum),
+    },
+    crisisFlag,
+    crisisReason,
+  };
+}
+
+function formatDebugFactor(point: ScoredPoint): RiskRecordFactorDebug {
+  return {
+    rawZ: round(point.rawZScore, 2),
+    clippedZ: round(point.clippedZScore, 2),
+  };
+}
+
 function scoreRiskSeries(series: DerivedPoint[], windowDays: number): ScoredPoint[] {
   return series
     .map((point, index) => {
@@ -258,10 +354,15 @@ function scoreRiskSeries(series: DerivedPoint[], windowDays: number): ScoredPoin
       const windowValues = series
         .slice(index - windowDays + 1, index + 1)
         .map((item) => item.riskValue);
+      const rawZScore = calculateRollingZ(point.riskValue, windowValues);
+      const clippedZScore = clipZScore(rawZScore);
+
       return {
         date: point.date,
         value: point.rawValue,
-        zScore: round(clipZScore(calculateRollingZ(point.riskValue, windowValues)), 2),
+        zScore: round(clippedZScore, 2),
+        rawZScore: round(rawZScore, 2),
+        clippedZScore: round(clippedZScore, 2),
       };
     })
     .filter((point): point is ScoredPoint => Boolean(point));

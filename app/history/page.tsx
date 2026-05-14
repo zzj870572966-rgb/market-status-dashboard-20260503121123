@@ -9,11 +9,23 @@ import {
   Database,
   Filter,
   Gauge,
+  RotateCcw,
   ShieldAlert,
+  SlidersHorizontal,
   TrendingUp,
+  X,
 } from "lucide-react";
 import TerminalHoverNav from "@/components/TerminalHoverNav";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
+import {
+  applyCombinedFilters,
+  getMarketReactionCategory,
+  getRiskScoreBounds,
+  hasInvalidReturnRange,
+  hasInvalidRiskScoreRange,
+  type MarketReactionFilter,
+  type RiskScorePreset,
+} from "@/lib/historyFilters";
 import type { DailyRiskRecord, RealRiskHistory } from "@/lib/riskHistory";
 import type { RiskDashboardSnapshot } from "@/lib/riskDashboard";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
@@ -24,7 +36,7 @@ type HistoryFilterKey = "all" | "2026" | "2025" | "90d" | "30d";
 const snapshot = snapshotData as RiskDashboardSnapshot;
 const riskHistory = historyData as RealRiskHistory;
 
-const filterOptions: Array<{ key: HistoryFilterKey; label: string; description: string }> = [
+const timeFilterOptions: Array<{ key: HistoryFilterKey; label: string; description: string }> = [
   { key: "all", label: "全部", description: "完整日终记录" },
   { key: "2026", label: "2026年至今", description: "今年交易日" },
   { key: "2025", label: "2025全年", description: "上一完整年度" },
@@ -32,21 +44,72 @@ const filterOptions: Array<{ key: HistoryFilterKey; label: string; description: 
   { key: "30d", label: "近30日", description: "短期风险状态" },
 ];
 
+const riskScorePresets: Array<{ key: RiskScorePreset; label: string }> = [
+  { key: "all", label: "全部" },
+  { key: "0-20", label: "0-20" },
+  { key: "20-40", label: "20-40" },
+  { key: "40-60", label: "40-60" },
+  { key: "60-75", label: "60-75" },
+  { key: "75-90", label: "75-90" },
+  { key: "90-97", label: "90-97" },
+  { key: "97-100", label: "97-100" },
+];
+
+const marketReactionOptions: Array<{ key: MarketReactionFilter; label: string }> = [
+  { key: "all", label: "全部" },
+  { key: "bothUp", label: "双涨" },
+  { key: "bothDown", label: "双跌" },
+  { key: "spxUpNdxDown", label: "标普涨 / 纳指跌" },
+  { key: "spxDownNdxUp", label: "标普跌 / 纳指涨" },
+  { key: "divergent", label: "分化行情" },
+];
+
 export default function HistoryRiskDataPage() {
-  const [filterKey, setFilterKey] = useState<HistoryFilterKey>("all");
+  const [timeFilter, setTimeFilter] = useState<HistoryFilterKey>("all");
+  const [riskPreset, setRiskPreset] = useState<RiskScorePreset>("all");
+  const [scoreMin, setScoreMin] = useState("");
+  const [scoreMax, setScoreMax] = useState("");
+  const [marketReaction, setMarketReaction] = useState<MarketReactionFilter>("all");
+  const [spxMin, setSpxMin] = useState("");
+  const [spxMax, setSpxMax] = useState("");
+  const [ndxMin, setNdxMin] = useState("");
+  const [ndxMax, setNdxMax] = useState("");
   const records = useMemo(
     () => [...riskHistory.records].sort((a, b) => b.date.localeCompare(a.date)),
     [],
   );
-  const filteredRecords = useMemo(
-    () => filterRecords(records, filterKey),
-    [records, filterKey],
+  const timeFilteredRecords = useMemo(
+    () => filterRecordsByTime(records, timeFilter),
+    [records, timeFilter],
   );
-  const latest = filteredRecords[0] ?? records[0] ?? buildFallbackRecord();
+  const combinedFilters = useMemo(
+    () => ({
+      riskScore: {
+        preset: riskPreset,
+        min: parseOptionalNumber(scoreMin),
+        max: parseOptionalNumber(scoreMax),
+      },
+      performance: {
+        reaction: marketReaction,
+        spxMin: parseOptionalNumber(spxMin),
+        spxMax: parseOptionalNumber(spxMax),
+        ndxMin: parseOptionalNumber(ndxMin),
+        ndxMax: parseOptionalNumber(ndxMax),
+      },
+    }),
+    [riskPreset, scoreMin, scoreMax, marketReaction, spxMin, spxMax, ndxMin, ndxMax],
+  );
+  const filteredRecords = useMemo(
+    () => applyCombinedFilters(timeFilteredRecords, combinedFilters),
+    [timeFilteredRecords, combinedFilters],
+  );
+  const latest = filteredRecords[0] ?? timeFilteredRecords[0] ?? records[0] ?? buildFallbackRecord();
   const statRecords = filteredRecords.length > 0 ? filteredRecords : [latest];
   const maxRisk = Math.max(...statRecords.map((record) => record.riskScore));
   const minRisk = Math.min(...statRecords.map((record) => record.riskScore));
   const recent30Average = average(statRecords.slice(0, 30).map((record) => record.riskScore));
+  const scoreRangeInvalid = hasInvalidRiskScoreRange(combinedFilters.riskScore);
+  const returnRangeInvalid = hasInvalidReturnRange(combinedFilters.performance);
 
   return (
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#f8f4ea] text-emerald-950">
@@ -55,50 +118,89 @@ export default function HistoryRiskDataPage() {
         <Header latestDate={records[0]?.date ?? latest.date} recordsCount={records.length} />
 
         <TimeFilter
-          selected={filterKey}
-          onChange={setFilterKey}
-          records={filteredRecords}
+          selected={timeFilter}
+          onChange={setTimeFilter}
+          records={timeFilteredRecords}
           totalCount={records.length}
         />
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
           <SummaryCard
-            label="区间最新标准化风险评分"
+            label="筛选区间最新标准化风险评分"
             value={`${latest.riskScore} / 100`}
             icon={Gauge}
             tone={scoreTone(latest.riskScore)}
           />
           <SummaryCard
-            label="区间最新市场状态"
+            label="筛选区间最新市场状态"
             value={latest.sentiment}
             icon={ShieldAlert}
             tone={scoreTone(latest.riskScore)}
           />
           <SummaryCard
-            label="区间最新定投倍率"
+            label="筛选区间最新定投倍率"
             value={`${latest.dcaMultiplier.toFixed(1)}x`}
             icon={TrendingUp}
             tone="green"
           />
           <SummaryCard
-            label="区间最高风险"
+            label="筛选区间最高风险"
             value={`${maxRisk}`}
             icon={ArrowUpRight}
             tone={scoreTone(maxRisk)}
           />
           <SummaryCard
-            label="区间最低风险"
+            label="筛选区间最低风险"
             value={`${minRisk}`}
             icon={ArrowDownRight}
             tone="green"
           />
           <SummaryCard
-            label="区间近30日平均风险"
+            label="筛选区间近30日平均风险"
             value={`${Math.round(recent30Average)}`}
             icon={Activity}
             tone={scoreTone(recent30Average)}
           />
         </section>
+
+        <ResearchFilterPanel
+          baseCount={timeFilteredRecords.length}
+          resultCount={filteredRecords.length}
+          riskPreset={riskPreset}
+          setRiskPreset={(value) => {
+            setRiskPreset(value);
+            setScoreMin("");
+            setScoreMax("");
+          }}
+          scoreMin={scoreMin}
+          scoreMax={scoreMax}
+          setScoreMin={(value) => setScoreMin(normalizeScoreInput(value))}
+          setScoreMax={(value) => setScoreMax(normalizeScoreInput(value))}
+          marketReaction={marketReaction}
+          setMarketReaction={setMarketReaction}
+          spxMin={spxMin}
+          spxMax={spxMax}
+          ndxMin={ndxMin}
+          ndxMax={ndxMax}
+          setSpxMin={setSpxMin}
+          setSpxMax={setSpxMax}
+          setNdxMin={setNdxMin}
+          setNdxMax={setNdxMax}
+          scoreRangeInvalid={scoreRangeInvalid}
+          returnRangeInvalid={returnRangeInvalid}
+          resetRisk={() => {
+            setRiskPreset("all");
+            setScoreMin("");
+            setScoreMax("");
+          }}
+          resetPerformance={() => {
+            setMarketReaction("all");
+            setSpxMin("");
+            setSpxMax("");
+            setNdxMin("");
+            setNdxMax("");
+          }}
+        />
 
         <RiskTable records={filteredRecords} />
       </div>
@@ -125,7 +227,7 @@ function Header({
             历史风险数据中心
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-emerald-900/64">
-            基于美股日终数据的市场情绪与定投系统
+            基于美股日终数据的市场情绪、风险评分与定投系统
           </p>
         </div>
 
@@ -149,7 +251,7 @@ function Header({
       </div>
 
       <div className="mt-5 rounded-md border border-emerald-800/12 bg-white/58 px-4 py-3 text-xs leading-5 text-emerald-900/62">
-        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2025-01-01 起的真实日终记录，滚动 Z 值仍使用更早历史数据作为计算窗口；若宏观序列当日暂未发布，则沿用最近一次已发布值参与计算。
+        数据基于美股最近一个交易日收盘后计算，非实时行情。当前页面使用 2025-01-01 起的日终记录；滚动 Z 值计算仍使用更早历史数据作为基准窗口，避免短样本导致的评分失真。
       </div>
     </section>
   );
@@ -181,7 +283,7 @@ function TimeFilter({
         </div>
 
         <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-5">
-          {filterOptions.map((option) => {
+          {timeFilterOptions.map((option) => {
             const isActive = selected === option.key;
 
             return (
@@ -205,6 +307,301 @@ function TimeFilter({
         </div>
       </div>
     </section>
+  );
+}
+
+function ResearchFilterPanel({
+  baseCount,
+  resultCount,
+  riskPreset,
+  setRiskPreset,
+  scoreMin,
+  scoreMax,
+  setScoreMin,
+  setScoreMax,
+  marketReaction,
+  setMarketReaction,
+  spxMin,
+  spxMax,
+  ndxMin,
+  ndxMax,
+  setSpxMin,
+  setSpxMax,
+  setNdxMin,
+  setNdxMax,
+  scoreRangeInvalid,
+  returnRangeInvalid,
+  resetRisk,
+  resetPerformance,
+}: {
+  baseCount: number;
+  resultCount: number;
+  riskPreset: RiskScorePreset;
+  setRiskPreset: (value: RiskScorePreset) => void;
+  scoreMin: string;
+  scoreMax: string;
+  setScoreMin: (value: string) => void;
+  setScoreMax: (value: string) => void;
+  marketReaction: MarketReactionFilter;
+  setMarketReaction: (value: MarketReactionFilter) => void;
+  spxMin: string;
+  spxMax: string;
+  ndxMin: string;
+  ndxMax: string;
+  setSpxMin: (value: string) => void;
+  setSpxMax: (value: string) => void;
+  setNdxMin: (value: string) => void;
+  setNdxMax: (value: string) => void;
+  scoreRangeInvalid: boolean;
+  returnRangeInvalid: boolean;
+  resetRisk: () => void;
+  resetPerformance: () => void;
+}) {
+  const activeChips = buildActiveChips({
+    riskPreset,
+    scoreMin,
+    scoreMax,
+    marketReaction,
+    spxMin,
+    spxMax,
+    ndxMin,
+    ndxMax,
+    resetRisk,
+    resetPerformance,
+    clearReaction: () => setMarketReaction("all"),
+    clearSpx: () => {
+      setSpxMin("");
+      setSpxMax("");
+    },
+    clearNdx: () => {
+      setNdxMin("");
+      setNdxMax("");
+    },
+  });
+
+  return (
+    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-300/18 bg-[#04110d] text-[#ecfff5] shadow-[0_22px_60px_rgba(4,17,13,0.28)]">
+      <div className="border-b border-emerald-300/14 bg-white/[0.03] px-5 py-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#ecfff5]">
+              <SlidersHorizontal className="h-4 w-4 text-emerald-300" aria-hidden="true" />
+              研究筛选终端
+            </div>
+            <p className="mt-1 text-xs leading-5 text-emerald-100/58">
+              风险评分、市场反应与指数涨跌幅使用 AND 逻辑叠加筛选。
+            </p>
+          </div>
+          <div className="rounded-md border border-emerald-300/14 bg-emerald-300/[0.07] px-3 py-2 font-mono text-sm text-emerald-100">
+            当前筛选结果：共 {resultCount} 个交易日
+            {resultCount !== baseCount ? ` / 当前时间范围 ${baseCount} 个` : ""}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-5 p-5 xl:grid-cols-[1fr_1.1fr]">
+        <div className="rounded-lg border border-emerald-300/12 bg-white/[0.035] p-4">
+          <FilterHeader title="风险评分筛选" onReset={resetRisk} />
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {riskScorePresets.map((preset) => (
+              <button
+                key={preset.key}
+                type="button"
+                onClick={() => setRiskPreset(preset.key)}
+                className={darkFilterButtonClass(riskPreset === preset.key && !scoreMin && !scoreMax)}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <NumberInput
+              label="最低分"
+              value={scoreMin}
+              onChange={setScoreMin}
+              min={0}
+              max={100}
+              step={1}
+              placeholder="例如 80"
+            />
+            <NumberInput
+              label="最高分"
+              value={scoreMax}
+              onChange={setScoreMax}
+              min={0}
+              max={100}
+              step={1}
+              placeholder="例如 95"
+            />
+          </div>
+          <p className="mt-3 text-[11px] leading-5 text-emerald-100/45">
+            自定义最低分或最高分后，将覆盖上方预设区间。
+          </p>
+          {scoreRangeInvalid ? (
+            <p className="mt-2 rounded-md border border-amber-300/18 bg-amber-300/[0.08] px-3 py-2 text-xs text-amber-100">
+              最低分不能高于最高分。
+            </p>
+          ) : null}
+        </div>
+
+        <div className="rounded-lg border border-emerald-300/12 bg-white/[0.035] p-4">
+          <FilterHeader title="市场表现筛选" onReset={resetPerformance} />
+          <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-3">
+            {marketReactionOptions.map((option) => (
+              <button
+                key={option.key}
+                type="button"
+                onClick={() => setMarketReaction(option.key)}
+                className={darkFilterButtonClass(marketReaction === option.key)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <NumberInput
+                label="SPX最低涨跌幅"
+                value={spxMin}
+                onChange={setSpxMin}
+                step={0.01}
+                placeholder="-5"
+                suffix="%"
+              />
+              <NumberInput
+                label="SPX最高涨跌幅"
+                value={spxMax}
+                onChange={setSpxMax}
+                step={0.01}
+                placeholder="0"
+                suffix="%"
+              />
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <NumberInput
+                label="NDX最低涨跌幅"
+                value={ndxMin}
+                onChange={setNdxMin}
+                step={0.01}
+                placeholder="-6"
+                suffix="%"
+              />
+              <NumberInput
+                label="NDX最高涨跌幅"
+                value={ndxMax}
+                onChange={setNdxMax}
+                step={0.01}
+                placeholder="0"
+                suffix="%"
+              />
+            </div>
+          </div>
+          {returnRangeInvalid ? (
+            <p className="mt-3 rounded-md border border-amber-300/18 bg-amber-300/[0.08] px-3 py-2 text-xs text-amber-100">
+              指数最低涨跌幅不能高于最高涨跌幅。
+            </p>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="border-t border-emerald-300/12 px-5 py-4">
+        {activeChips.length > 0 ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-emerald-100/48">活跃条件</span>
+            {activeChips.map((chip) => (
+              <FilterChip key={chip.label} label={chip.label} onClear={chip.onClear} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-xs text-emerald-100/48">
+            当前未启用风险评分或市场表现筛选。
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function FilterHeader({
+  title,
+  onReset,
+}: {
+  title: string;
+  onReset: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <h2 className="text-sm font-semibold text-[#ecfff5]">{title}</h2>
+      <button
+        type="button"
+        onClick={onReset}
+        className="inline-flex items-center gap-1.5 rounded-md border border-emerald-300/14 bg-white/[0.04] px-2.5 py-1.5 text-xs text-emerald-100/70 transition hover:border-emerald-300/28 hover:bg-emerald-300/[0.08] hover:text-emerald-50"
+      >
+        <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+        重置
+      </button>
+    </div>
+  );
+}
+
+function NumberInput({
+  label,
+  value,
+  onChange,
+  min,
+  max,
+  step,
+  placeholder,
+  suffix,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  min?: number;
+  max?: number;
+  step: number;
+  placeholder: string;
+  suffix?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[11px] font-medium text-emerald-100/56">{label}</span>
+      <div className="mt-1 flex items-center rounded-md border border-emerald-300/14 bg-black/20 px-3 py-2 transition focus-within:border-emerald-300/34 focus-within:bg-black/28">
+        <input
+          type="number"
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          className="w-full bg-transparent font-mono text-sm text-[#ecfff5] outline-none placeholder:text-emerald-100/24"
+        />
+        {suffix ? <span className="ml-2 text-xs text-emerald-100/40">{suffix}</span> : null}
+      </div>
+    </label>
+  );
+}
+
+function FilterChip({
+  label,
+  onClear,
+}: {
+  label: string;
+  onClear: () => void;
+}) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/18 bg-emerald-300/[0.08] px-3 py-1 text-xs text-emerald-50">
+      {label}
+      <button
+        type="button"
+        onClick={onClear}
+        className="rounded-full p-0.5 text-emerald-100/62 transition hover:bg-emerald-200/12 hover:text-emerald-50"
+        aria-label={`清除 ${label}`}
+      >
+        <X className="h-3 w-3" aria-hidden="true" />
+      </button>
+    </span>
   );
 }
 
@@ -254,12 +651,12 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
           </p>
         </div>
         <div className="text-xs text-emerald-900/55">
-          日度记录按最新交易日倒序排列
+          悬停风险评分可查看模型调试信息
         </div>
       </div>
 
       <div className="max-h-[680px] overflow-auto">
-        <table className="w-full min-w-[900px] border-collapse text-left">
+        <table className="w-full min-w-[920px] border-collapse text-left">
           <thead className="sticky top-0 z-10 bg-[#fffdf6]">
             <tr className="border-b border-emerald-800/12 text-[11px] uppercase tracking-[0.12em] text-emerald-900/48">
               <th className="px-5 py-3 font-medium">日期</th>
@@ -280,7 +677,8 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
                 <td className="px-5 py-3 font-mono text-emerald-950/82">{record.date}</td>
                 <td className="px-5 py-3">
                   <span
-                    className={`inline-flex min-w-16 justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold ${riskBadgeClass(record.riskScore)}`}
+                    title={buildDebugTooltip(record)}
+                    className={`inline-flex min-w-16 cursor-help justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold ${riskBadgeClass(record.riskScore)}`}
                   >
                     {record.riskScore}
                   </span>
@@ -309,7 +707,7 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
             {records.length === 0 ? (
               <tr>
                 <td className="px-5 py-8 text-center text-sm text-emerald-900/56" colSpan={7}>
-                  当前筛选范围暂无记录
+                  当前筛选条件下暂无记录
                 </td>
               </tr>
             ) : null}
@@ -320,7 +718,84 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
   );
 }
 
-function filterRecords(records: DailyRiskRecord[], key: HistoryFilterKey) {
+function buildActiveChips({
+  riskPreset,
+  scoreMin,
+  scoreMax,
+  marketReaction,
+  spxMin,
+  spxMax,
+  ndxMin,
+  ndxMax,
+  resetRisk,
+  resetPerformance,
+  clearReaction,
+  clearSpx,
+  clearNdx,
+}: {
+  riskPreset: RiskScorePreset;
+  scoreMin: string;
+  scoreMax: string;
+  marketReaction: MarketReactionFilter;
+  spxMin: string;
+  spxMax: string;
+  ndxMin: string;
+  ndxMax: string;
+  resetRisk: () => void;
+  resetPerformance: () => void;
+  clearReaction: () => void;
+  clearSpx: () => void;
+  clearNdx: () => void;
+}) {
+  const chips: Array<{ label: string; onClear: () => void }> = [];
+  const riskBounds = getRiskScoreBounds({
+    preset: riskPreset,
+    min: parseOptionalNumber(scoreMin),
+    max: parseOptionalNumber(scoreMax),
+  });
+
+  if (riskBounds) {
+    chips.push({
+      label: `风险评分：${riskBounds.min}-${riskBounds.max}`,
+      onClear: resetRisk,
+    });
+  }
+
+  if (marketReaction !== "all") {
+    chips.push({
+      label: `市场表现：${marketReactionLabel(marketReaction)}`,
+      onClear: clearReaction,
+    });
+  }
+
+  if (spxMin || spxMax) {
+    chips.push({
+      label: `SPX：${formatInputRange(spxMin, spxMax, "%")}`,
+      onClear: clearSpx,
+    });
+  }
+
+  if (ndxMin || ndxMax) {
+    chips.push({
+      label: `NDX：${formatInputRange(ndxMin, ndxMax, "%")}`,
+      onClear: clearNdx,
+    });
+  }
+
+  if (chips.length > 1) {
+    chips.push({
+      label: "清除全部",
+      onClear: () => {
+        resetRisk();
+        resetPerformance();
+      },
+    });
+  }
+
+  return chips;
+}
+
+function filterRecordsByTime(records: DailyRiskRecord[], key: HistoryFilterKey) {
   if (key === "all") {
     return records;
   }
@@ -347,6 +822,49 @@ function filterRecords(records: DailyRiskRecord[], key: HistoryFilterKey) {
   return records.filter((record) => record.date >= cutoffText);
 }
 
+function darkFilterButtonClass(active: boolean) {
+  return `rounded-md border px-3 py-2 text-left text-xs font-medium transition duration-200 ${
+    active
+      ? "border-emerald-300/38 bg-emerald-300/16 text-emerald-50 shadow-[0_0_24px_rgba(52,211,153,0.12)]"
+      : "border-emerald-300/12 bg-white/[0.035] text-emerald-100/62 hover:border-emerald-300/26 hover:bg-emerald-300/[0.07] hover:text-emerald-50"
+  }`;
+}
+
+function normalizeScoreInput(value: string) {
+  if (value === "") {
+    return "";
+  }
+
+  const parsed = Number(value);
+
+  if (!Number.isFinite(parsed)) {
+    return "";
+  }
+
+  return String(Math.min(100, Math.max(0, Math.round(parsed))));
+}
+
+function parseOptionalNumber(value: string) {
+  if (value.trim() === "") {
+    return null;
+  }
+
+  const parsed = Number(value);
+
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function marketReactionLabel(value: MarketReactionFilter) {
+  return marketReactionOptions.find((option) => option.key === value)?.label ?? "全部";
+}
+
+function formatInputRange(min: string, max: string, suffix = "") {
+  const left = min || "不限";
+  const right = max || "不限";
+
+  return `${left}${suffix} 至 ${right}${suffix}`;
+}
+
 function formatRecordRange(records: DailyRiskRecord[]) {
   if (records.length === 0) {
     return "暂无记录";
@@ -358,6 +876,33 @@ function formatRecordRange(records: DailyRiskRecord[]) {
   return `${oldest} 至 ${newest}`;
 }
 
+function buildDebugTooltip(record: DailyRiskRecord) {
+  const debug = record.debug;
+
+  if (!debug) {
+    return `标准化风险评分：${record.riskScore}`;
+  }
+
+  return [
+    `标准化风险评分：${record.riskScore}`,
+    `市场反应：${getMarketReactionCategory(record)}`,
+    `clippedWeightedRiskZ：${debug.clippedWeightedRiskZ}`,
+    `rawWeightedRiskZ：${debug.rawWeightedRiskZ}`,
+    `VIX_z_raw：${debug.factors.volatility.rawZ}`,
+    `Credit_z_raw：${debug.factors.credit.rawZ}`,
+    `YieldCurve_z_raw：${debug.factors.yieldCurve.rawZ}`,
+    `Trend_z_raw：${debug.factors.trend.rawZ}`,
+    `Momentum_z_raw：${debug.factors.momentum.rawZ}`,
+    `VIX_z_clipped：${debug.factors.volatility.clippedZ}`,
+    `Credit_z_clipped：${debug.factors.credit.clippedZ}`,
+    `YieldCurve_z_clipped：${debug.factors.yieldCurve.clippedZ}`,
+    `Trend_z_clipped：${debug.factors.trend.clippedZ}`,
+    `Momentum_z_clipped：${debug.factors.momentum.clippedZ}`,
+    `crisisFlag：${debug.crisisFlag ? "true" : "false"}`,
+    `crisisReason：${debug.crisisReason}`,
+  ].join("\n");
+}
+
 function scoreTone(score: number): "green" | "yellow" | "orange" | "red" {
   if (score < 40) {
     return "green";
@@ -367,7 +912,7 @@ function scoreTone(score: number): "green" | "yellow" | "orange" | "red" {
     return "yellow";
   }
 
-  if (score < 80) {
+  if (score < 90) {
     return "orange";
   }
 
@@ -383,7 +928,7 @@ function riskBadgeClass(score: number) {
     return "border-amber-500/22 bg-amber-50/82 text-amber-700";
   }
 
-  if (score < 80) {
+  if (score < 90) {
     return "border-orange-500/22 bg-orange-50/84 text-orange-700";
   }
 
@@ -399,7 +944,7 @@ function sentimentClass(score: number) {
     return "bg-amber-50/90 text-amber-700";
   }
 
-  if (score < 80) {
+  if (score < 90) {
     return "bg-orange-50/90 text-orange-700";
   }
 
@@ -426,16 +971,38 @@ function average(values: number[]) {
 function buildFallbackRecord(): DailyRiskRecord {
   const volatility = snapshot.factors.find((factor) => factor.id === "volatility");
   const strategy = getDcaStrategy(snapshot.riskScore);
+  const weightedZ = snapshot.weightedZ;
+  const rawWeightedZ = snapshot.rawWeightedZ ?? weightedZ;
 
   return {
     date: snapshot.asOf,
     riskScore: snapshot.riskScore,
-    weightedZ: snapshot.weightedZ,
+    weightedZ,
+    clippedWeightedRiskZ: weightedZ,
+    rawWeightedRiskZ: rawWeightedZ,
     sentiment: snapshot.riskLevel,
     spxChange: snapshot.indices.sp500.changePercent ?? 0,
     ndxChange: snapshot.indices.nasdaq100.changePercent ?? 0,
     vix: volatility?.rawValue ?? 0,
     dcaMultiplier: strategy.multiplier,
+    crisisFlag: snapshot.crisisFlag ?? false,
+    crisisReason: snapshot.crisisReason ?? "快照回退记录",
+    debug: {
+      clippedWeightedRiskZ: weightedZ,
+      rawWeightedRiskZ: rawWeightedZ,
+      factors: {
+        volatility: {
+          rawZ: volatility?.rawZScore ?? volatility?.zScore ?? 0,
+          clippedZ: volatility?.clippedZScore ?? volatility?.zScore ?? 0,
+        },
+        credit: { rawZ: 0, clippedZ: 0 },
+        yieldCurve: { rawZ: 0, clippedZ: 0 },
+        trend: { rawZ: 0, clippedZ: 0 },
+        momentum: { rawZ: 0, clippedZ: 0 },
+      },
+      crisisFlag: snapshot.crisisFlag ?? false,
+      crisisReason: snapshot.crisisReason ?? "快照回退记录",
+    },
     source: "FRED",
   };
 }

@@ -5,6 +5,7 @@ export type RiskLevel =
   | "贪婪"
   | "中性"
   | "恐慌"
+  | "高恐慌"
   | "极度恐慌"
   | "危机级恐慌";
 
@@ -42,6 +43,8 @@ export interface RiskDashboardFactor {
   riskBenchmarkValue: number;
   riskStdDev: number;
   zScore: number;
+  rawZScore: number;
+  clippedZScore: number;
   weight: number;
   contribution: number;
   riskLevel: RiskFactorLevel;
@@ -84,6 +87,9 @@ export interface RiskDashboardSnapshot {
   };
   riskScore: number;
   weightedZ: number;
+  rawWeightedZ?: number;
+  crisisFlag?: boolean;
+  crisisReason?: string;
   riskLevel: RiskLevel;
   posture: string;
   factors: RiskDashboardFactor[];
@@ -114,6 +120,9 @@ export interface WeightedRiskInput {
   id?: RiskFactorId;
   weight: number;
   zScore: number;
+  rawZScore?: number;
+  clippedZScore?: number;
+  rawValue?: number;
 }
 
 export function buildSimpleFactor({
@@ -393,7 +402,11 @@ export function clipZScore(zScore: number) {
 
 export function calculateWeightedRiskZ(factors: ReadonlyArray<WeightedRiskInput>) {
   return round(
-    factors.reduce((total, factor) => total + factor.weight * clipZScore(factor.zScore), 0),
+    factors.reduce(
+      (total, factor) =>
+        total + factor.weight * (factor.clippedZScore ?? clipZScore(factor.zScore)),
+      0,
+    ),
     4,
   );
 }
@@ -402,32 +415,93 @@ export function calculateWeightedZ(factors: ReadonlyArray<WeightedRiskInput>) {
   return calculateWeightedRiskZ(factors);
 }
 
-export function detectCrisisFlag({
-  weightedRiskZ,
-  factors,
-}: {
-  weightedRiskZ: number;
-  factors: ReadonlyArray<WeightedRiskInput>;
-}) {
-  const clippedFactors = factors.map((factor) => ({
-    ...factor,
-    zScore: clipZScore(factor.zScore),
-  }));
-  const zById = new Map(
-    clippedFactors
-      .filter((factor) => factor.id)
-      .map((factor) => [factor.id as RiskFactorId, factor.zScore]),
+export function calculateRawWeightedRiskZ(factors: ReadonlyArray<WeightedRiskInput>) {
+  return round(
+    factors.reduce(
+      (total, factor) => total + factor.weight * (factor.rawZScore ?? factor.zScore),
+      0,
+    ),
+    4,
   );
-  const highFactorCount = clippedFactors.filter((factor) => factor.zScore >= 2.5).length;
+}
 
-  return (
-    weightedRiskZ >= 4.5 ||
-    ((zById.get("volatility") ?? -Infinity) >= 3 &&
-      (zById.get("credit") ?? -Infinity) >= 3) ||
-    ((zById.get("trend") ?? -Infinity) >= 3 &&
-      (zById.get("momentum") ?? -Infinity) >= 3) ||
-    highFactorCount >= 4
+export interface CrisisStatus {
+  crisisFlag: boolean;
+  crisisReason: string;
+}
+
+export function detectCrisisFlag({
+  rawWeightedRiskZ,
+  factors,
+  vix,
+}: {
+  rawWeightedRiskZ?: number;
+  factors: ReadonlyArray<WeightedRiskInput>;
+  vix?: number;
+}) {
+  return getCrisisStatus({ rawWeightedRiskZ, factors, vix }).crisisFlag;
+}
+
+export function getCrisisStatus({
+  rawWeightedRiskZ,
+  factors,
+  vix,
+}: {
+  rawWeightedRiskZ?: number;
+  factors: ReadonlyArray<WeightedRiskInput>;
+  vix?: number;
+}): CrisisStatus {
+  const rawZById = new Map(
+    factors
+      .filter((factor) => factor.id)
+      .map((factor) => [
+        factor.id as RiskFactorId,
+        factor.rawZScore ?? factor.zScore,
+      ]),
   );
+  const rawFactors = factors.map((factor) => factor.rawZScore ?? factor.zScore);
+  const highRawFactorCount = rawFactors.filter((zScore) => zScore >= 2.7).length;
+  const volatilityValue =
+    vix ??
+    factors.find((factor) => factor.id === "volatility")?.rawValue ??
+    Number.NEGATIVE_INFINITY;
+  const creditZ = rawZById.get("credit") ?? Number.NEGATIVE_INFINITY;
+  const trendZ = rawZById.get("trend") ?? Number.NEGATIVE_INFINITY;
+  const momentumZ = rawZById.get("momentum") ?? Number.NEGATIVE_INFINITY;
+
+  if (volatilityValue >= 60) {
+    return {
+      crisisFlag: true,
+      crisisReason: "VIX >= 60",
+    };
+  }
+
+  if (
+    volatilityValue >= 50 &&
+    creditZ >= 2.5 &&
+    trendZ >= 2 &&
+    momentumZ >= 2
+  ) {
+    return {
+      crisisFlag: true,
+      crisisReason: "VIX >= 50 且信用、趋势、动能风险同步极端",
+    };
+  }
+
+  if (highRawFactorCount >= 4) {
+    return {
+      crisisFlag: true,
+      crisisReason: "至少四个原始风险因子 Z 值 >= 2.7",
+    };
+  }
+
+  return {
+    crisisFlag: false,
+    crisisReason:
+      rawWeightedRiskZ === undefined
+        ? "未触发危机级条件"
+        : `未触发危机级条件，rawWeightedRiskZ=${round(rawWeightedRiskZ, 2)}`,
+  };
 }
 
 export function convertWeightedZToRiskScore(
@@ -460,11 +534,15 @@ export function getMarketState(score: number): RiskLevel {
     return "中性";
   }
 
-  if (score < 80) {
+  if (score < 75) {
     return "恐慌";
   }
 
-  if (score < 95) {
+  if (score < 90) {
+    return "高恐慌";
+  }
+
+  if (score < 97) {
     return "极度恐慌";
   }
 
@@ -488,11 +566,15 @@ export function getDcaMultiplier(score: number) {
     return 1;
   }
 
-  if (score < 80) {
-    return 1.7;
+  if (score < 75) {
+    return 1.4;
   }
 
-  if (score < 95) {
+  if (score < 90) {
+    return 1.8;
+  }
+
+  if (score < 97) {
     return 2.5;
   }
 
@@ -512,11 +594,15 @@ export function getRiskPosture(score: number) {
     return "均衡";
   }
 
-  if (score < 80) {
+  if (score < 75) {
     return "偏防御";
   }
 
-  if (score < 95) {
+  if (score < 90) {
+    return "高防御";
+  }
+
+  if (score < 97) {
     return "高度防御";
   }
 
@@ -620,6 +706,8 @@ function buildFactor({
     riskValue: round(currentRiskValue, 4),
     riskBenchmarkValue: round(riskBenchmarkValue, 4),
     riskStdDev: round(riskStdDev, 4),
+    rawZScore: round(zScore, 2),
+    clippedZScore: round(clippedZScore, 2),
     zScore: round(clippedZScore, 2),
     weight,
     contribution: round(weight * clippedZScore, 2),
