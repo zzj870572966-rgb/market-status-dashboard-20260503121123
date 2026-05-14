@@ -358,7 +358,7 @@ async function updateDailyRiskHistory(series: Partial<Record<SeriesKey, FredSeri
         nasdaq100: requireSeries(series.nasdaq100, "Nasdaq 100"),
       } satisfies RiskHistorySeries,
       generatedAt: now,
-      startDate: "2026-01-01",
+      startDate: "2025-01-01",
     });
 
     await writeJson(dailyHistoryPath, history);

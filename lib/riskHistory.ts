@@ -53,7 +53,7 @@ interface ScoredPoint {
   zScore: number;
 }
 
-const DEFAULT_START_DATE = "2026-01-01";
+const DEFAULT_START_DATE = "2025-01-01";
 
 export function buildRealRiskHistory(
   series: RiskHistorySeries,

@@ -1,9 +1,13 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import {
   Activity,
   ArrowDownRight,
   ArrowUpRight,
   CalendarDays,
   Database,
+  Filter,
   Gauge,
   ShieldAlert,
   TrendingUp,
@@ -11,17 +15,35 @@ import {
 import TerminalHoverNav from "@/components/TerminalHoverNav";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
 import type { DailyRiskRecord, RealRiskHistory } from "@/lib/riskHistory";
+import type { RiskDashboardSnapshot } from "@/lib/riskDashboard";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
 import historyData from "@/public/data/risk-history/daily-records.json";
-import type { RiskDashboardSnapshot } from "@/lib/riskDashboard";
+
+type HistoryFilterKey = "all" | "2026" | "2025" | "90d" | "30d";
 
 const snapshot = snapshotData as RiskDashboardSnapshot;
 const riskHistory = historyData as RealRiskHistory;
 
+const filterOptions: Array<{ key: HistoryFilterKey; label: string; description: string }> = [
+  { key: "all", label: "全部", description: "完整日终记录" },
+  { key: "2026", label: "2026年至今", description: "今年交易日" },
+  { key: "2025", label: "2025全年", description: "上一完整年度" },
+  { key: "90d", label: "近90日", description: "近期风险变化" },
+  { key: "30d", label: "近30日", description: "短期风险状态" },
+];
+
 export default function HistoryRiskDataPage() {
-  const records = [...riskHistory.records].sort((a, b) => b.date.localeCompare(a.date));
-  const latest = records[0] ?? buildFallbackRecord();
-  const statRecords = records.length > 0 ? records : [latest];
+  const [filterKey, setFilterKey] = useState<HistoryFilterKey>("all");
+  const records = useMemo(
+    () => [...riskHistory.records].sort((a, b) => b.date.localeCompare(a.date)),
+    [],
+  );
+  const filteredRecords = useMemo(
+    () => filterRecords(records, filterKey),
+    [records, filterKey],
+  );
+  const latest = filteredRecords[0] ?? records[0] ?? buildFallbackRecord();
+  const statRecords = filteredRecords.length > 0 ? filteredRecords : [latest];
   const maxRisk = Math.max(...statRecords.map((record) => record.riskScore));
   const minRisk = Math.min(...statRecords.map((record) => record.riskScore));
   const recent30Average = average(statRecords.slice(0, 30).map((record) => record.riskScore));
@@ -30,48 +52,55 @@ export default function HistoryRiskDataPage() {
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#f8f4ea] text-emerald-950">
       <TerminalHoverNav active="history" tone="light" />
       <div className="relative mx-auto w-full max-w-7xl px-4 pb-12 pt-20 sm:px-6 lg:px-8">
-        <Header latestDate={latest.date} recordsCount={records.length} />
+        <Header latestDate={records[0]?.date ?? latest.date} recordsCount={records.length} />
+
+        <TimeFilter
+          selected={filterKey}
+          onChange={setFilterKey}
+          records={filteredRecords}
+          totalCount={records.length}
+        />
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
           <SummaryCard
-            label="当前标准化风险评分"
+            label="区间最新标准化风险评分"
             value={`${latest.riskScore} / 100`}
             icon={Gauge}
             tone={scoreTone(latest.riskScore)}
           />
           <SummaryCard
-            label="当前市场状态"
+            label="区间最新市场状态"
             value={latest.sentiment}
             icon={ShieldAlert}
             tone={scoreTone(latest.riskScore)}
           />
           <SummaryCard
-            label="当前定投倍率"
+            label="区间最新定投倍率"
             value={`${latest.dcaMultiplier.toFixed(1)}x`}
             icon={TrendingUp}
             tone="green"
           />
           <SummaryCard
-            label="历史最高风险"
+            label="区间最高风险"
             value={`${maxRisk}`}
             icon={ArrowUpRight}
             tone={scoreTone(maxRisk)}
           />
           <SummaryCard
-            label="历史最低风险"
+            label="区间最低风险"
             value={`${minRisk}`}
             icon={ArrowDownRight}
             tone="green"
           />
           <SummaryCard
-            label="最近30日平均风险"
+            label="区间近30日平均风险"
             value={`${Math.round(recent30Average)}`}
             icon={Activity}
             tone={scoreTone(recent30Average)}
           />
         </section>
 
-        <RiskTable records={records} />
+        <RiskTable records={filteredRecords} />
       </div>
     </main>
   );
@@ -111,7 +140,7 @@ function Header({
             </div>
           </div>
           <div className="rounded-lg border border-emerald-800/12 bg-white/64 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
-            <div className="text-xs text-emerald-900/55">记录数量</div>
+            <div className="text-xs text-emerald-900/55">总记录数量</div>
             <div className="mt-3 font-mono text-2xl font-semibold text-emerald-950">
               {recordsCount}
             </div>
@@ -120,7 +149,60 @@ function Header({
       </div>
 
       <div className="mt-5 rounded-md border border-emerald-800/12 bg-white/58 px-4 py-3 text-xs leading-5 text-emerald-900/62">
-        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2026-01-01 起的真实日终记录，利率、信用与波动率序列若当日暂未发布，则沿用最近一次已发布值参与计算。
+        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2025-01-01 起的真实日终记录，滚动 Z 值仍使用更早历史数据作为计算窗口；若宏观序列当日暂未发布，则沿用最近一次已发布值参与计算。
+      </div>
+    </section>
+  );
+}
+
+function TimeFilter({
+  selected,
+  onChange,
+  records,
+  totalCount,
+}: {
+  selected: HistoryFilterKey;
+  onChange: (value: HistoryFilterKey) => void;
+  records: DailyRiskRecord[];
+  totalCount: number;
+}) {
+  return (
+    <section className="risk-glass mt-6 rounded-lg p-4 sm:p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <div className="flex items-center gap-2 text-sm font-semibold text-emerald-950">
+            <Filter className="h-4 w-4 text-emerald-700" aria-hidden="true" />
+            时间筛选
+          </div>
+          <p className="mt-1 text-xs leading-5 text-emerald-900/58">
+            当前范围：{formatRecordRange(records)} · {records.length} 条记录
+            {records.length !== totalCount ? ` / 全部 ${totalCount} 条` : ""}
+          </p>
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-5">
+          {filterOptions.map((option) => {
+            const isActive = selected === option.key;
+
+            return (
+              <button
+                key={option.key}
+                type="button"
+                onClick={() => onChange(option.key)}
+                className={`rounded-lg border px-3 py-2 text-left transition duration-200 ${
+                  isActive
+                    ? "border-emerald-600/36 bg-emerald-100/72 shadow-[0_10px_24px_rgba(16,110,82,0.12)]"
+                    : "border-emerald-800/12 bg-white/60 hover:border-emerald-700/24 hover:bg-white/84"
+                }`}
+              >
+                <div className="text-sm font-semibold text-emerald-950">{option.label}</div>
+                <div className="mt-0.5 text-[11px] text-emerald-900/52">
+                  {option.description}
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -204,7 +286,9 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
                   </span>
                 </td>
                 <td className="px-5 py-3">
-                  <span className={`inline-flex rounded-md px-2.5 py-1 text-xs font-medium ${sentimentClass(record.riskScore)}`}>
+                  <span
+                    className={`inline-flex rounded-md px-2.5 py-1 text-xs font-medium ${sentimentClass(record.riskScore)}`}
+                  >
                     {record.sentiment}
                   </span>
                 </td>
@@ -222,11 +306,56 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
                 </td>
               </tr>
             ))}
+            {records.length === 0 ? (
+              <tr>
+                <td className="px-5 py-8 text-center text-sm text-emerald-900/56" colSpan={7}>
+                  当前筛选范围暂无记录
+                </td>
+              </tr>
+            ) : null}
           </tbody>
         </table>
       </div>
     </section>
   );
+}
+
+function filterRecords(records: DailyRiskRecord[], key: HistoryFilterKey) {
+  if (key === "all") {
+    return records;
+  }
+
+  if (key === "2026") {
+    return records.filter((record) => record.date >= "2026-01-01" && record.date <= "2026-12-31");
+  }
+
+  if (key === "2025") {
+    return records.filter((record) => record.date >= "2025-01-01" && record.date <= "2025-12-31");
+  }
+
+  const latestDate = records[0]?.date;
+  const days = key === "90d" ? 90 : 30;
+
+  if (!latestDate) {
+    return [];
+  }
+
+  const cutoff = new Date(`${latestDate}T00:00:00Z`);
+  cutoff.setUTCDate(cutoff.getUTCDate() - days + 1);
+  const cutoffText = cutoff.toISOString().slice(0, 10);
+
+  return records.filter((record) => record.date >= cutoffText);
+}
+
+function formatRecordRange(records: DailyRiskRecord[]) {
+  if (records.length === 0) {
+    return "暂无记录";
+  }
+
+  const newest = records[0].date;
+  const oldest = records[records.length - 1].date;
+
+  return `${oldest} 至 ${newest}`;
 }
 
 function scoreTone(score: number): "green" | "yellow" | "orange" | "red" {
