@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-14T14:53:02.861Z",
+  "generatedAt": "2026-05-14T15:06:25.607Z",
   "source": "FRED daily historical series",
   "startDate": "2026-01-01",
-  "endDate": "2026-05-12",
+  "endDate": "2026-05-13",
   "records": [
     {
       "date": "2026-01-02",
@@ -993,6 +993,17 @@
       "ndxChange": -0.87,
       "vix": 17.99,
       "dcaMultiplier": 1,
+      "source": "FRED"
+    },
+    {
+      "date": "2026-05-13",
+      "riskScore": 39,
+      "weightedZ": -0.4535,
+      "sentiment": "贪婪",
+      "spxChange": 0.58,
+      "ndxChange": 1.04,
+      "vix": 17.87,
+      "dcaMultiplier": 0.6,
       "source": "FRED"
     }
   ]

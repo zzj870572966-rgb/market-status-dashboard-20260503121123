@@ -120,7 +120,7 @@ function Header({
       </div>
 
       <div className="mt-5 rounded-md border border-emerald-800/12 bg-white/58 px-4 py-3 text-xs leading-5 text-emerald-900/62">
-        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2026-01-01 起的真实日终记录，所有风险评分均按同一套加权 Z 值模型生成。
+        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2026-01-01 起的真实日终记录，利率、信用与波动率序列若当日暂未发布，则沿用最近一次已发布值参与计算。
       </div>
     </section>
   );

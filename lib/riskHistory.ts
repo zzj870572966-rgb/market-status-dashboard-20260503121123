@@ -65,11 +65,11 @@ export function buildRealRiskHistory(
   const spxMap = toPointMap(spxByDate);
   const ndxMap = toPointMap(ndxByDate);
   const scoreMaps = {
-    volatility: toScoredMap(vixRisk),
-    credit: toScoredMap(creditRisk),
-    yieldCurve: toScoredMap(yieldCurveRisk),
-    trend: toScoredMap(trendRisk),
-    momentum: toScoredMap(momentumRisk),
+    volatility: createCarryForwardLookup(vixRisk),
+    credit: createCarryForwardLookup(creditRisk),
+    yieldCurve: createCarryForwardLookup(yieldCurveRisk),
+    trend: createCarryForwardLookup(trendRisk),
+    momentum: createCarryForwardLookup(momentumRisk),
   };
 
   return spxByDate
@@ -78,11 +78,11 @@ export function buildRealRiskHistory(
       const date = point.date;
       const spx = spxMap.get(date);
       const ndx = ndxMap.get(date);
-      const volatility = scoreMaps.volatility.get(date);
-      const credit = scoreMaps.credit.get(date);
-      const yieldCurve = scoreMaps.yieldCurve.get(date);
-      const trend = scoreMaps.trend.get(date);
-      const momentum = scoreMaps.momentum.get(date);
+      const volatility = scoreMaps.volatility(date);
+      const credit = scoreMaps.credit(date);
+      const yieldCurve = scoreMaps.yieldCurve(date);
+      const trend = scoreMaps.trend(date);
+      const momentum = scoreMaps.momentum(date);
 
       if (!spx || !ndx || !volatility || !credit || !yieldCurve || !trend || !momentum) {
         return null;
@@ -255,8 +255,19 @@ function toPointMap(points: FredSeriesPoint[]) {
   return map;
 }
 
-function toScoredMap(points: ScoredPoint[]) {
-  return new Map(points.map((point) => [point.date, point]));
+function createCarryForwardLookup(points: ScoredPoint[]) {
+  const clean = [...points].sort((a, b) => a.date.localeCompare(b.date));
+  let cursor = 0;
+  let latest: ScoredPoint | null = null;
+
+  return (date: string) => {
+    while (cursor < clean.length && clean[cursor].date <= date) {
+      latest = clean[cursor];
+      cursor += 1;
+    }
+
+    return latest;
+  };
 }
 
 function cleanSeries(values: FredSeriesPoint[]) {
