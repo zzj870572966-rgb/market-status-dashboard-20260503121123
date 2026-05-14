@@ -50,31 +50,35 @@ export default function TerminalHoverNav({
         <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]" />
         <span>导航</span>
         <ChevronDown
-          className="h-3.5 w-3.5 transition duration-300 group-hover:rotate-180"
+          className="h-3.5 w-3.5 transition duration-300 group-hover:rotate-180 group-focus-within:rotate-180"
           aria-hidden="true"
         />
       </div>
 
       <div
-        className={`pointer-events-none absolute left-0 top-full mt-2 w-52 translate-y-1 rounded-lg border p-2 opacity-0 backdrop-blur-xl transition duration-300 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 ${menuClass}`}
+        className="pointer-events-none absolute left-0 top-full w-56 pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
       >
-        {items.map((item) => {
-          const Icon = item.icon;
-          const isActive = item.key === active;
+        <div
+          className={`w-52 translate-y-1 rounded-lg border p-2 backdrop-blur-xl transition duration-300 group-hover:translate-y-0 group-focus-within:translate-y-0 ${menuClass}`}
+        >
+          {items.map((item) => {
+            const Icon = item.icon;
+            const isActive = item.key === active;
 
-          return (
-            <Link
-              key={item.key}
-              href={item.href}
-              className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-200 ${
-                isActive ? activeClass : inactiveClass
-              }`}
-            >
-              <Icon className="h-4 w-4" aria-hidden="true" />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
+            return (
+              <Link
+                key={item.key}
+                href={item.href}
+                className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-200 ${
+                  isActive ? activeClass : inactiveClass
+                }`}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
