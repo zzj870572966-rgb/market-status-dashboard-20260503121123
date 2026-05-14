@@ -380,19 +380,19 @@ function ResearchFilterPanel({
   });
 
   return (
-    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-300/18 bg-[#04110d] text-[#ecfff5] shadow-[0_22px_60px_rgba(4,17,13,0.28)]">
-      <div className="border-b border-emerald-300/14 bg-white/[0.03] px-5 py-4">
+    <section className="risk-glass mt-6 overflow-hidden rounded-lg text-emerald-950">
+      <div className="border-b border-emerald-800/12 bg-white/42 px-5 py-4">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div className="flex items-center gap-2 text-sm font-semibold text-[#ecfff5]">
-              <SlidersHorizontal className="h-4 w-4 text-emerald-300" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-950">
+              <SlidersHorizontal className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               研究筛选终端
             </div>
-            <p className="mt-1 text-xs leading-5 text-emerald-100/58">
+            <p className="mt-1 text-xs leading-5 text-emerald-900/58">
               风险评分、市场反应与指数涨跌幅使用 AND 逻辑叠加筛选。
             </p>
           </div>
-          <div className="rounded-md border border-emerald-300/14 bg-emerald-300/[0.07] px-3 py-2 font-mono text-sm text-emerald-100">
+          <div className="rounded-md border border-emerald-800/12 bg-white/64 px-3 py-2 font-mono text-sm text-emerald-900 shadow-[0_10px_24px_rgba(67,96,70,0.07)]">
             当前筛选结果：共 {resultCount} 个交易日
             {resultCount !== baseCount ? ` / 当前时间范围 ${baseCount} 个` : ""}
           </div>
@@ -400,7 +400,7 @@ function ResearchFilterPanel({
       </div>
 
       <div className="grid gap-5 p-5 xl:grid-cols-[1fr_1.1fr]">
-        <div className="rounded-lg border border-emerald-300/12 bg-white/[0.035] p-4">
+        <div className="rounded-lg border border-emerald-800/12 bg-white/58 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.06)]">
           <FilterHeader title="风险评分筛选" onReset={resetRisk} />
           <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {riskScorePresets.map((preset) => (
@@ -434,17 +434,17 @@ function ResearchFilterPanel({
               placeholder="例如 95"
             />
           </div>
-          <p className="mt-3 text-[11px] leading-5 text-emerald-100/45">
+          <p className="mt-3 text-[11px] leading-5 text-emerald-900/48">
             自定义最低分或最高分后，将覆盖上方预设区间。
           </p>
           {scoreRangeInvalid ? (
-            <p className="mt-2 rounded-md border border-amber-300/18 bg-amber-300/[0.08] px-3 py-2 text-xs text-amber-100">
+            <p className="mt-2 rounded-md border border-amber-500/20 bg-amber-50/78 px-3 py-2 text-xs text-amber-700">
               最低分不能高于最高分。
             </p>
           ) : null}
         </div>
 
-        <div className="rounded-lg border border-emerald-300/12 bg-white/[0.035] p-4">
+        <div className="rounded-lg border border-emerald-800/12 bg-white/58 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.06)]">
           <FilterHeader title="市场表现筛选" onReset={resetPerformance} />
           <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-3">
             {marketReactionOptions.map((option) => (
@@ -497,23 +497,23 @@ function ResearchFilterPanel({
             </div>
           </div>
           {returnRangeInvalid ? (
-            <p className="mt-3 rounded-md border border-amber-300/18 bg-amber-300/[0.08] px-3 py-2 text-xs text-amber-100">
+            <p className="mt-3 rounded-md border border-amber-500/20 bg-amber-50/78 px-3 py-2 text-xs text-amber-700">
               指数最低涨跌幅不能高于最高涨跌幅。
             </p>
           ) : null}
         </div>
       </div>
 
-      <div className="border-t border-emerald-300/12 px-5 py-4">
+      <div className="border-t border-emerald-800/12 px-5 py-4">
         {activeChips.length > 0 ? (
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-emerald-100/48">活跃条件</span>
+            <span className="text-xs text-emerald-900/48">活跃条件</span>
             {activeChips.map((chip) => (
               <FilterChip key={chip.label} label={chip.label} onClear={chip.onClear} />
             ))}
           </div>
         ) : (
-          <div className="text-xs text-emerald-100/48">
+          <div className="text-xs text-emerald-900/48">
             当前未启用风险评分或市场表现筛选。
           </div>
         )}
@@ -531,11 +531,11 @@ function FilterHeader({
 }) {
   return (
     <div className="flex items-center justify-between gap-3">
-      <h2 className="text-sm font-semibold text-[#ecfff5]">{title}</h2>
+      <h2 className="text-sm font-semibold text-emerald-950">{title}</h2>
       <button
         type="button"
         onClick={onReset}
-        className="inline-flex items-center gap-1.5 rounded-md border border-emerald-300/14 bg-white/[0.04] px-2.5 py-1.5 text-xs text-emerald-100/70 transition hover:border-emerald-300/28 hover:bg-emerald-300/[0.08] hover:text-emerald-50"
+        className="inline-flex items-center gap-1.5 rounded-md border border-emerald-800/12 bg-white/64 px-2.5 py-1.5 text-xs text-emerald-900/68 transition hover:border-emerald-700/24 hover:bg-emerald-50 hover:text-emerald-950"
       >
         <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
         重置
@@ -565,8 +565,8 @@ function NumberInput({
 }) {
   return (
     <label className="block">
-      <span className="text-[11px] font-medium text-emerald-100/56">{label}</span>
-      <div className="mt-1 flex items-center rounded-md border border-emerald-300/14 bg-black/20 px-3 py-2 transition focus-within:border-emerald-300/34 focus-within:bg-black/28">
+      <span className="text-[11px] font-medium text-emerald-900/56">{label}</span>
+      <div className="mt-1 flex items-center rounded-md border border-emerald-800/12 bg-white/72 px-3 py-2 transition focus-within:border-emerald-700/30 focus-within:bg-white/92">
         <input
           type="number"
           value={value}
@@ -575,9 +575,9 @@ function NumberInput({
           step={step}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
-          className="w-full bg-transparent font-mono text-sm text-[#ecfff5] outline-none placeholder:text-emerald-100/24"
+          className="w-full bg-transparent font-mono text-sm text-emerald-950 outline-none placeholder:text-emerald-900/32"
         />
-        {suffix ? <span className="ml-2 text-xs text-emerald-100/40">{suffix}</span> : null}
+        {suffix ? <span className="ml-2 text-xs text-emerald-900/45">{suffix}</span> : null}
       </div>
     </label>
   );
@@ -591,12 +591,12 @@ function FilterChip({
   onClear: () => void;
 }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/18 bg-emerald-300/[0.08] px-3 py-1 text-xs text-emerald-50">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-700/16 bg-emerald-50/80 px-3 py-1 text-xs text-emerald-800">
       {label}
       <button
         type="button"
         onClick={onClear}
-        className="rounded-full p-0.5 text-emerald-100/62 transition hover:bg-emerald-200/12 hover:text-emerald-50"
+        className="rounded-full p-0.5 text-emerald-900/48 transition hover:bg-emerald-100 hover:text-emerald-950"
         aria-label={`清除 ${label}`}
       >
         <X className="h-3 w-3" aria-hidden="true" />
@@ -825,8 +825,8 @@ function filterRecordsByTime(records: DailyRiskRecord[], key: HistoryFilterKey) 
 function darkFilterButtonClass(active: boolean) {
   return `rounded-md border px-3 py-2 text-left text-xs font-medium transition duration-200 ${
     active
-      ? "border-emerald-300/38 bg-emerald-300/16 text-emerald-50 shadow-[0_0_24px_rgba(52,211,153,0.12)]"
-      : "border-emerald-300/12 bg-white/[0.035] text-emerald-100/62 hover:border-emerald-300/26 hover:bg-emerald-300/[0.07] hover:text-emerald-50"
+      ? "border-emerald-600/36 bg-emerald-100/72 text-emerald-950 shadow-[0_10px_24px_rgba(16,110,82,0.12)]"
+      : "border-emerald-800/12 bg-white/60 text-emerald-900/68 hover:border-emerald-700/24 hover:bg-white/86 hover:text-emerald-950"
   }`;
 }
 
