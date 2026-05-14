@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fetchFredSeriesHistory } from "../lib/fetchers/fred";
+import { buildRealRiskHistorySnapshot, type RiskHistorySeries } from "../lib/riskHistory";
 import {
   RISK_FACTOR_WEIGHTS,
   buildIndexSnapshot,
@@ -50,6 +51,7 @@ const rootDir = process.cwd();
 const latestPath = path.join(rootDir, "public", "data", "risk-dashboard-latest.json");
 const historyDir = path.join(rootDir, "public", "data", "risk-history");
 const historyIndexPath = path.join(historyDir, "index.json");
+const dailyHistoryPath = path.join(historyDir, "daily-records.json");
 const now = new Date().toISOString();
 
 const requests: SeriesRequest[] = [
@@ -120,6 +122,7 @@ async function main() {
   await writeJson(latestPath, snapshot);
   await writeJson(path.join(historyDir, `${snapshot.asOf}.json`), snapshot);
   await updateHistoryIndex(snapshot);
+  await updateDailyRiskHistory(series);
   printSourceResults(snapshot.status.sources);
 }
 
@@ -334,6 +337,32 @@ async function updateHistoryIndex(snapshot: RiskDashboardSnapshot) {
     updatedAt: now,
     items,
   });
+}
+
+async function updateDailyRiskHistory(series: Partial<Record<SeriesKey, FredSeriesPoint[]>>) {
+  try {
+    const history = buildRealRiskHistorySnapshot({
+      series: {
+        vix: requireSeries(series.vix, "VIX"),
+        credit: requireSeries(series.credit, "信用利差"),
+        us10y: requireSeries(series.us10y, "10Y Treasury"),
+        us2y: requireSeries(series.us2y, "2Y Treasury"),
+        sp500: requireSeries(series.sp500, "S&P 500"),
+        nasdaq100: requireSeries(series.nasdaq100, "Nasdaq 100"),
+      } satisfies RiskHistorySeries,
+      generatedAt: now,
+      startDate: "2026-01-01",
+    });
+
+    await writeJson(dailyHistoryPath, history);
+    console.log(
+      `Real daily risk history updated: ${history.records.length} rows (${history.startDate} to ${history.endDate}).`,
+    );
+  } catch (error) {
+    console.log(
+      `Real daily risk history skipped, keeping previous file: ${getErrorMessage(error)}`,
+    );
+  }
 }
 
 function resolveAsOf(

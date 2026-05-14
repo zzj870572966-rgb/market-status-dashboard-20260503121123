@@ -600,7 +600,7 @@ function alignByDate(a: FredSeriesPoint[], b: FredSeriesPoint[]) {
 
 function cleanSeries(values: FredSeriesPoint[]) {
   return values
-    .filter((point) => point.date && Number.isFinite(point.value))
+    .filter((point) => point.date && Number.isFinite(point.value) && point.value > 0)
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 

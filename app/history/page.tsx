@@ -9,27 +9,22 @@ import {
   TrendingUp,
 } from "lucide-react";
 import TerminalHoverNav from "@/components/TerminalHoverNav";
+import { getDcaStrategy } from "@/lib/dcaStrategy";
+import type { DailyRiskRecord, RealRiskHistory } from "@/lib/riskHistory";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
+import historyData from "@/public/data/risk-history/daily-records.json";
 import type { RiskDashboardSnapshot } from "@/lib/riskDashboard";
 
 const snapshot = snapshotData as RiskDashboardSnapshot;
-
-interface DailyRiskRecord {
-  date: string;
-  riskScore: number;
-  sentiment: string;
-  spxChange: number;
-  ndxChange: number;
-  vix: number;
-  dcaMultiplier: number;
-}
+const riskHistory = historyData as RealRiskHistory;
 
 export default function HistoryRiskDataPage() {
-  const records = generateMockHistory("2026-01-01", snapshot.asOf, snapshot.riskScore);
-  const latest = records[0];
-  const maxRisk = Math.max(...records.map((record) => record.riskScore));
-  const minRisk = Math.min(...records.map((record) => record.riskScore));
-  const recent30Average = average(records.slice(0, 30).map((record) => record.riskScore));
+  const records = [...riskHistory.records].sort((a, b) => b.date.localeCompare(a.date));
+  const latest = records[0] ?? buildFallbackRecord();
+  const statRecords = records.length > 0 ? records : [latest];
+  const maxRisk = Math.max(...statRecords.map((record) => record.riskScore));
+  const minRisk = Math.min(...statRecords.map((record) => record.riskScore));
+  const recent30Average = average(statRecords.slice(0, 30).map((record) => record.riskScore));
 
   return (
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#f8f4ea] text-emerald-950">
@@ -125,7 +120,7 @@ function Header({
       </div>
 
       <div className="mt-5 rounded-md border border-emerald-800/12 bg-white/58 px-4 py-3 text-xs leading-5 text-emerald-900/62">
-        数据基于美股最近一个交易日收盘后计算。当前页面使用 2026-01-01 起的模拟日度记录，用于先建立完整的历史风险数据库界面。
+        数据基于 FRED 日频历史序列逐日滚动计算。当前页面使用 2026-01-01 起的真实日终记录，所有风险评分均按同一套加权 Z 值模型生成。
       </div>
     </section>
   );
@@ -234,119 +229,6 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
   );
 }
 
-function generateMockHistory(
-  startDate: string,
-  endDate: string,
-  latestRiskScore: number,
-): DailyRiskRecord[] {
-  const days = getBusinessDays(startDate, endDate);
-  const records: DailyRiskRecord[] = [];
-  let risk = 48;
-
-  days.forEach((date, index) => {
-    const cycle = Math.sin(index / 11) * 8 + Math.sin(index / 29) * 6;
-    const shock = deterministicNoise(index, 3) * 7;
-    const eventPulse = index > days.length * 0.58 && index < days.length * 0.72 ? 14 : 0;
-    risk = clamp(risk * 0.72 + (48 + cycle + shock + eventPulse) * 0.28, 12, 92);
-
-    const pressure = (risk - 50) / 50;
-    const riskChange = index === 0 ? 0 : risk - records[records.length - 1].riskScore;
-    const spxChange = clamp(
-      deterministicNoise(index, 7) * 0.85 - pressure * 0.42 - riskChange * 0.035,
-      -3.8,
-      3.1,
-    );
-    const ndxChange = clamp(
-      spxChange * 1.18 + deterministicNoise(index, 13) * 0.52 - pressure * 0.18,
-      -5.2,
-      4.2,
-    );
-    const vix = clamp(11 + risk * 0.23 + deterministicNoise(index, 19) * 2.6, 11.5, 39.5);
-    const riskScore = Math.round(risk);
-
-    records.push({
-      date,
-      riskScore,
-      sentiment: getSentiment(riskScore),
-      spxChange: round(spxChange, 2),
-      ndxChange: round(ndxChange, 2),
-      vix: round(vix, 1),
-      dcaMultiplier: getDcaMultiplier(riskScore),
-    });
-  });
-
-  if (records.length > 0) {
-    const last = records[records.length - 1];
-    records[records.length - 1] = {
-      ...last,
-      riskScore: latestRiskScore,
-      sentiment: getSentiment(latestRiskScore),
-      dcaMultiplier: getDcaMultiplier(latestRiskScore),
-      vix: round(clamp(11 + latestRiskScore * 0.23 + deterministicNoise(records.length, 23) * 2.1, 11.5, 39.5), 1),
-    };
-  }
-
-  return records.reverse();
-}
-
-function getBusinessDays(startDate: string, endDate: string) {
-  const dates: string[] = [];
-  const current = new Date(`${startDate}T00:00:00Z`);
-  const end = new Date(`${endDate}T00:00:00Z`);
-
-  while (current <= end) {
-    const day = current.getUTCDay();
-
-    if (day !== 0 && day !== 6) {
-      dates.push(current.toISOString().slice(0, 10));
-    }
-
-    current.setUTCDate(current.getUTCDate() + 1);
-  }
-
-  return dates;
-}
-
-function getSentiment(score: number) {
-  if (score < 20) {
-    return "极度贪婪";
-  }
-
-  if (score < 40) {
-    return "贪婪";
-  }
-
-  if (score < 60) {
-    return "中性";
-  }
-
-  if (score < 80) {
-    return "恐慌";
-  }
-
-  return "极度恐慌";
-}
-
-function getDcaMultiplier(score: number) {
-  if (score < 20) {
-    return 0.3;
-  }
-
-  if (score < 40) {
-    return 0.6;
-  }
-
-  if (score < 60) {
-    return 1;
-  }
-
-  if (score < 80) {
-    return 1.7;
-  }
-
-  return 2.5;
-}
-
 function scoreTone(score: number): "green" | "yellow" | "orange" | "red" {
   if (score < 40) {
     return "green";
@@ -404,11 +286,6 @@ function formatPercent(value: number) {
   return `${sign}${value.toFixed(2)}%`;
 }
 
-function deterministicNoise(index: number, salt: number) {
-  const value = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453;
-  return (value - Math.floor(value)) * 2 - 1;
-}
-
 function average(values: number[]) {
   if (values.length === 0) {
     return 0;
@@ -417,11 +294,19 @@ function average(values: number[]) {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
-}
+function buildFallbackRecord(): DailyRiskRecord {
+  const volatility = snapshot.factors.find((factor) => factor.id === "volatility");
+  const strategy = getDcaStrategy(snapshot.riskScore);
 
-function round(value: number, digits: number) {
-  const factor = 10 ** digits;
-  return Math.round(value * factor) / factor;
+  return {
+    date: snapshot.asOf,
+    riskScore: snapshot.riskScore,
+    weightedZ: snapshot.weightedZ,
+    sentiment: snapshot.riskLevel,
+    spxChange: snapshot.indices.sp500.changePercent ?? 0,
+    ndxChange: snapshot.indices.nasdaq100.changePercent ?? 0,
+    vix: volatility?.rawValue ?? 0,
+    dcaMultiplier: strategy.multiplier,
+    source: "FRED",
+  };
 }
