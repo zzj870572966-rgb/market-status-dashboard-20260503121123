@@ -43,9 +43,9 @@ export default function TerminalHoverNav({
       : "bg-emerald-400/14 text-emerald-100";
 
   return (
-    <nav className="group fixed left-4 top-4 z-50">
+    <nav className="group fixed left-4 top-4 z-50 w-fit" aria-label="页面导航">
       <div
-        className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium backdrop-blur-xl transition duration-300 ${shellClass}`}
+        className={`flex w-fit cursor-default items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium backdrop-blur-xl transition duration-300 ${shellClass}`}
       >
         <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]" />
         <span>导航</span>
@@ -56,7 +56,7 @@ export default function TerminalHoverNav({
       </div>
 
       <div
-        className={`pointer-events-none mt-2 w-52 translate-y-1 rounded-lg border p-2 opacity-0 backdrop-blur-xl transition duration-300 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 ${menuClass}`}
+        className={`pointer-events-none absolute left-0 top-full mt-2 w-52 translate-y-1 rounded-lg border p-2 opacity-0 backdrop-blur-xl transition duration-300 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 ${menuClass}`}
       >
         {items.map((item) => {
           const Icon = item.icon;

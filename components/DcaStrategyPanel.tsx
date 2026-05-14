@@ -16,31 +16,31 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
   const strategy = getDcaStrategy(riskScore);
 
   return (
-    <section className="mt-6 overflow-hidden rounded-lg border border-[#164e3a]/70 bg-[#06120d] text-[#e8fff2] shadow-[0_28px_90px_rgba(5,40,26,0.28)]">
-      <div className="border-b border-[#1f513c] bg-[linear-gradient(135deg,rgba(6,18,13,0.98),rgba(7,36,25,0.94))] p-5 sm:p-6">
+    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-800/15 bg-[#fffdf6]/85 text-emerald-950 shadow-[0_28px_90px_rgba(67,96,70,0.13)] backdrop-blur-xl">
+      <div className="border-b border-emerald-800/10 bg-[linear-gradient(135deg,rgba(255,253,246,0.96),rgba(239,250,238,0.9))] p-5 sm:p-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-md border border-[#2f7b58] bg-[#0c2419] px-3 py-1.5 text-xs font-medium text-[#a7f3d0]">
+            <div className="inline-flex items-center gap-2 rounded-md border border-emerald-800/15 bg-emerald-50/70 px-3 py-1.5 text-xs font-medium text-emerald-800">
               <TrendingUp className="h-4 w-4" aria-hidden="true" />
               长期指数积累 · 逆向定投
             </div>
-            <h2 className="mt-4 text-2xl font-semibold tracking-normal text-[#f7fff9] sm:text-3xl">
+            <h2 className="mt-4 text-2xl font-semibold tracking-normal text-emerald-950 sm:text-3xl">
               动态定投策略系统
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-[#9db7a8]">
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-emerald-900/62">
               核心原则：市场越恐慌，长期定投价值越高。系统只用于长期指数投资与分批积累，不用于短线预测。
             </p>
           </div>
 
-          <div className="rounded-lg border border-[#2f7b58] bg-[#0a1d14] p-4">
-            <div className="flex items-center gap-2 text-xs text-[#9db7a8]">
-              <LockKeyhole className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
+          <div className="rounded-lg border border-emerald-800/15 bg-white/64 p-4 shadow-[0_18px_50px_rgba(67,96,70,0.09)]">
+            <div className="flex items-center gap-2 text-xs text-emerald-900/55">
+              <LockKeyhole className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               风控保护
             </div>
-            <div className="mt-2 text-2xl font-semibold text-[#bbf7d0]">
+            <div className="mt-2 text-2xl font-semibold text-emerald-800">
               最高 {strategy.maxMultiplier.toFixed(0)}x
             </div>
-            <p className="mt-2 max-w-xs text-xs leading-5 text-[#8aa595]">
+            <p className="mt-2 max-w-xs text-xs leading-5 text-emerald-900/55">
               定投倍率设置上限，避免无限放大投入，不鼓励满仓或杠杆化行为。
             </p>
           </div>
@@ -59,28 +59,28 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             />
           </div>
 
-          <div className="rounded-lg border border-[#1f513c] bg-[#0a1d14] p-4">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-2 text-sm font-medium text-[#e8fff2]">
-                <CalendarClock className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
+                <CalendarClock className="h-4 w-4 text-emerald-700" aria-hidden="true" />
                 当前建议
               </div>
-              <div className="text-xs text-[#8aa595]">
+              <div className="text-xs text-emerald-900/55">
                 执行口径：以个人长期计划为基准
               </div>
             </div>
-            <p className="text-base leading-7 text-[#dffdea]">{strategy.description}</p>
-            <div className="mt-4 rounded-md border border-[#2f7b58] bg-[#102d20] px-3 py-2 text-sm font-medium text-[#bbf7d0]">
+            <p className="text-base leading-7 text-emerald-950/82">{strategy.description}</p>
+            <div className="mt-4 rounded-md border border-emerald-800/14 bg-emerald-50/70 px-3 py-2 text-sm font-medium text-emerald-800">
               {strategy.advice}
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#1f513c] bg-[#0a1d14] p-4">
-            <div className="mb-3 flex items-center justify-between text-xs text-[#8aa595]">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+            <div className="mb-3 flex items-center justify-between text-xs text-emerald-900/55">
               <span>定投风险温度条</span>
               <span>{strategy.riskScore}/100</span>
             </div>
-            <div className="relative h-4 rounded-full bg-[#13281d] p-1">
+            <div className="relative h-4 rounded-full bg-emerald-100/70 p-1">
               <div
                 className="h-full rounded-full"
                 style={{
@@ -92,13 +92,13 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
                 className="absolute top-1/2 -translate-y-1/2"
                 style={{ left: `${strategy.riskScore}%` }}
               >
-                <div className="-ml-3 h-6 w-6 rounded-full border border-[#fff7ed] bg-[#fb923c] shadow-[0_0_26px_rgba(251,146,60,0.72)]" />
+                <div className="-ml-3 h-6 w-6 rounded-full border border-white bg-[#fb923c] shadow-[0_0_26px_rgba(251,146,60,0.42)]" />
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[10px] text-[#8aa595] sm:text-xs">
+            <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[10px] text-emerald-900/52 sm:text-xs">
               {DCA_BANDS.map((band) => (
                 <div key={band.state} className="min-w-0">
-                  <div className="truncate text-[#dffdea]">{band.state}</div>
+                  <div className="truncate text-emerald-950">{band.state}</div>
                   <div className="mt-1">{band.multiplier.toFixed(1)}x</div>
                 </div>
               ))}
@@ -107,13 +107,13 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
         </div>
 
         <div className="space-y-5">
-          <div className="rounded-lg border border-[#1f513c] bg-[#0a1d14] p-4">
-            <div className="flex items-center gap-2 text-sm font-medium text-[#e8fff2]">
-              <Percent className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
+          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
+              <Percent className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               定投倍率映射表
             </div>
-            <div className="mt-4 overflow-hidden rounded-lg border border-[#1f513c]">
-              <div className="grid grid-cols-[0.85fr_1fr_0.8fr] bg-[#102d20] px-3 py-2 text-xs text-[#8aa595]">
+            <div className="mt-4 overflow-hidden rounded-lg border border-emerald-800/12">
+              <div className="grid grid-cols-[0.85fr_1fr_0.8fr] bg-emerald-50/72 px-3 py-2 text-xs text-emerald-900/55">
                 <div>风险区间</div>
                 <div>市场状态</div>
                 <div>倍率</div>
@@ -121,13 +121,13 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
               {DCA_BANDS.map((band) => (
                 <div
                   key={band.state}
-                  className="grid grid-cols-[0.85fr_1fr_0.8fr] border-t border-[#1f513c] px-3 py-2 text-sm"
+                  className="grid grid-cols-[0.85fr_1fr_0.8fr] border-t border-emerald-800/10 px-3 py-2 text-sm"
                 >
-                  <div className="font-mono text-[#b7d5c3]">
+                  <div className="font-mono text-emerald-900/62">
                     {band.min}-{band.max}
                   </div>
-                  <div className="font-medium text-[#e8fff2]">{band.state}</div>
-                  <div className="font-semibold text-[#bbf7d0]">
+                  <div className="font-medium text-emerald-950">{band.state}</div>
+                  <div className="font-semibold text-emerald-800">
                     {band.multiplier.toFixed(1)}x
                   </div>
                 </div>
@@ -135,15 +135,15 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#1f513c] bg-[linear-gradient(180deg,rgba(12,36,25,0.94),rgba(7,22,15,0.98))] p-4 shadow-[0_0_44px_rgba(34,197,94,0.08)]">
-            <div className="flex items-center gap-2 text-sm font-medium text-[#e8fff2]">
-              <BrainCircuit className="h-4 w-4 text-[#86efac]" aria-hidden="true" />
+          <div className="rounded-lg border border-emerald-800/12 bg-[linear-gradient(180deg,rgba(255,253,246,0.92),rgba(239,250,238,0.8))] p-4 shadow-[0_0_44px_rgba(34,197,94,0.06)]">
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
+              <BrainCircuit className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               智能策略解释
             </div>
-            <p className="mt-4 text-sm leading-7 text-[#dffdea]">
+            <p className="mt-4 text-sm leading-7 text-emerald-950/78">
               当前市场情绪偏向{strategy.state}，系统建议按长期纪律调整定投力度。该模块强调逆向积累、分批执行与现金流稳定，而不是短线择时。
             </p>
-            <div className="mt-4 flex items-start gap-2 rounded-md border border-[#2f7b58] bg-[#102d20] px-3 py-2 text-xs leading-5 text-[#a7f3d0]">
+            <div className="mt-4 flex items-start gap-2 rounded-md border border-emerald-800/14 bg-emerald-50/70 px-3 py-2 text-xs leading-5 text-emerald-800">
               <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
               该模块服务于长期指数投资，不构成短线交易信号，也不建议使用杠杆或一次性满仓。
             </div>
@@ -163,11 +163,11 @@ function DcaMetric({
   value: string;
   tone: "green" | "orange";
 }) {
-  const color = tone === "green" ? "text-[#bbf7d0]" : "text-[#fdba74]";
+  const color = tone === "green" ? "text-emerald-800" : "text-orange-700";
 
   return (
-    <div className="rounded-lg border border-[#1f513c] bg-[#0a1d14] p-4">
-      <div className="text-xs text-[#8aa595]">{label}</div>
+    <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+      <div className="text-xs text-emerald-900/55">{label}</div>
       <div className={`mt-3 text-2xl font-semibold tracking-normal ${color}`}>
         {value}
       </div>

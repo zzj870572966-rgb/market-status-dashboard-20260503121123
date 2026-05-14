@@ -12,13 +12,13 @@
 
 html {
   min-height: 100%;
-  background: #edf7ef;
+  background: #f8f4ea;
 }
 
 body {
   min-height: 100%;
   margin: 0;
-  background: #edf7ef;
+  background: #f8f4ea;
   color: #102018;
 }
 
@@ -34,10 +34,10 @@ a {
 .smooth-risk-bg {
   position: relative;
   background:
-    radial-gradient(circle at 12% 8%, rgba(187, 247, 208, 0.72), transparent 34%),
-    radial-gradient(circle at 86% 6%, rgba(204, 251, 241, 0.58), transparent 32%),
-    radial-gradient(circle at 50% 100%, rgba(220, 252, 231, 0.72), transparent 42%),
-    linear-gradient(180deg, #f4fbf5 0%, #eef8f0 46%, #e8f4ec 100%);
+    radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.86), transparent 34%),
+    radial-gradient(circle at 86% 8%, rgba(216, 245, 224, 0.54), transparent 30%),
+    radial-gradient(circle at 50% 100%, rgba(234, 248, 232, 0.56), transparent 42%),
+    linear-gradient(180deg, #fffaf0 0%, #f8f4ea 48%, #f2f8ee 100%);
 }
 
 .smooth-risk-bg::before {
@@ -46,9 +46,9 @@ a {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.1) 42%, rgba(16, 185, 129, 0.06)),
-    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.56), transparent 36%);
-  opacity: 0.82;
+    linear-gradient(120deg, rgba(255, 253, 245, 0.76), rgba(255, 255, 255, 0.12) 42%, rgba(16, 185, 129, 0.04)),
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.64), transparent 36%);
+  opacity: 0.9;
 }
 
 .smooth-risk-bg > * {
@@ -66,11 +66,11 @@ a {
 }
 
 .risk-glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(236, 253, 245, 0.72));
-  border: 1px solid rgba(21, 128, 61, 0.14);
+  background: linear-gradient(180deg, rgba(255, 253, 246, 0.9), rgba(248, 255, 247, 0.74));
+  border: 1px solid rgba(21, 128, 61, 0.13);
   box-shadow:
-    0 24px 70px rgba(15, 84, 53, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    0 24px 70px rgba(67, 96, 70, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(18px);
 }
 
