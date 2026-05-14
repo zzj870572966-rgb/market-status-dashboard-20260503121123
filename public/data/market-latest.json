@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-13",
-  "generatedAt": "2026-05-13T18:00:01.992Z",
+  "generatedAt": "2026-05-14T04:24:28.562Z",
   "status": {
     "isPartial": false,
     "message": "所有数据源已成功更新。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T18:00:01.992Z",
+        "updatedAt": "2026-05-14T04:24:28.562Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500",
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T18:00:01.992Z",
+        "updatedAt": "2026-05-14T04:24:28.562Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T18:00:01.992Z",
+        "updatedAt": "2026-05-14T04:24:28.562Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,12 +43,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-13T18:00:01.992Z",
+        "updatedAt": "2026-05-14T04:24:28.562Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
-          "Valuation",
-          "Options Structure"
+          "Options Structure",
+          "Valuation"
         ],
         "failed": []
       }
@@ -56,7 +56,7 @@
   },
   "indices": {
     "sp500": {
-      "value": 7442.6,
+      "value": 7444.3,
       "previous": null,
       "change": null,
       "changePercent": null,
@@ -65,7 +65,7 @@
       "stale": false
     },
     "nasdaq100": {
-      "value": 29335.33,
+      "value": 29366.94,
       "previous": null,
       "change": null,
       "changePercent": null,
@@ -96,31 +96,31 @@
   },
   "rates": {
     "us10y": {
-      "value": 4.42,
-      "previous": 4.38,
+      "value": 4.46,
+      "previous": 4.42,
       "change": 0.04,
-      "changePercent": 0.91,
-      "date": "2026-05-11",
+      "changePercent": 0.9,
+      "date": "2026-05-12",
       "source": "10Y Treasury",
       "unit": "%",
       "stale": false
     },
     "us2y": {
-      "value": 3.95,
-      "previous": 3.9,
+      "value": 4,
+      "previous": 3.95,
       "change": 0.05,
-      "changePercent": 1.28,
-      "date": "2026-05-11",
+      "changePercent": 1.27,
+      "date": "2026-05-12",
       "source": "2Y Treasury",
       "unit": "%",
       "stale": false
     },
     "yieldCurve2s10s": {
-      "value": 47,
-      "previous": 48,
+      "value": 46,
+      "previous": 47,
       "change": -1,
       "changePercent": null,
-      "date": "2026-05-11",
+      "date": "2026-05-12",
       "source": "FRED",
       "unit": "bp",
       "stale": false
@@ -138,11 +138,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 42,
+      "value": 34,
       "previous": 42,
-      "change": 0,
+      "change": -8,
       "changePercent": null,
-      "date": "2026-05-13",
+      "date": "2026-05-14",
       "source": "Alternative.me",
       "classification": "Fear",
       "stale": false
