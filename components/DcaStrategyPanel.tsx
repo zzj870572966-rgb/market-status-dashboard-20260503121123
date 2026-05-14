@@ -51,7 +51,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
         <div className="space-y-5">
           <div className="grid gap-3 sm:grid-cols-3">
             <DcaMetric label="当前市场状态" value={strategy.state} tone="orange" />
-            <DcaMetric label="当前风险评分" value={`${strategy.riskScore}`} tone="orange" />
+            <DcaMetric label="当前标准化风险评分" value={`${strategy.riskScore}`} tone="orange" />
             <DcaMetric
               label="当前定投倍率"
               value={`${strategy.multiplier.toFixed(1)}x`}
@@ -95,7 +95,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
                 <div className="-ml-3 h-6 w-6 rounded-full border border-white bg-[#fb923c] shadow-[0_0_14px_rgba(251,146,60,0.3)]" />
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-5 gap-2 text-center text-[10px] text-emerald-900/52 sm:text-xs">
+            <div className="mt-3 grid grid-cols-3 gap-2 text-center text-[10px] text-emerald-900/52 sm:grid-cols-6 sm:text-xs">
               {DCA_BANDS.map((band) => (
                 <div key={band.state} className="min-w-0">
                   <div className="truncate text-emerald-950">{band.state}</div>

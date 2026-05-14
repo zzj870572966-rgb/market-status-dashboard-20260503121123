@@ -1,4 +1,10 @@
-export type DcaState = "极度贪婪" | "贪婪" | "中性" | "恐慌" | "极度恐慌";
+import {
+  getDcaMultiplier,
+  getMarketState,
+  type RiskLevel,
+} from "./riskDashboard";
+
+export type DcaState = RiskLevel;
 
 export interface DcaBand {
   min: number;
@@ -58,24 +64,29 @@ export const DCA_BANDS: DcaBand[] = [
   },
   {
     min: 80,
-    max: 100,
+    max: 95,
     state: "极度恐慌",
     multiplier: 2.5,
     advice: "强力加仓",
     description:
       "市场处于极度恐慌阶段，逆向定投价值提升，但仍需遵守现金流与风控边界。",
   },
+  {
+    min: 95,
+    max: 100,
+    state: "危机级恐慌",
+    multiplier: 3,
+    advice: "危机级加仓上限",
+    description:
+      "市场进入危机级压力区间，定投倍率达到系统上限，仍需坚持分批执行与现金流约束。",
+  },
 ];
 
 export function getDcaStrategy(riskScore: number): DcaStrategy {
   const safeScore = clamp(Math.round(riskScore), 0, 100);
-  const band =
-    DCA_BANDS.find((item) =>
-      safeScore === 100
-        ? item.max === 100
-        : safeScore >= item.min && safeScore < item.max,
-    ) ?? DCA_BANDS[2];
-  const multiplier = Math.min(band.multiplier, MAX_DCA_MULTIPLIER);
+  const state = getMarketState(safeScore);
+  const band = DCA_BANDS.find((item) => item.state === state) ?? DCA_BANDS[2];
+  const multiplier = Math.min(getDcaMultiplier(safeScore), MAX_DCA_MULTIPLIER);
 
   return {
     maxMultiplier: MAX_DCA_MULTIPLIER,

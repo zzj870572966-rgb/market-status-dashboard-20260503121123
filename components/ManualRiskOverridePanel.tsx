@@ -10,10 +10,13 @@ import {
 } from "lucide-react";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
 import {
+  calculateWeightedRiskZ,
+  clipZScore,
+  convertWeightedZToRiskScore,
+  detectCrisisFlag,
   formatSigned,
-  getRiskLevel,
+  getMarketState,
   getRiskPosture,
-  normalizeWeightedZ,
   type RiskDashboardFactor,
   type RiskDashboardSnapshot,
 } from "@/lib/riskDashboard";
@@ -43,7 +46,7 @@ export default function ManualRiskOverridePanel({
         Number.isFinite(factor.riskStdDev) && factor.riskStdDev > 0
           ? factor.riskStdDev
           : Math.max(Math.abs(factor.rawStdDev), 0.0001);
-      const zScore = (riskValue - riskBenchmark) / riskStdDev;
+      const zScore = clipZScore((riskValue - riskBenchmark) / riskStdDev);
 
       return {
         ...factor,
@@ -52,9 +55,18 @@ export default function ManualRiskOverridePanel({
         manualContribution: factor.weight * zScore,
       };
     });
-    const weightedZ = factors.reduce((sum, factor) => sum + factor.manualContribution, 0);
-    const riskScore = normalizeWeightedZ(weightedZ);
-    const riskLevel = getRiskLevel(riskScore);
+    const weightedInputs = factors.map((factor) => ({
+      id: factor.id,
+      weight: factor.weight,
+      zScore: factor.manualZScore,
+    }));
+    const weightedZ = calculateWeightedRiskZ(weightedInputs);
+    const crisisFlag = detectCrisisFlag({
+      weightedRiskZ: weightedZ,
+      factors: weightedInputs,
+    });
+    const riskScore = convertWeightedZToRiskScore(weightedZ, crisisFlag);
+    const riskLevel = getMarketState(riskScore);
     const dca = getDcaStrategy(riskScore);
 
     return {
@@ -95,12 +107,12 @@ export default function ManualRiskOverridePanel({
             手动输入最新指标并确认重算
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-            官方模型默认使用上一交易日收盘数据。你也可以把自己查到的最新值填入下方入口，点击确认后在当前浏览器内重算新的 Z 值、市场温度和定投倍率。
+            官方模型默认使用上一交易日收盘数据。你也可以把自己查到的最新值填入下方入口，点击确认后在当前浏览器内重算标准化风险评分、市场温度和定投倍率。
           </p>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
-          <ManualResultCard label="手动风险评分" value={`${result.riskScore} / 100`} tone="orange" />
+          <ManualResultCard label="手动标准化风险评分" value={`${result.riskScore} / 100`} tone="orange" />
           <ManualResultCard label="手动市场状态" value={result.riskLevel} tone="green" />
           <ManualResultCard
             label="手动定投倍率"
@@ -148,7 +160,7 @@ export default function ManualRiskOverridePanel({
 
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-md border border-slate-800 bg-slate-950/60 p-3">
-            <div className="text-xs text-slate-500">手动加权 Z 值</div>
+            <div className="text-xs text-slate-500">模型风险强度 R</div>
             <div className="mt-2 font-mono text-2xl font-semibold text-cyan-300">
               {formatSigned(result.weightedZ)}
             </div>
@@ -228,7 +240,7 @@ function ManualInputCard({
       <div className="mt-4 space-y-2 text-xs">
         <InfoRow label="官方收盘值" value={factor.rawDisplay} />
         <InfoRow label={factor.benchmarkLabel} value={factor.benchmarkDisplay} />
-        <InfoRow label="手动 Z 值" value={formatSigned(factor.manualZScore)} />
+        <InfoRow label="因子 Z 值" value={formatSigned(factor.manualZScore)} />
         <InfoRow label="贡献" value={formatSigned(factor.manualContribution)} />
       </div>
     </div>

@@ -1,4 +1,4 @@
-{
+﻿{
   "schemaVersion": 1,
   "asOf": "2026-05-12",
   "generatedAt": "2026-05-13T18:00:03.528Z",
@@ -212,8 +212,9 @@
   "summary": "当前市场温度为 40/100，处于中性区间。主要风险贡献来自动能、信用、收益率曲线。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
     "formula": "RiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
-    "normalization": "RiskScore = clamp(50 + 25 × RiskZ, 0, 100)",
-    "scoreMapping": "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-80 恐慌；80-100 极度恐慌",
+    "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(RiskZ / 2))))",
+    "scoreMapping": "0-20 极度贪婪；20-40 贪婪；40-60 中性；60-80 恐慌；80-95 极度恐慌；95-100 危机级恐慌",
     "dataFrequency": "上一交易日收盘数据，每日由 GitHub Actions 自动更新"
   }
 }
+

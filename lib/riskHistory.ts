@@ -1,11 +1,15 @@
 import type { FredSeriesPoint } from "./fetchers/fred";
 import {
   RISK_FACTOR_WEIGHTS,
-  getRiskLevel,
-  normalizeWeightedZ,
+  calculateRollingZ,
+  calculateWeightedRiskZ,
+  clipZScore,
+  convertWeightedZToRiskScore,
+  detectCrisisFlag,
+  getDcaMultiplier,
+  getMarketState,
   type RiskLevel,
 } from "./riskDashboard";
-import { getDcaStrategy } from "./dcaStrategy";
 
 export interface DailyRiskRecord {
   date: string;
@@ -88,25 +92,49 @@ export function buildRealRiskHistory(
         return null;
       }
 
-      const weightedZ = round(
-        RISK_FACTOR_WEIGHTS.volatility * volatility.zScore +
-          RISK_FACTOR_WEIGHTS.credit * credit.zScore +
-          RISK_FACTOR_WEIGHTS.yieldCurve * yieldCurve.zScore +
-          RISK_FACTOR_WEIGHTS.trend * trend.zScore +
-          RISK_FACTOR_WEIGHTS.momentum * momentum.zScore,
-        4,
-      );
-      const riskScore = normalizeWeightedZ(weightedZ);
+      const factorInputs = [
+        {
+          id: "volatility" as const,
+          weight: RISK_FACTOR_WEIGHTS.volatility,
+          zScore: volatility.zScore,
+        },
+        {
+          id: "credit" as const,
+          weight: RISK_FACTOR_WEIGHTS.credit,
+          zScore: credit.zScore,
+        },
+        {
+          id: "yieldCurve" as const,
+          weight: RISK_FACTOR_WEIGHTS.yieldCurve,
+          zScore: yieldCurve.zScore,
+        },
+        {
+          id: "trend" as const,
+          weight: RISK_FACTOR_WEIGHTS.trend,
+          zScore: trend.zScore,
+        },
+        {
+          id: "momentum" as const,
+          weight: RISK_FACTOR_WEIGHTS.momentum,
+          zScore: momentum.zScore,
+        },
+      ];
+      const weightedZ = calculateWeightedRiskZ(factorInputs);
+      const crisisFlag = detectCrisisFlag({
+        weightedRiskZ: weightedZ,
+        factors: factorInputs,
+      });
+      const riskScore = convertWeightedZToRiskScore(weightedZ, crisisFlag);
 
       return {
         date,
         riskScore,
         weightedZ,
-        sentiment: getRiskLevel(riskScore),
+        sentiment: getMarketState(riskScore),
         spxChange: round(percentChange(spx.value, spx.previous), 2),
         ndxChange: round(percentChange(ndx.value, ndx.previous), 2),
         vix: round(volatility.value, 2),
-        dcaMultiplier: getDcaStrategy(riskScore).multiplier,
+        dcaMultiplier: getDcaMultiplier(riskScore),
         source: "FRED" as const,
       };
     })
@@ -230,13 +258,10 @@ function scoreRiskSeries(series: DerivedPoint[], windowDays: number): ScoredPoin
       const windowValues = series
         .slice(index - windowDays + 1, index + 1)
         .map((item) => item.riskValue);
-      const mean = average(windowValues);
-      const std = standardDeviation(windowValues);
-
       return {
         date: point.date,
         value: point.rawValue,
-        zScore: round(safeZ(point.riskValue, mean, std), 2),
+        zScore: round(clipZScore(calculateRollingZ(point.riskValue, windowValues)), 2),
       };
     })
     .filter((point): point is ScoredPoint => Boolean(point));
@@ -290,21 +315,6 @@ function average(values: number[]) {
   }
 
   return values.reduce((total, value) => total + value, 0) / values.length;
-}
-
-function standardDeviation(values: number[]) {
-  const mean = average(values);
-  const variance = average(values.map((value) => (value - mean) ** 2));
-
-  return Math.sqrt(variance);
-}
-
-function safeZ(value: number, mean: number, std: number) {
-  if (!Number.isFinite(std) || std === 0) {
-    return 0;
-  }
-
-  return (value - mean) / std;
 }
 
 function round(value: number, digits: number) {

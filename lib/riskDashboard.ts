@@ -1,6 +1,12 @@
 import type { FredSeriesPoint } from "./fetchers/fred";
 
-export type RiskLevel = "极度贪婪" | "贪婪" | "中性" | "恐慌" | "极度恐慌";
+export type RiskLevel =
+  | "极度贪婪"
+  | "贪婪"
+  | "中性"
+  | "恐慌"
+  | "极度恐慌"
+  | "危机级恐慌";
 
 export type RiskFactorId =
   | "volatility"
@@ -104,6 +110,12 @@ export const RISK_FACTOR_WEIGHTS: Record<RiskFactorId, number> = {
   momentum: 0.2,
 };
 
+export interface WeightedRiskInput {
+  id?: RiskFactorId;
+  weight: number;
+  zScore: number;
+}
+
 export function buildSimpleFactor({
   id,
   name,
@@ -130,7 +142,10 @@ export function buildSimpleFactor({
   const previous = clean[clean.length - 2];
   const windowValues = clean.slice(-windowDays).map((point) => point.value);
   const stats = rollingStats(windowValues);
-  const zScore = safeZ(latest.value, stats.mean, stats.std);
+  const zScore = normalizeRiskDirection(
+    calculateRollingZ(latest.value, windowValues),
+    "keep",
+  );
 
   return buildFactor({
     id,
@@ -176,7 +191,10 @@ export function buildYieldCurveFactor({
   const riskWindow = spreadSeries.slice(-windowDays).map((point) => point.riskValue);
   const rawStats = rollingStats(rawWindow);
   const riskStats = rollingStats(riskWindow);
-  const zScore = safeZ(latest.riskValue, riskStats.mean, riskStats.std);
+  const zScore = normalizeRiskDirection(
+    calculateRollingZ(latest.rawValue, rawWindow),
+    "invert",
+  );
 
   return buildFactor({
     id: "yieldCurve",
@@ -231,7 +249,10 @@ export function buildTrendFactor(sp500: FredSeriesPoint[]): RiskDashboardFactor 
   const riskWindow = trendSeries.slice(-windowDays).map((point) => point.riskValue);
   const rawStats = rollingStats(rawWindow);
   const riskStats = rollingStats(riskWindow);
-  const zScore = safeZ(latest.riskValue, riskStats.mean, riskStats.std);
+  const zScore = normalizeRiskDirection(
+    calculateRollingZ(latest.rawValue, rawWindow),
+    "invert",
+  );
 
   return buildFactor({
     id: "trend",
@@ -287,7 +308,10 @@ export function buildMomentumFactor(sp500: FredSeriesPoint[]): RiskDashboardFact
   const riskWindow = momentumSeries.slice(-windowDays).map((point) => point.riskValue);
   const rawStats = rollingStats(rawWindow);
   const riskStats = rollingStats(riskWindow);
-  const zScore = safeZ(latest.riskValue, riskStats.mean, riskStats.std);
+  const zScore = normalizeRiskDirection(
+    calculateRollingZ(latest.rawValue, rawWindow),
+    "invert",
+  );
 
   return buildFactor({
     id: "momentum",
@@ -350,18 +374,80 @@ export function buildIndexSnapshot({
   };
 }
 
-export function calculateWeightedZ(factors: RiskDashboardFactor[]) {
+export function calculateRollingZ(currentValue: number, rollingValues: number[]) {
+  const stats = rollingStats(rollingValues);
+
+  return safeZ(currentValue, stats.mean, stats.std);
+}
+
+export function normalizeRiskDirection(
+  zScore: number,
+  direction: "keep" | "invert",
+) {
+  return direction === "invert" ? -zScore : zScore;
+}
+
+export function clipZScore(zScore: number) {
+  return clamp(zScore, -3, 3);
+}
+
+export function calculateWeightedRiskZ(factors: ReadonlyArray<WeightedRiskInput>) {
   return round(
-    factors.reduce((total, factor) => total + factor.weight * factor.zScore, 0),
+    factors.reduce((total, factor) => total + factor.weight * clipZScore(factor.zScore), 0),
     4,
   );
 }
 
-export function normalizeWeightedZ(value: number) {
-  return Math.round(clamp(50 + value * 25, 0, 100));
+export function calculateWeightedZ(factors: ReadonlyArray<WeightedRiskInput>) {
+  return calculateWeightedRiskZ(factors);
 }
 
-export function getRiskLevel(score: number): RiskLevel {
+export function detectCrisisFlag({
+  weightedRiskZ,
+  factors,
+}: {
+  weightedRiskZ: number;
+  factors: ReadonlyArray<WeightedRiskInput>;
+}) {
+  const clippedFactors = factors.map((factor) => ({
+    ...factor,
+    zScore: clipZScore(factor.zScore),
+  }));
+  const zById = new Map(
+    clippedFactors
+      .filter((factor) => factor.id)
+      .map((factor) => [factor.id as RiskFactorId, factor.zScore]),
+  );
+  const highFactorCount = clippedFactors.filter((factor) => factor.zScore >= 2.5).length;
+
+  return (
+    weightedRiskZ >= 4.5 ||
+    ((zById.get("volatility") ?? -Infinity) >= 3 &&
+      (zById.get("credit") ?? -Infinity) >= 3) ||
+    ((zById.get("trend") ?? -Infinity) >= 3 &&
+      (zById.get("momentum") ?? -Infinity) >= 3) ||
+    highFactorCount >= 4
+  );
+}
+
+export function convertWeightedZToRiskScore(
+  weightedRiskZ: number,
+  crisisFlag = false,
+) {
+  if (crisisFlag) {
+    return 100;
+  }
+
+  const rawScore = 50 + 50 * Math.tanh(weightedRiskZ / 2);
+
+  return Math.min(99, Math.max(1, Math.round(rawScore)));
+}
+
+export function normalizeWeightedZ(value: number) {
+  return convertWeightedZToRiskScore(value, false);
+}
+
+export function getMarketState(score: number): RiskLevel {
   if (score < 20) {
     return "极度贪婪";
   }
@@ -378,7 +464,39 @@ export function getRiskLevel(score: number): RiskLevel {
     return "恐慌";
   }
 
-  return "极度恐慌";
+  if (score < 95) {
+    return "极度恐慌";
+  }
+
+  return "危机级恐慌";
+}
+
+export function getRiskLevel(score: number): RiskLevel {
+  return getMarketState(score);
+}
+
+export function getDcaMultiplier(score: number) {
+  if (score < 20) {
+    return 0.3;
+  }
+
+  if (score < 40) {
+    return 0.6;
+  }
+
+  if (score < 60) {
+    return 1;
+  }
+
+  if (score < 80) {
+    return 1.7;
+  }
+
+  if (score < 95) {
+    return 2.5;
+  }
+
+  return 3;
 }
 
 export function getRiskPosture(score: number) {
@@ -398,7 +516,11 @@ export function getRiskPosture(score: number) {
     return "偏防御";
   }
 
-  return "高度防御";
+  if (score < 95) {
+    return "高度防御";
+  }
+
+  return "危机防御";
 }
 
 export function buildRiskSummary({
@@ -482,7 +604,8 @@ function buildFactor({
   date: string;
   stale: boolean;
 }): RiskDashboardFactor {
-  const factorScore = normalizeWeightedZ(zScore);
+  const clippedZScore = clipZScore(zScore);
+  const factorScore = convertWeightedZToRiskScore(clippedZScore, false);
 
   return {
     id,
@@ -497,9 +620,9 @@ function buildFactor({
     riskValue: round(currentRiskValue, 4),
     riskBenchmarkValue: round(riskBenchmarkValue, 4),
     riskStdDev: round(riskStdDev, 4),
-    zScore: round(zScore, 2),
+    zScore: round(clippedZScore, 2),
     weight,
-    contribution: round(weight * zScore, 2),
+    contribution: round(weight * clippedZScore, 2),
     riskLevel: getFactorLevel(factorScore),
     progress: factorScore,
     trend: getTrend(previousRiskValue, currentRiskValue),

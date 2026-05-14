@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-14T15:07:59.939Z",
+  "generatedAt": "2026-05-14T15:34:54.900Z",
   "source": "FRED daily historical series",
   "startDate": "2026-01-01",
   "endDate": "2026-05-13",
@@ -261,7 +261,7 @@
     {
       "date": "2026-02-05",
       "riskScore": 62,
-      "weightedZ": 0.4985,
+      "weightedZ": 0.473,
       "sentiment": "恐慌",
       "spxChange": -1.23,
       "ndxChange": -1.38,
@@ -315,7 +315,7 @@
     },
     {
       "date": "2026-02-12",
-      "riskScore": 63,
+      "riskScore": 62,
       "weightedZ": 0.5075,
       "sentiment": "恐慌",
       "spxChange": -1.57,
@@ -359,7 +359,7 @@
     },
     {
       "date": "2026-02-19",
-      "riskScore": 61,
+      "riskScore": 60,
       "weightedZ": 0.4235,
       "sentiment": "恐慌",
       "spxChange": -0.28,
@@ -436,7 +436,7 @@
     },
     {
       "date": "2026-03-02",
-      "riskScore": 67,
+      "riskScore": 66,
       "weightedZ": 0.662,
       "sentiment": "恐慌",
       "spxChange": 0.04,
@@ -447,7 +447,7 @@
     },
     {
       "date": "2026-03-03",
-      "riskScore": 73,
+      "riskScore": 72,
       "weightedZ": 0.9275,
       "sentiment": "恐慌",
       "spxChange": -0.94,
@@ -458,7 +458,7 @@
     },
     {
       "date": "2026-03-04",
-      "riskScore": 67,
+      "riskScore": 66,
       "weightedZ": 0.682,
       "sentiment": "恐慌",
       "spxChange": 0.78,
@@ -469,7 +469,7 @@
     },
     {
       "date": "2026-03-05",
-      "riskScore": 72,
+      "riskScore": 71,
       "weightedZ": 0.8745,
       "sentiment": "恐慌",
       "spxChange": -0.56,
@@ -480,18 +480,18 @@
     },
     {
       "date": "2026-03-06",
-      "riskScore": 82,
-      "weightedZ": 1.289,
-      "sentiment": "极度恐慌",
+      "riskScore": 78,
+      "weightedZ": 1.2815,
+      "sentiment": "恐慌",
       "spxChange": -1.33,
       "ndxChange": -1.51,
       "vix": 29.49,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 1.7,
       "source": "FRED"
     },
     {
       "date": "2026-03-09",
-      "riskScore": 78,
+      "riskScore": 76,
       "weightedZ": 1.136,
       "sentiment": "恐慌",
       "spxChange": 0.83,
@@ -502,7 +502,7 @@
     },
     {
       "date": "2026-03-10",
-      "riskScore": 75,
+      "riskScore": 73,
       "weightedZ": 1.0175,
       "sentiment": "恐慌",
       "spxChange": -0.21,
@@ -513,7 +513,7 @@
     },
     {
       "date": "2026-03-11",
-      "riskScore": 76,
+      "riskScore": 74,
       "weightedZ": 1.0325,
       "sentiment": "恐慌",
       "spxChange": -0.08,
@@ -524,8 +524,8 @@
     },
     {
       "date": "2026-03-12",
-      "riskScore": 85,
-      "weightedZ": 1.4185,
+      "riskScore": 80,
+      "weightedZ": 1.4035,
       "sentiment": "极度恐慌",
       "spxChange": -1.52,
       "ndxChange": -1.73,
@@ -535,8 +535,8 @@
     },
     {
       "date": "2026-03-13",
-      "riskScore": 86,
-      "weightedZ": 1.4525,
+      "riskScore": 81,
+      "weightedZ": 1.424,
       "sentiment": "极度恐慌",
       "spxChange": -0.61,
       "ndxChange": -0.62,
@@ -546,18 +546,18 @@
     },
     {
       "date": "2026-03-16",
-      "riskScore": 80,
+      "riskScore": 77,
       "weightedZ": 1.201,
-      "sentiment": "极度恐慌",
+      "sentiment": "恐慌",
       "spxChange": 1.01,
       "ndxChange": 1.13,
       "vix": 23.51,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 1.7,
       "source": "FRED"
     },
     {
       "date": "2026-03-17",
-      "riskScore": 79,
+      "riskScore": 76,
       "weightedZ": 1.1475,
       "sentiment": "恐慌",
       "spxChange": 0.25,
@@ -568,7 +568,7 @@
     },
     {
       "date": "2026-03-18",
-      "riskScore": 84,
+      "riskScore": 80,
       "weightedZ": 1.372,
       "sentiment": "极度恐慌",
       "spxChange": -1.36,
@@ -579,7 +579,7 @@
     },
     {
       "date": "2026-03-19",
-      "riskScore": 87,
+      "riskScore": 81,
       "weightedZ": 1.47,
       "sentiment": "极度恐慌",
       "spxChange": -0.27,
@@ -590,8 +590,8 @@
     },
     {
       "date": "2026-03-20",
-      "riskScore": 89,
-      "weightedZ": 1.5735,
+      "riskScore": 82,
+      "weightedZ": 1.536,
       "sentiment": "极度恐慌",
       "spxChange": -1.51,
       "ndxChange": -1.88,
@@ -601,7 +601,7 @@
     },
     {
       "date": "2026-03-23",
-      "riskScore": 86,
+      "riskScore": 81,
       "weightedZ": 1.453,
       "sentiment": "极度恐慌",
       "spxChange": 1.15,
@@ -612,7 +612,7 @@
     },
     {
       "date": "2026-03-24",
-      "riskScore": 89,
+      "riskScore": 83,
       "weightedZ": 1.559,
       "sentiment": "极度恐慌",
       "spxChange": -0.37,
@@ -623,7 +623,7 @@
     },
     {
       "date": "2026-03-25",
-      "riskScore": 87,
+      "riskScore": 81,
       "weightedZ": 1.4745,
       "sentiment": "极度恐慌",
       "spxChange": 0.54,
@@ -634,7 +634,7 @@
     },
     {
       "date": "2026-03-26",
-      "riskScore": 95,
+      "riskScore": 86,
       "weightedZ": 1.785,
       "sentiment": "极度恐慌",
       "spxChange": -1.74,
@@ -645,8 +645,8 @@
     },
     {
       "date": "2026-03-27",
-      "riskScore": 100,
-      "weightedZ": 2.1185,
+      "riskScore": 89,
+      "weightedZ": 2.0825,
       "sentiment": "极度恐慌",
       "spxChange": -1.67,
       "ndxChange": -1.93,
@@ -656,8 +656,8 @@
     },
     {
       "date": "2026-03-30",
-      "riskScore": 100,
-      "weightedZ": 2.2235,
+      "riskScore": 90,
+      "weightedZ": 2.1965,
       "sentiment": "极度恐慌",
       "spxChange": -0.39,
       "ndxChange": -0.78,
@@ -667,8 +667,8 @@
     },
     {
       "date": "2026-03-31",
-      "riskScore": 93,
-      "weightedZ": 1.7045,
+      "riskScore": 85,
+      "weightedZ": 1.6985,
       "sentiment": "极度恐慌",
       "spxChange": 2.91,
       "ndxChange": 3.43,
@@ -678,7 +678,7 @@
     },
     {
       "date": "2026-04-01",
-      "riskScore": 88,
+      "riskScore": 82,
       "weightedZ": 1.5125,
       "sentiment": "极度恐慌",
       "spxChange": 0.72,
@@ -689,7 +689,7 @@
     },
     {
       "date": "2026-04-02",
-      "riskScore": 87,
+      "riskScore": 81,
       "weightedZ": 1.482,
       "sentiment": "极度恐慌",
       "spxChange": 0.11,
@@ -700,7 +700,7 @@
     },
     {
       "date": "2026-04-06",
-      "riskScore": 85,
+      "riskScore": 80,
       "weightedZ": 1.3985,
       "sentiment": "极度恐慌",
       "spxChange": 0.44,
@@ -711,7 +711,7 @@
     },
     {
       "date": "2026-04-07",
-      "riskScore": 88,
+      "riskScore": 82,
       "weightedZ": 1.5365,
       "sentiment": "极度恐慌",
       "spxChange": 0.08,
@@ -722,7 +722,7 @@
     },
     {
       "date": "2026-04-08",
-      "riskScore": 74,
+      "riskScore": 72,
       "weightedZ": 0.9655,
       "sentiment": "恐慌",
       "spxChange": 2.51,
@@ -733,7 +733,7 @@
     },
     {
       "date": "2026-04-09",
-      "riskScore": 69,
+      "riskScore": 68,
       "weightedZ": 0.7625,
       "sentiment": "恐慌",
       "spxChange": 0.62,
@@ -744,7 +744,7 @@
     },
     {
       "date": "2026-04-10",
-      "riskScore": 70,
+      "riskScore": 69,
       "weightedZ": 0.801,
       "sentiment": "恐慌",
       "spxChange": -0.11,
@@ -755,7 +755,7 @@
     },
     {
       "date": "2026-04-13",
-      "riskScore": 68,
+      "riskScore": 67,
       "weightedZ": 0.7075,
       "sentiment": "恐慌",
       "spxChange": 1.02,
@@ -821,7 +821,7 @@
     },
     {
       "date": "2026-04-21",
-      "riskScore": 59,
+      "riskScore": 58,
       "weightedZ": 0.3415,
       "sentiment": "中性",
       "spxChange": -0.63,

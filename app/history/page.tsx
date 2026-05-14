@@ -34,7 +34,7 @@ export default function HistoryRiskDataPage() {
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
           <SummaryCard
-            label="当前风险评分"
+            label="当前标准化风险评分"
             value={`${latest.riskScore} / 100`}
             icon={Gauge}
             tone={scoreTone(latest.riskScore)}
@@ -181,7 +181,7 @@ function RiskTable({ records }: { records: DailyRiskRecord[] }) {
           <thead className="sticky top-0 z-10 bg-[#fffdf6]">
             <tr className="border-b border-emerald-800/12 text-[11px] uppercase tracking-[0.12em] text-emerald-900/48">
               <th className="px-5 py-3 font-medium">日期</th>
-              <th className="px-5 py-3 font-medium">风险评分</th>
+              <th className="px-5 py-3 font-medium">标准化风险评分</th>
               <th className="px-5 py-3 font-medium">市场状态</th>
               <th className="px-5 py-3 font-medium">SPX涨跌</th>
               <th className="px-5 py-3 font-medium">NDX涨跌</th>

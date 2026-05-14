@@ -55,10 +55,16 @@ const ranges = [
     text: "风险偏高",
   },
   {
-    range: "80-100",
+    range: "80-95",
     label: "极度恐慌",
     color: "bg-red-500",
     text: "风险极高",
+  },
+  {
+    range: "95-100",
+    label: "危机级恐慌",
+    color: "bg-red-800",
+    text: "危机级压力",
   },
 ];
 
@@ -102,7 +108,7 @@ function Header() {
         <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
           <TopMetric label="当前市场状态" value={snapshot.riskLevel} tone={getScoreTone(snapshot.riskScore)} />
           <TopMetric
-            label="市场风险评分"
+            label="标准化风险评分"
             value={`${snapshot.riskScore} / 100`}
             tone={getScoreTone(snapshot.riskScore)}
           />
@@ -282,7 +288,7 @@ function RiskThermometer() {
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-5 gap-2 text-center text-[11px] text-slate-400 sm:text-xs">
+        <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] text-slate-400 sm:grid-cols-6 sm:text-xs">
           {ranges.map((item) => (
             <div key={item.label} className="min-w-0">
               <div className={`mx-auto mb-2 h-1.5 w-full rounded-full ${item.color}`} />
@@ -308,11 +314,11 @@ function RiskFormula() {
           <div className="flex items-center gap-2">
             <Sigma className="h-5 w-5 text-cyan-300" aria-hidden="true" />
             <h2 className="text-lg font-semibold tracking-normal text-white">
-              量化风险评分模型
+              标准化市场风险评分模型
             </h2>
           </div>
           <p className="mt-2 text-sm text-slate-400">
-            先把每个风险因子做滚动 Z 值标准化，再按权重合成，并映射到 0-100 的市场温度区间。
+            先把每个风险因子做滚动 Z 值标准化，单因子裁剪到 -3 到 +3，再按权重合成，并通过 tanh 平滑映射为 0-100 的标准化风险评分。
           </p>
         </div>
         <div className="rounded-md border border-slate-800 bg-slate-950/70 px-3 py-2 text-xs text-slate-500">
@@ -322,7 +328,7 @@ function RiskFormula() {
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-          <div className="text-xs text-slate-500">当前加权 Z 值</div>
+          <div className="text-xs text-slate-500">模型风险强度 R</div>
           <div className="mt-2 text-3xl font-semibold text-cyan-300">
             {formatSigned(snapshot.weightedZ)}
           </div>
@@ -334,12 +340,12 @@ function RiskFormula() {
           </div>
         </div>
         <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
-          <div className="text-xs text-slate-500">标准化风险分数</div>
+          <div className="text-xs text-slate-500">标准化风险评分</div>
           <div className="mt-2 text-3xl font-semibold text-orange-300">
             {snapshot.riskScore} / 100
           </div>
           <div className="mt-3 text-xs text-slate-500">
-            分数 = clamp(50 + 25 × 加权风险 Z 值)
+            分数 = 50 + 50 × tanh(R / 2)，非危机状态最高显示 99
           </div>
         </div>
       </div>
