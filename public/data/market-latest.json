@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-15",
-  "generatedAt": "2026-05-15T13:32:24.966Z",
+  "generatedAt": "2026-05-15T13:42:00.577Z",
   "status": {
     "isPartial": false,
     "message": "所有数据源已成功更新。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-15T13:32:24.966Z",
+        "updatedAt": "2026-05-15T13:42:00.577Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500",
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-15T13:32:24.966Z",
+        "updatedAt": "2026-05-15T13:42:00.577Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-15T13:32:24.966Z",
+        "updatedAt": "2026-05-15T13:42:00.577Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,7 +43,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-15T13:32:24.966Z",
+        "updatedAt": "2026-05-15T13:42:00.577Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -56,19 +56,19 @@
   },
   "indices": {
     "sp500": {
-      "value": 7426.4,
-      "previous": 7501.24,
-      "change": -74.84,
-      "changePercent": -1,
+      "value": 7413.8,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
       "date": "2026-05-15",
       "source": "S&P 500",
       "stale": false
     },
     "nasdaq100": {
-      "value": 29173.832,
-      "previous": 29580.3,
-      "change": -406.468,
-      "changePercent": -1.37,
+      "value": 29093.896,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
       "date": "2026-05-15",
       "source": "Nasdaq 100",
       "stale": false
@@ -76,20 +76,20 @@
   },
   "volatility": {
     "vix": {
-      "value": 17.87,
-      "previous": 17.99,
-      "change": -0.12,
-      "changePercent": -0.67,
-      "date": "2026-05-13",
+      "value": 17.26,
+      "previous": 17.87,
+      "change": -0.61,
+      "changePercent": -3.41,
+      "date": "2026-05-14",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 24.59,
-      "previous": 24.13,
-      "change": 0.46,
-      "changePercent": 1.91,
-      "date": "2026-05-13",
+      "value": 24.08,
+      "previous": 24.59,
+      "change": -0.51,
+      "changePercent": -2.07,
+      "date": "2026-05-14",
       "source": "VXN",
       "stale": false
     }
@@ -213,12 +213,10 @@
     "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
   },
   "score": {
-    "value": 49,
+    "value": 60,
     "label": "中性",
     "level": "neutral",
     "drivers": [
-      "S&P 500 日线回撤增加短期压力。",
-      "Nasdaq 100 下跌显示成长股承压。",
       "VIX 仍在可控区间。",
       "CNN Fear & Greed 处于相对均衡区间。"
     ]
