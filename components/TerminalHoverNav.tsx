@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { ChevronDown, Database, Gauge } from "lucide-react";
+import { Database, Gauge, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 interface TerminalHoverNavProps {
   active: "overview" | "history";
@@ -25,42 +28,52 @@ export default function TerminalHoverNav({
   active,
   tone = "dark",
 }: TerminalHoverNavProps) {
-  const shellClass =
-    tone === "light"
-      ? "border-emerald-700/20 bg-white/92 text-emerald-950 shadow-[0_10px_26px_rgba(15,84,53,0.12)]"
-      : "border-emerald-400/15 bg-[#06120d]/95 text-emerald-50 shadow-[0_10px_30px_rgba(0,0,0,0.28)]";
-  const menuClass =
-    tone === "light"
-      ? "border-emerald-700/15 bg-white/95"
-      : "border-emerald-400/15 bg-[#07140f]/95";
-  const inactiveClass =
-    tone === "light"
-      ? "text-emerald-900/70 hover:bg-emerald-50 hover:text-emerald-950"
-      : "text-emerald-50/68 hover:bg-emerald-400/10 hover:text-emerald-50";
-  const activeClass =
-    tone === "light"
-      ? "bg-emerald-100 text-emerald-950"
-      : "bg-emerald-400/14 text-emerald-100";
+  const [hovered, setHovered] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const open = hovered || pinned;
+  const isLight = tone === "light";
+  const buttonClass = isLight
+    ? "border-stone-300/70 bg-[#fffdf8]/94 text-stone-800 shadow-[0_10px_24px_rgba(80,68,54,0.10)] hover:bg-white"
+    : "border-emerald-400/15 bg-[#06120d]/95 text-emerald-50 shadow-[0_10px_30px_rgba(0,0,0,0.28)]";
+  const menuClass = isLight
+    ? "border-stone-300/70 bg-[#fffdf8]/98 shadow-[0_16px_34px_rgba(80,68,54,0.14)]"
+    : "border-emerald-400/15 bg-[#07140f]/95 shadow-[0_16px_34px_rgba(0,0,0,0.30)]";
+  const inactiveClass = isLight
+    ? "text-stone-700 hover:bg-stone-100/70 hover:text-stone-950"
+    : "text-emerald-50/68 hover:bg-emerald-400/10 hover:text-emerald-50";
+  const activeClass = isLight
+    ? "bg-stone-100 text-stone-950"
+    : "bg-emerald-400/14 text-emerald-100";
+
+  function handleButtonClick() {
+    if (pinned) {
+      setPinned(false);
+      setHovered(false);
+      return;
+    }
+
+    setPinned(true);
+  }
 
   return (
-    <nav className="group fixed left-4 top-4 z-50 w-fit" aria-label="页面导航">
-      <div
-        className={`flex w-fit cursor-default items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition duration-300 ${shellClass}`}
+    <nav
+      className="pointer-events-none fixed left-5 top-4 z-[80]"
+      aria-label="页面导航"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <button
+        type="button"
+        aria-label={open ? "关闭导航" : "打开导航"}
+        aria-expanded={open}
+        onClick={handleButtonClick}
+        className={`pointer-events-auto flex h-10 w-12 items-center justify-center rounded-md border transition duration-200 ${buttonClass}`}
       >
-        <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]" />
-        <span>导航</span>
-        <ChevronDown
-          className="h-3.5 w-3.5 transition duration-300 group-hover:rotate-180 group-focus-within:rotate-180"
-          aria-hidden="true"
-        />
-      </div>
+        {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+      </button>
 
-      <div
-        className="pointer-events-none absolute left-0 top-full w-56 pt-2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
-      >
-        <div
-          className={`w-52 translate-y-1 rounded-lg border p-2 transition duration-300 group-hover:translate-y-0 group-focus-within:translate-y-0 ${menuClass}`}
-        >
+      {open ? (
+        <div className={`pointer-events-auto mt-2 w-60 rounded-lg border p-2 ${menuClass}`}>
           {items.map((item) => {
             const Icon = item.icon;
             const isActive = item.key === active;
@@ -69,6 +82,10 @@ export default function TerminalHoverNav({
               <Link
                 key={item.key}
                 href={item.href}
+                onClick={() => {
+                  setPinned(false);
+                  setHovered(false);
+                }}
                 className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-200 ${
                   isActive ? activeClass : inactiveClass
                 }`}
@@ -79,7 +96,7 @@ export default function TerminalHoverNav({
             );
           })}
         </div>
-      </div>
+      ) : null}
     </nav>
   );
 }

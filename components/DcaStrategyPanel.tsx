@@ -14,10 +14,11 @@ interface DcaStrategyPanelProps {
 
 export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
   const strategy = getDcaStrategy(riskScore);
+  const indicatorLeft = Math.min(98, Math.max(2, strategy.riskScore));
 
   return (
-    <section className="mt-6 overflow-hidden rounded-lg border border-emerald-800/15 bg-[#fffdf6]/90 text-emerald-950 shadow-[0_14px_36px_rgba(67,96,70,0.12)]">
-      <div className="border-b border-emerald-800/10 bg-[linear-gradient(135deg,rgba(255,253,246,0.96),rgba(239,250,238,0.9))] p-5 sm:p-6">
+    <section className="mt-4 overflow-hidden rounded-lg border border-emerald-800/16 bg-[linear-gradient(135deg,rgba(240,253,244,0.96),rgba(220,252,231,0.68)_48%,rgba(255,253,246,0.9))] text-emerald-950 shadow-[0_18px_42px_rgba(42,93,67,0.14)]">
+      <div className="border-b border-emerald-800/10 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(209,250,229,0.72))] p-5 sm:p-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <div className="inline-flex items-center gap-2 rounded-md border border-emerald-800/15 bg-emerald-50/70 px-3 py-1.5 text-xs font-medium text-emerald-800">
@@ -32,7 +33,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </p>
           </div>
 
-          <div className="rounded-lg border border-emerald-800/15 bg-white/64 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
+          <div className="rounded-lg border border-emerald-800/15 bg-white/56 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.08)]">
             <div className="flex items-center gap-2 text-xs text-emerald-900/55">
               <LockKeyhole className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               风控保护
@@ -47,7 +48,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
         </div>
       </div>
 
-      <div className="grid gap-5 p-5 sm:p-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-5 p-5 sm:p-6 xl:grid-cols-[1.12fr_0.88fr]">
         <div className="space-y-5">
           <div className="grid gap-3 sm:grid-cols-3">
             <DcaMetric label="当前市场状态" value={strategy.state} tone="orange" />
@@ -59,7 +60,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             />
           </div>
 
-          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
                 <CalendarClock className="h-4 w-4 text-emerald-700" aria-hidden="true" />
@@ -75,7 +76,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
             <div className="mb-3 flex items-center justify-between text-xs text-emerald-900/55">
               <span>定投风险温度条</span>
               <span>{strategy.riskScore}/100</span>
@@ -90,12 +91,12 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
               />
               <div
                 className="absolute top-1/2 -translate-y-1/2"
-                style={{ left: `${strategy.riskScore}%` }}
+                style={{ left: `${indicatorLeft}%` }}
               >
                 <div className="-ml-3 h-6 w-6 rounded-full border border-white bg-[#fb923c] shadow-[0_0_14px_rgba(251,146,60,0.3)]" />
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center text-[10px] text-emerald-900/52 sm:grid-cols-6 sm:text-xs">
+            <div className="mt-3 grid grid-cols-2 gap-2 text-center text-[10px] text-emerald-900/52 sm:grid-cols-[repeat(7,minmax(0,1fr))] sm:text-xs">
               {DCA_BANDS.map((band) => (
                 <div key={band.state} className="min-w-0">
                   <div className="truncate text-emerald-950">{band.state}</div>
@@ -107,7 +108,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
         </div>
 
         <div className="space-y-5">
-          <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+          <div className="rounded-lg border border-emerald-800/12 bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
             <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
               <Percent className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               定投倍率映射表
@@ -135,7 +136,7 @@ export default function DcaStrategyPanel({ riskScore }: DcaStrategyPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg border border-emerald-800/12 bg-[linear-gradient(180deg,rgba(255,253,246,0.92),rgba(239,250,238,0.8))] p-4 shadow-[0_12px_30px_rgba(34,197,94,0.05)]">
+          <div className="rounded-lg border border-emerald-800/12 bg-[linear-gradient(180deg,rgba(255,253,246,0.76),rgba(236,253,245,0.78))] p-4 shadow-[0_12px_30px_rgba(34,197,94,0.05)]">
             <div className="flex items-center gap-2 text-sm font-medium text-emerald-950">
               <BrainCircuit className="h-4 w-4 text-emerald-700" aria-hidden="true" />
               智能策略解释
@@ -166,7 +167,7 @@ function DcaMetric({
   const color = tone === "green" ? "text-emerald-800" : "text-orange-700";
 
   return (
-    <div className="rounded-lg border border-emerald-800/12 bg-white/62 p-4">
+    <div className="rounded-lg border border-emerald-800/12 bg-white/56 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
       <div className="text-xs text-emerald-900/55">{label}</div>
       <div className={`mt-3 text-2xl font-semibold tracking-normal ${color}`}>
         {value}

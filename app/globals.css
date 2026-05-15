@@ -12,13 +12,13 @@
 
 html {
   min-height: 100%;
-  background: #f8f4ea;
+  background: #faf7f1;
 }
 
 body {
   min-height: 100%;
   margin: 0;
-  background: #f8f4ea;
+  background: #faf7f1;
   color: #102018;
 }
 
@@ -34,10 +34,10 @@ a {
 .smooth-risk-bg {
   position: relative;
   background:
-    radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.86), transparent 34%),
-    radial-gradient(circle at 86% 8%, rgba(216, 245, 224, 0.54), transparent 30%),
-    radial-gradient(circle at 50% 100%, rgba(234, 248, 232, 0.56), transparent 42%),
-    linear-gradient(180deg, #fffaf0 0%, #f8f4ea 48%, #f2f8ee 100%);
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
+    radial-gradient(circle at 82% 10%, rgba(245, 241, 232, 0.78), transparent 34%),
+    radial-gradient(circle at 52% 100%, rgba(237, 241, 232, 0.5), transparent 44%),
+    linear-gradient(180deg, #fffdf8 0%, #faf7f1 48%, #f6f3ec 100%);
 }
 
 .smooth-risk-bg::before {
@@ -46,8 +46,8 @@ a {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(120deg, rgba(255, 253, 245, 0.76), rgba(255, 255, 255, 0.12) 42%, rgba(16, 185, 129, 0.04)),
-    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.64), transparent 36%);
+    linear-gradient(120deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.12) 44%, rgba(126, 111, 91, 0.035)),
+    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.72), transparent 38%);
   opacity: 0.9;
 }
 
@@ -66,10 +66,10 @@ a {
 }
 
 .risk-glass {
-  background: linear-gradient(180deg, rgba(255, 253, 246, 0.9), rgba(248, 255, 247, 0.74));
-  border: 1px solid rgba(21, 128, 61, 0.13);
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(252, 249, 242, 0.78));
+  border: 1px solid rgba(96, 83, 66, 0.13);
   box-shadow:
-    0 14px 34px rgba(67, 96, 70, 0.1),
+    0 14px 34px rgba(80, 68, 54, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.82);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;

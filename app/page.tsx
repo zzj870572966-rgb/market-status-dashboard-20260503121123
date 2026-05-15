@@ -10,6 +10,7 @@ import {
   Waves,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import DcaStrategyPanel from "@/components/DcaStrategyPanel";
 import TerminalHoverNav from "@/components/TerminalHoverNav";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
 import { getMarketReactionCategory } from "@/lib/historyFilters";
@@ -42,12 +43,13 @@ const riskBands = [
   { min: 90, max: 100, label: "极度恐慌", color: "bg-red-700", width: "10%" },
 ];
 
+const riskTicks = [0, 20, 40, 60, 75, 90, 100];
+
 const latestRecords = [...riskHistory.records]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 5);
 
 export default function HomePage() {
-  const dca = getDcaStrategy(snapshot.riskScore);
   const marketReaction = getMarketReaction(snapshot);
 
   return (
@@ -59,12 +61,12 @@ export default function HomePage() {
         <section className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
           <RiskScorePanel />
           <div className="grid gap-3">
-            <DcaAdvicePanel dca={dca} />
             <MarketPerformancePanel marketReaction={marketReaction} />
           </div>
         </section>
 
         <RiskFactors />
+        <DcaStrategyPanel riskScore={snapshot.riskScore} />
         <AiRiskSummary />
         <RecentRecords />
       </div>
@@ -119,9 +121,8 @@ function RiskScorePanel() {
 
       <RiskScale />
 
-      <p className="mt-7 text-center text-lg leading-8 text-emerald-950/76">
-        当前市场处于<span className={`px-1 font-semibold ${tone.text}`}>{snapshot.riskLevel}</span>
-        阶段，适合以长期纪律和风险预算管理定投节奏。
+      <p className="mt-7 text-center text-sm leading-7 text-emerald-950/62">
+        分数越高代表市场压力越高；100 仅在危机级条件触发时显示。
       </p>
       <p className="mt-4 text-center text-sm text-emerald-900/52">
         更新时间：{snapshot.asOf}（美东收盘）
@@ -139,14 +140,18 @@ function RiskScorePanel() {
 function RiskScale() {
   return (
     <div className="mt-8">
-      <div className="mb-3 grid grid-cols-[repeat(6,minmax(0,1fr))] text-xs text-emerald-950/78">
-        {[0, 20, 40, 60, 75, 90, 100].map((value) => (
-          <div key={value} className={value === 100 ? "text-right" : ""}>
+      <div className="relative mb-3 h-6 text-xs font-medium text-emerald-950/70">
+        {riskTicks.map((value) => (
+          <span
+            key={value}
+            className={tickLabelClass(value)}
+            style={{ left: `${value}%` }}
+          >
             {value}
-          </div>
+          </span>
         ))}
       </div>
-      <div className="relative flex h-3 overflow-hidden rounded-full bg-emerald-100">
+      <div className="relative flex h-4 overflow-hidden rounded-full bg-emerald-100 shadow-inner">
         {riskBands.map((band) => (
           <div
             key={band.label}
@@ -155,14 +160,17 @@ function RiskScale() {
           />
         ))}
         <div
-          className="absolute top-1/2 h-7 w-0.5 -translate-y-1/2 rounded-full bg-emerald-950 shadow-[0_0_0_3px_rgba(255,255,255,0.9)]"
+          className="absolute top-1/2 h-8 w-0.5 -translate-y-1/2 rounded-full bg-emerald-950 shadow-[0_0_0_3px_rgba(255,255,255,0.95)]"
           style={{ left: `${snapshot.riskScore}%` }}
         />
       </div>
-      <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm sm:grid-cols-6">
+      <div className="mt-4 grid grid-cols-2 gap-2 text-center text-sm sm:grid-cols-6">
         {riskBands.map((band) => (
-          <div key={band.label} className="text-emerald-900/62">
-            {band.label}
+          <div key={band.label} className="rounded-md bg-white/44 px-2 py-2 text-emerald-900/62">
+            <div className="font-medium text-emerald-950">{band.label}</div>
+            <div className="mt-0.5 font-mono text-[11px] text-emerald-900/48">
+              {band.min}-{band.max}
+            </div>
           </div>
         ))}
       </div>
@@ -170,41 +178,16 @@ function RiskScale() {
   );
 }
 
-function DcaAdvicePanel({
-  dca,
-}: {
-  dca: ReturnType<typeof getDcaStrategy>;
-}) {
-  const tone = getScoreTone(dca.riskScore);
+function tickLabelClass(value: number) {
+  if (value === 0) {
+    return "absolute top-0 -translate-x-0";
+  }
 
-  return (
-    <section className="risk-glass rounded-lg p-5">
-      <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-emerald-950">
-        动态定投建议
-        <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
-      </div>
-      <div className="grid gap-5 sm:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <div className="text-sm text-emerald-900/58">当前定投倍率</div>
-          <div className={`mt-2 text-4xl font-semibold ${tone.text}`}>
-            {dca.multiplier.toFixed(1)}x
-          </div>
-          <div className={`mt-3 inline-flex rounded-md px-3 py-1 text-sm font-medium ${tone.badge}`}>
-            {dca.state}
-          </div>
-        </div>
-        <div className="border-t border-emerald-800/12 pt-4 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
-          <div className="text-sm text-emerald-900/58">策略口径</div>
-          <p className="mt-2 text-sm leading-7 text-emerald-950/76">
-            {dca.description}
-          </p>
-          <div className="mt-3 text-sm font-medium text-emerald-800">
-            {dca.advice}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  if (value === 100) {
+    return "absolute top-0 -translate-x-full";
+  }
+
+  return "absolute top-0 -translate-x-1/2";
 }
 
 function MarketPerformancePanel({
