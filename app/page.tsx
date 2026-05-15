@@ -1,131 +1,134 @@
+import Link from "next/link";
 import {
   Activity,
-  ArrowDownRight,
-  ArrowUpRight,
+  ArrowRight,
   BrainCircuit,
-  CircleGauge,
-  Gauge,
-  LineChart,
+  Info,
   ShieldAlert,
-  Sigma,
-  Target,
   TrendingDown,
+  TrendingUp,
   Waves,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import DcaStrategyPanel from "@/components/DcaStrategyPanel";
-import ManualRiskOverridePanel from "@/components/ManualRiskOverridePanel";
 import TerminalHoverNav from "@/components/TerminalHoverNav";
+import { getDcaStrategy } from "@/lib/dcaStrategy";
+import { getMarketReactionCategory } from "@/lib/historyFilters";
+import {
+  formatSigned,
+  type RiskDashboardFactor,
+  type RiskDashboardSnapshot,
+} from "@/lib/riskDashboard";
+import type { DailyRiskRecord, RealRiskHistory } from "@/lib/riskHistory";
 import snapshotData from "@/public/data/risk-dashboard-latest.json";
-import { formatSigned, type RiskDashboardFactor, type RiskDashboardSnapshot } from "@/lib/riskDashboard";
+import historyData from "@/public/data/risk-history/daily-records.json";
 
 const snapshot = snapshotData as RiskDashboardSnapshot;
+const riskHistory = historyData as RealRiskHistory;
 
 const factorIcons: Record<RiskDashboardFactor["id"], LucideIcon> = {
   volatility: Activity,
   credit: ShieldAlert,
   yieldCurve: Waves,
-  trend: LineChart,
+  trend: TrendingUp,
   momentum: TrendingDown,
 };
 
-const ranges = [
-  {
-    range: "0-20",
-    label: "极度贪婪",
-    color: "bg-emerald-400",
-    text: "风险低，情绪过热",
-  },
-  {
-    range: "20-40",
-    label: "贪婪",
-    color: "bg-lime-400",
-    text: "风险偏低",
-  },
-  {
-    range: "40-60",
-    label: "中性",
-    color: "bg-yellow-300",
-    text: "风险均衡",
-  },
-  {
-    range: "60-80",
-    label: "恐慌",
-    color: "bg-orange-400",
-    text: "风险偏高",
-  },
-  {
-    range: "80-95",
-    label: "极度恐慌",
-    color: "bg-red-500",
-    text: "风险极高",
-  },
-  {
-    range: "95-100",
-    label: "危机级恐慌",
-    color: "bg-red-800",
-    text: "危机级压力",
-  },
+const riskBands = [
+  { min: 0, max: 20, label: "极度贪婪", color: "bg-emerald-500", width: "20%" },
+  { min: 20, max: 40, label: "贪婪", color: "bg-lime-500", width: "20%" },
+  { min: 40, max: 60, label: "中性", color: "bg-amber-300", width: "20%" },
+  { min: 60, max: 75, label: "恐慌", color: "bg-orange-400", width: "15%" },
+  { min: 75, max: 90, label: "高恐慌", color: "bg-red-500", width: "15%" },
+  { min: 90, max: 100, label: "极度恐慌", color: "bg-red-700", width: "10%" },
 ];
 
+const latestRecords = [...riskHistory.records]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 5);
+
 export default function HomePage() {
+  const dca = getDcaStrategy(snapshot.riskScore);
+  const marketReaction = getMarketReaction(snapshot);
+
   return (
     <main className="light-risk-dashboard smooth-risk-bg min-h-screen overflow-hidden bg-[#f8f4ea] text-emerald-950">
       <TerminalHoverNav active="overview" tone="light" />
-      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <Header />
-        <RiskFactors />
-        <RiskThermometer />
-        <DcaStrategyPanel riskScore={snapshot.riskScore} />
-        <section className="mt-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-          <RiskFormula />
-          <MarketIndexPanel />
+      <div className="mx-auto w-full max-w-[1480px] px-4 pb-8 pt-5 sm:px-6 lg:px-8">
+        <TopBar />
+
+        <section className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
+          <RiskScorePanel />
+          <div className="grid gap-3">
+            <DcaAdvicePanel dca={dca} />
+            <MarketPerformancePanel marketReaction={marketReaction} />
+          </div>
         </section>
-        <ManualRiskOverridePanel snapshot={snapshot} />
-        <AiSummary />
+
+        <RiskFactors />
+        <AiRiskSummary />
+        <RecentRecords />
       </div>
     </main>
   );
 }
 
-function Header() {
+function TopBar() {
   return (
-    <section className="risk-glass rounded-lg p-5 sm:p-6">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-md border border-slate-700/70 bg-slate-950/60 px-3 py-1.5 text-xs text-slate-300">
-            <Gauge className="h-4 w-4 text-cyan-300" aria-hidden="true" />
-            机构市场温度终端
-          </div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl">
-            市场温度计
-          </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
-            基于免费日频数据源、滚动 Z 值标准化与多因子权重构建，用于观察上一交易日收盘后的市场风险温度。
-          </p>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[520px]">
-          <TopMetric label="当前市场状态" value={snapshot.riskLevel} tone={getScoreTone(snapshot.riskScore)} />
-          <TopMetric
-            label="标准化风险评分"
-            value={`${snapshot.riskScore} / 100`}
-            tone={getScoreTone(snapshot.riskScore)}
-          />
-          <TopMetric label="组合风险姿态" value={snapshot.posture} tone="cyan" />
-        </div>
+    <header className="mb-5 flex flex-col gap-4 pl-16 lg:flex-row lg:items-start lg:justify-between">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-normal text-emerald-950">
+          市场温度计
+        </h1>
+        <p className="mt-1 text-sm text-emerald-900/58">
+          基于美股最近一个完整交易日收盘数据计算的标准化市场风险仪表盘
+        </p>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-800 pt-4 text-xs text-slate-500">
-        <span>数据日期：{snapshot.asOf}</span>
-        <span className="h-1 w-1 rounded-full bg-slate-600" />
-        <span>生成时间：{formatDateTime(snapshot.generatedAt)}</span>
-        <span className="h-1 w-1 rounded-full bg-slate-600" />
-        <span>模型方向：分数越高 = 市场越恐慌</span>
+      <div className="grid gap-2 text-right text-sm text-emerald-950/70">
+        <div className="flex items-center justify-end gap-2">
+          <span>数据日期（美东时间）</span>
+          <span className="font-mono text-emerald-950">{snapshot.asOf}</span>
+          <span className="text-emerald-900/58">（已收盘 EOD）</span>
+          <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+        </div>
+        <div className="flex items-center justify-end gap-2 text-emerald-900/58">
+          <span>数据基于美股最近一个交易日收盘后计算（EOD）</span>
+          <Info className="h-4 w-4" aria-hidden="true" />
+        </div>
       </div>
+    </header>
+  );
+}
+
+function RiskScorePanel() {
+  const tone = getScoreTone(snapshot.riskScore);
+
+  return (
+    <section className="risk-glass rounded-lg p-5 sm:p-8">
+      <div className="flex items-center justify-center gap-2 text-base font-medium text-emerald-950">
+        标准化风险评分
+        <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+      </div>
+
+      <div className={`mt-4 text-center text-7xl font-semibold leading-none sm:text-8xl ${tone.text}`}>
+        {snapshot.riskScore}
+      </div>
+      <div className={`mt-2 text-center text-2xl font-semibold ${tone.text}`}>
+        {snapshot.riskLevel}
+      </div>
+
+      <RiskScale />
+
+      <p className="mt-7 text-center text-lg leading-8 text-emerald-950/76">
+        当前市场处于<span className={`px-1 font-semibold ${tone.text}`}>{snapshot.riskLevel}</span>
+        阶段，适合以长期纪律和风险预算管理定投节奏。
+      </p>
+      <p className="mt-4 text-center text-sm text-emerald-900/52">
+        更新时间：{snapshot.asOf}（美东收盘）
+      </p>
 
       {snapshot.status.isPartial ? (
-        <div className="mt-4 rounded-md border border-orange-400/30 bg-orange-400/10 px-4 py-3 text-sm text-orange-200">
+        <div className="mt-5 rounded-md border border-orange-500/20 bg-orange-50/82 px-4 py-3 text-sm text-orange-700">
           {snapshot.status.message}
         </div>
       ) : null}
@@ -133,28 +136,136 @@ function Header() {
   );
 }
 
-function TopMetric({
-  label,
-  value,
-  tone,
+function RiskScale() {
+  return (
+    <div className="mt-8">
+      <div className="mb-3 grid grid-cols-[repeat(6,minmax(0,1fr))] text-xs text-emerald-950/78">
+        {[0, 20, 40, 60, 75, 90, 100].map((value) => (
+          <div key={value} className={value === 100 ? "text-right" : ""}>
+            {value}
+          </div>
+        ))}
+      </div>
+      <div className="relative flex h-3 overflow-hidden rounded-full bg-emerald-100">
+        {riskBands.map((band) => (
+          <div
+            key={band.label}
+            className={`${band.color} h-full`}
+            style={{ width: band.width }}
+          />
+        ))}
+        <div
+          className="absolute top-1/2 h-7 w-0.5 -translate-y-1/2 rounded-full bg-emerald-950 shadow-[0_0_0_3px_rgba(255,255,255,0.9)]"
+          style={{ left: `${snapshot.riskScore}%` }}
+        />
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm sm:grid-cols-6">
+        {riskBands.map((band) => (
+          <div key={band.label} className="text-emerald-900/62">
+            {band.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DcaAdvicePanel({
+  dca,
 }: {
-  label: string;
-  value: string;
-  tone: "green" | "yellow" | "orange" | "red" | "cyan";
+  dca: ReturnType<typeof getDcaStrategy>;
 }) {
-  const valueClass = {
-    green: "text-emerald-300",
-    yellow: "text-yellow-100",
-    orange: "text-orange-300",
-    red: "text-red-200",
-    cyan: "text-cyan-300",
-  }[tone];
+  const tone = getScoreTone(dca.riskScore);
 
   return (
-    <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-4 shadow-[0_14px_40px_rgba(0,0,0,0.16)]">
-      <div className="text-xs text-slate-500">{label}</div>
-      <div className={`mt-3 text-2xl font-semibold tracking-normal ${valueClass}`}>
-        {value}
+    <section className="risk-glass rounded-lg p-5">
+      <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-emerald-950">
+        动态定投建议
+        <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+      </div>
+      <div className="grid gap-5 sm:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <div className="text-sm text-emerald-900/58">当前定投倍率</div>
+          <div className={`mt-2 text-4xl font-semibold ${tone.text}`}>
+            {dca.multiplier.toFixed(1)}x
+          </div>
+          <div className={`mt-3 inline-flex rounded-md px-3 py-1 text-sm font-medium ${tone.badge}`}>
+            {dca.state}
+          </div>
+        </div>
+        <div className="border-t border-emerald-800/12 pt-4 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
+          <div className="text-sm text-emerald-900/58">策略口径</div>
+          <p className="mt-2 text-sm leading-7 text-emerald-950/76">
+            {dca.description}
+          </p>
+          <div className="mt-3 text-sm font-medium text-emerald-800">
+            {dca.advice}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MarketPerformancePanel({
+  marketReaction,
+}: {
+  marketReaction: string;
+}) {
+  const spx = snapshot.indices.sp500;
+  const ndx = snapshot.indices.nasdaq100;
+  const sparklineRows = latestRecords.slice().reverse();
+
+  return (
+    <section className="risk-glass rounded-lg p-5">
+      <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-emerald-950">
+        市场表现（美股）
+        <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+      </div>
+
+      <div className="space-y-3">
+        <IndexRow
+          name="S&P 500"
+          change={spx.changePercent}
+          values={sparklineRows.map((record) => record.spxChange)}
+        />
+        <IndexRow
+          name="NASDAQ 100"
+          change={ndx.changePercent}
+          values={sparklineRows.map((record) => record.ndxChange)}
+        />
+      </div>
+
+      <div className="mt-4 border-t border-emerald-800/12 pt-3 text-sm">
+        <span className="text-emerald-900/60">市场反应：</span>
+        <span className={marketReaction.includes("跌") ? "font-semibold text-red-600" : "font-semibold text-emerald-700"}>
+          {marketReaction}
+        </span>
+      </div>
+    </section>
+  );
+}
+
+function IndexRow({
+  name,
+  change,
+  values,
+}: {
+  name: string;
+  change: number | null;
+  values: number[];
+}) {
+  const isPositive = (change ?? 0) >= 0;
+
+  return (
+    <div className="grid grid-cols-[1fr_0.7fr_1fr_0.55fr] items-center gap-4 text-sm">
+      <div className="font-medium text-emerald-950/84">{name}</div>
+      <div className={`font-mono font-medium ${isPositive ? "text-emerald-700" : "text-red-600"}`}>
+        {change === null ? "N/A" : `${formatSigned(change)}%`}
+      </div>
+      <MiniSparkline values={values} positive={isPositive} />
+      <div className={`rounded-md px-3 py-1 text-center text-sm font-medium ${isPositive ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
+        {isPositive ? "上涨" : "下跌"}
       </div>
     </div>
   );
@@ -162,18 +273,16 @@ function TopMetric({
 
 function RiskFactors() {
   return (
-    <section className="mt-6">
-      <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h2 className="text-lg font-semibold tracking-normal text-white">
+    <section className="risk-glass mt-3 rounded-lg p-5">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold tracking-normal text-emerald-950">
             五大风险因子
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            所有指标均统一转换为“数值越高，市场风险越高”的方向，再进行滚动 Z 值标准化。
-          </p>
+          <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
         </div>
-        <div className="text-xs text-slate-500">
-          数据源：FRED 日频收盘序列
+        <div className="hidden text-xs text-emerald-900/48 sm:block">
+          鼠标悬停可查看详细数据
         </div>
       </div>
 
@@ -188,387 +297,308 @@ function RiskFactors() {
 
 function RiskFactorCard({ factor }: { factor: RiskDashboardFactor }) {
   const Icon = factorIcons[factor.id];
-  const TrendIcon =
-    factor.trend === "up"
-      ? ArrowUpRight
-      : factor.trend === "down"
-        ? ArrowDownRight
-        : Target;
-  const levelColor = getLevelColor(factor.riskLevel);
+  const tone = getFactorTone(factor.riskLevel);
 
   return (
-    <article className="risk-glass rounded-lg p-4 transition duration-300 hover:border-slate-500/40 hover:bg-slate-900/80">
-      <div className="flex items-start justify-between gap-3">
-        <div className="rounded-lg border border-slate-700/70 bg-slate-950/70 p-2">
-          <Icon className="h-5 w-5 text-slate-200" aria-hidden="true" />
+    <article
+      title={`${factor.rawDisplay} / ${factor.benchmarkLabel}: ${factor.benchmarkDisplay}`}
+      className="rounded-lg border border-emerald-800/12 bg-white/58 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.06)] transition duration-200 hover:border-emerald-700/24 hover:bg-white/86"
+    >
+      <div className="flex items-start gap-3">
+        <div className="rounded-lg border border-emerald-800/12 bg-white/76 p-2">
+          <Icon className="h-5 w-5 text-emerald-950/76" aria-hidden="true" />
         </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-semibold text-emerald-950">{factor.name}</h3>
+          <p className="mt-1 text-sm text-emerald-900/56">{shortFactorSource(factor)}</p>
+        </div>
+      </div>
+
+      <div className={`mt-3 inline-flex rounded-md px-2.5 py-1 text-xs font-medium ${tone.badge}`}>
+        {factor.riskLevel}
+      </div>
+
+      <div className="mt-4 space-y-2 text-sm">
+        <DataRow label="Z-Score" value={formatSigned(factor.zScore)} valueClass={tone.text} />
+        <DataRow label="权重" value={`${(factor.weight * 100).toFixed(0)}%`} />
+      </div>
+
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-emerald-100">
         <div
-          className={`inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs ${levelColor.badge}`}
-        >
-          <TrendIcon className="h-3.5 w-3.5" aria-hidden="true" />
-          {factor.riskLevel}
-        </div>
-      </div>
-
-      <h3 className="mt-4 text-base font-semibold tracking-normal text-white">
-        {factor.name}
-      </h3>
-      <p className="mt-1 min-h-10 text-xs leading-5 text-slate-500">{factor.source}</p>
-
-      <div className="mt-4 space-y-3">
-        <DataRow label="当前值" value={factor.rawDisplay} />
-        <DataRow label="对比基准" value={factor.benchmarkDisplay} />
-        <DataRow label="Z 值" value={formatSigned(factor.zScore)} />
-      </div>
-
-      <div className="mt-4">
-        <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
-          <span>风险进度</span>
-          <span>{factor.progress}%</span>
-        </div>
-        <div className="h-2 rounded-full bg-slate-800">
-          <div
-            className={`h-full rounded-full ${levelColor.bar}`}
-            style={{ width: `${factor.progress}%` }}
-          />
-        </div>
-      </div>
-
-      <div className="mt-4 rounded-md border border-slate-800 bg-slate-950/60 px-3 py-2 text-xs leading-5 text-slate-400">
-        <div>窗口：{factor.window}</div>
-        <div>{factor.note}</div>
-        {factor.stale ? <div className="mt-1 text-orange-300">沿用最近一次成功数据</div> : null}
+          className={`h-full rounded-full ${tone.bar}`}
+          style={{ width: `${factor.progress}%` }}
+        />
       </div>
     </article>
   );
 }
 
-function DataRow({ label, value }: { label: string; value: string }) {
+function AiRiskSummary() {
   return (
-    <div className="flex items-center justify-between gap-3 text-sm">
-      <span className="text-slate-500">{label}</span>
-      <span className="font-medium text-slate-100">{value}</span>
+    <section className="risk-glass mt-3 rounded-lg p-5">
+      <div className="mb-3 flex items-center gap-2">
+        <BrainCircuit className="h-5 w-5 text-emerald-700" aria-hidden="true" />
+        <h2 className="text-lg font-semibold tracking-normal text-emerald-950">
+          AI 风险驱动分析
+        </h2>
+        <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+      </div>
+      <p className="max-w-6xl text-sm leading-7 text-emerald-950/76">
+        {snapshot.summary}
+      </p>
+      <p className="mt-2 text-xs text-emerald-900/48">
+        说明：当前为规则模型生成摘要，暂未接入 GPT；用途是长期观察和定投纪律参考。
+      </p>
+    </section>
+  );
+}
+
+function RecentRecords() {
+  return (
+    <section className="risk-glass mt-3 rounded-lg p-5">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold tracking-normal text-emerald-950">
+            最近 5 个交易日
+          </h2>
+          <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
+        </div>
+        <Link
+          href="/history"
+          className="inline-flex items-center gap-2 text-sm font-medium text-emerald-900/56 transition hover:text-emerald-950"
+        >
+          查看完整历史风险数据
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </div>
+
+      <div className="overflow-hidden rounded-lg border border-emerald-800/12 bg-white/48">
+        <table className="w-full min-w-[820px] border-collapse text-left text-sm">
+          <thead className="bg-[#fffdf6]/80 text-xs text-emerald-900/56">
+            <tr>
+              <th className="px-5 py-2 font-medium">日期</th>
+              <th className="px-5 py-2 font-medium">标准化风险评分</th>
+              <th className="px-5 py-2 font-medium">市场状态</th>
+              <th className="px-5 py-2 font-medium">S&P 500 涨跌</th>
+              <th className="px-5 py-2 font-medium">NASDAQ 100 涨跌</th>
+              <th className="px-5 py-2 font-medium">VIX</th>
+              <th className="px-5 py-2 font-medium">定投倍率</th>
+            </tr>
+          </thead>
+          <tbody>
+            {latestRecords.map((record) => (
+              <RecentRecordRow key={record.date} record={record} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function RecentRecordRow({ record }: { record: DailyRiskRecord }) {
+  const tone = getScoreTone(record.riskScore);
+
+  return (
+    <tr className="border-t border-emerald-800/10 transition hover:bg-emerald-50/46">
+      <td className="px-5 py-2 font-mono text-emerald-950/82">{record.date}</td>
+      <td className={`px-5 py-2 font-mono font-semibold ${tone.text}`}>{record.riskScore}</td>
+      <td className={`px-5 py-2 font-medium ${tone.text}`}>{record.sentiment}</td>
+      <td className={`px-5 py-2 font-mono ${returnClass(record.spxChange)}`}>
+        {formatPercent(record.spxChange)}
+      </td>
+      <td className={`px-5 py-2 font-mono ${returnClass(record.ndxChange)}`}>
+        {formatPercent(record.ndxChange)}
+      </td>
+      <td className="px-5 py-2 font-mono text-emerald-950/76">{record.vix.toFixed(1)}</td>
+      <td className={`px-5 py-2 font-mono font-semibold ${tone.text}`}>
+        {record.dcaMultiplier.toFixed(1)}x
+      </td>
+    </tr>
+  );
+}
+
+function MiniSparkline({
+  values,
+  positive,
+}: {
+  values: number[];
+  positive: boolean;
+}) {
+  const points = buildSparklinePoints(values);
+  const stroke = positive ? "#047857" : "#dc2626";
+
+  return (
+    <svg
+      viewBox="0 0 120 32"
+      className="h-8 w-full"
+      role="img"
+      aria-label="最近五日走势"
+    >
+      <polyline
+        fill="none"
+        points={points}
+        stroke={stroke}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function DataRow({
+  label,
+  value,
+  valueClass = "text-emerald-950/80",
+}: {
+  label: string;
+  value: string;
+  valueClass?: string;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-emerald-900/56">{label}</span>
+      <span className={`font-mono font-medium ${valueClass}`}>{value}</span>
     </div>
   );
 }
 
-function RiskThermometer() {
-  return (
-    <section className="risk-glass risk-scanline mt-6 rounded-lg p-5 sm:p-6">
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h2 className="text-lg font-semibold tracking-normal text-white">
-            主风险温度计
-          </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            当前市场位置：{snapshot.riskScore}/100 → {snapshot.riskLevel}
-          </p>
-        </div>
-        <div className="rounded-md border border-orange-400/30 bg-orange-400/10 px-3 py-2 text-sm font-medium text-orange-200">
-          {snapshot.posture}型风险环境
-        </div>
-      </div>
+function buildSparklinePoints(values: number[]) {
+  if (values.length === 0) {
+    return "0,16 120,16";
+  }
 
-      <div className="mt-8">
-        <div className="relative h-7 rounded-full border border-slate-700 bg-slate-950 p-1 shadow-inner">
-          <div
-            className="h-full rounded-full"
-            style={{
-              background:
-                "linear-gradient(90deg, #34d399 0%, #a3e635 22%, #fde047 48%, #fb923c 72%, #ef4444 100%)",
-            }}
-          />
-          <div
-            className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
-            style={{ left: `${snapshot.riskScore}%` }}
-          >
-            <div className="risk-pulse flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-slate-950 shadow-[0_0_14px_rgba(251,146,60,0.32)]">
-              <div className="h-3 w-3 rounded-full bg-orange-300" />
-            </div>
-          </div>
-        </div>
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const spread = max - min || 1;
 
-        <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] text-slate-400 sm:grid-cols-6 sm:text-xs">
-          {ranges.map((item) => (
-            <div key={item.label} className="min-w-0">
-              <div className={`mx-auto mb-2 h-1.5 w-full rounded-full ${item.color}`} />
-              <div className="truncate font-medium text-slate-200">{item.label}</div>
-              <div className="mt-1 text-slate-500">{item.range}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return values
+    .map((value, index) => {
+      const x = values.length === 1 ? 60 : (index / (values.length - 1)) * 120;
+      const y = 28 - ((value - min) / spread) * 24;
+
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
 }
 
-function RiskFormula() {
-  const maxContribution = Math.max(
-    ...snapshot.factors.map((factor) => Math.abs(factor.contribution)),
-  );
-
-  return (
-    <section className="risk-glass rounded-lg p-5">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <Sigma className="h-5 w-5 text-cyan-300" aria-hidden="true" />
-            <h2 className="text-lg font-semibold tracking-normal text-white">
-              标准化市场风险评分模型
-            </h2>
-          </div>
-          <p className="mt-2 text-sm text-slate-400">
-            先把每个风险因子做滚动 Z 值标准化，单因子裁剪到 -3 到 +3，再按权重合成，并通过 tanh 平滑映射为 0-100 的标准化风险评分。
-          </p>
-        </div>
-        <div className="rounded-md border border-slate-800 bg-slate-950/70 px-3 py-2 text-xs text-slate-500">
-          模型版本：多因子逆周期风控
-        </div>
-      </div>
-
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-          <div className="text-xs text-slate-500">模型风险强度 R</div>
-          <div className="mt-2 text-3xl font-semibold text-cyan-300">
-            {formatSigned(snapshot.weightedZ)}
-          </div>
-          <div className="mt-3 h-2 rounded-full bg-slate-800">
-            <div
-              className="h-full rounded-full bg-teal-500"
-              style={{ width: `${Math.min(Math.abs(snapshot.weightedZ) * 32, 100)}%` }}
-            />
-          </div>
-        </div>
-        <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
-          <div className="text-xs text-slate-500">标准化风险评分</div>
-          <div className="mt-2 text-3xl font-semibold text-orange-300">
-            {snapshot.riskScore} / 100
-          </div>
-          <div className="mt-3 text-xs text-slate-500">
-            分数 = 50 + 50 × tanh(R / 2)，非危机状态最高显示 99
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-5 rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-        <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-100">
-          <CircleGauge className="h-4 w-4 text-cyan-300" aria-hidden="true" />
-          权重结构
-        </div>
-        <div className="grid gap-2 md:grid-cols-5">
-          {snapshot.factors.map((factor) => (
-            <div key={factor.id} className="rounded-md border border-slate-800 bg-slate-950/60 p-3">
-              <div className="text-xs text-slate-500">{factor.name}</div>
-              <div className="mt-2 font-mono text-lg font-semibold text-slate-100">
-                {(factor.weight * 100).toFixed(0)}%
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-5 overflow-x-auto rounded-lg border border-slate-800 bg-slate-950/70">
-        <div className="min-w-[820px] p-4">
-          <div className="mb-4 grid grid-cols-[1.1fr_1.1fr_0.45fr_0.55fr_0.7fr] gap-3 text-xs font-medium text-slate-500">
-            <div>风险因子</div>
-            <div>当前 / 对比基准</div>
-            <div>权重</div>
-            <div>Z 值</div>
-            <div>贡献</div>
-          </div>
-          <div className="space-y-3">
-            {snapshot.factors.map((factor) => (
-              <div
-                key={factor.id}
-                className="grid grid-cols-[1.1fr_1.1fr_0.45fr_0.55fr_0.7fr] items-center gap-3 text-sm"
-              >
-                <div>
-                  <div className="font-medium text-slate-100">{factor.name}</div>
-                  <div className="mt-1 text-xs text-slate-500">{factor.window}</div>
-                </div>
-                <div>
-                  <div className="font-mono font-medium text-slate-100">
-                    {factor.rawDisplay}
-                  </div>
-                  <div className="mt-1 text-xs text-slate-500">
-                    {factor.benchmarkLabel}：{factor.benchmarkDisplay}
-                  </div>
-                </div>
-                <div className="font-mono text-slate-300">
-                  {factor.weight.toFixed(2)}
-                </div>
-                <div className="font-mono text-slate-300">
-                  {formatSigned(factor.zScore)}
-                </div>
-                <div>
-                  <div className="font-mono text-slate-100">
-                    {formatSigned(factor.contribution)}
-                  </div>
-                  <div className="mt-1 h-1.5 rounded-full bg-slate-800">
-                    <div
-                      className="h-full rounded-full bg-emerald-400"
-                      style={{
-                        width: `${Math.max(
-                          8,
-                          maxContribution === 0
-                            ? 8
-                            : (Math.abs(factor.contribution) / maxContribution) * 100,
-                        )}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+function getMarketReaction(snapshotValue: RiskDashboardSnapshot) {
+  return getMarketReactionCategory({
+    date: snapshotValue.asOf,
+    riskScore: snapshotValue.riskScore,
+    weightedZ: snapshotValue.weightedZ,
+    clippedWeightedRiskZ: snapshotValue.weightedZ,
+    rawWeightedRiskZ: snapshotValue.rawWeightedZ ?? snapshotValue.weightedZ,
+    sentiment: snapshotValue.riskLevel,
+    spxChange: snapshotValue.indices.sp500.changePercent ?? 0,
+    ndxChange: snapshotValue.indices.nasdaq100.changePercent ?? 0,
+    vix: snapshotValue.factors.find((factor) => factor.id === "volatility")?.rawValue ?? 0,
+    dcaMultiplier: getDcaStrategy(snapshotValue.riskScore).multiplier,
+    crisisFlag: snapshotValue.crisisFlag ?? false,
+    crisisReason: snapshotValue.crisisReason ?? "",
+    debug: {
+      clippedWeightedRiskZ: snapshotValue.weightedZ,
+      rawWeightedRiskZ: snapshotValue.rawWeightedZ ?? snapshotValue.weightedZ,
+      factors: {
+        volatility: { rawZ: 0, clippedZ: 0 },
+        credit: { rawZ: 0, clippedZ: 0 },
+        yieldCurve: { rawZ: 0, clippedZ: 0 },
+        trend: { rawZ: 0, clippedZ: 0 },
+        momentum: { rawZ: 0, clippedZ: 0 },
+      },
+      crisisFlag: snapshotValue.crisisFlag ?? false,
+      crisisReason: snapshotValue.crisisReason ?? "",
+    },
+    source: "FRED",
+  });
 }
 
-function MarketIndexPanel() {
-  const indices = [snapshot.indices.sp500, snapshot.indices.nasdaq100];
+function getScoreTone(score: number) {
+  if (score < 40) {
+    return {
+      text: "text-emerald-700",
+      badge: "bg-emerald-50 text-emerald-700",
+    };
+  }
 
-  return (
-    <section className="risk-glass rounded-lg p-5">
-      <div className="flex items-center gap-2">
-        <LineChart className="h-5 w-5 text-emerald-300" aria-hidden="true" />
-        <h2 className="text-lg font-semibold tracking-normal text-white">
-          主要指数观察区
-        </h2>
-      </div>
-      <p className="mt-2 text-sm text-slate-400">
-        用于观察标普500与纳斯达克100的收盘位置、日涨跌和相对 200日均线状态。
-      </p>
+  if (score < 60) {
+    return {
+      text: "text-amber-700",
+      badge: "bg-amber-50 text-amber-700",
+    };
+  }
 
-      <div className="mt-5 grid gap-3">
-        {indices.map((item) => (
-          <div
-            key={item.ticker}
-            className="rounded-lg border border-slate-800 bg-slate-950/70 p-4"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-sm font-semibold text-white">{item.name}</div>
-                <div className="mt-1 text-xs text-slate-500">
-                  {item.ticker} · {item.source}
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="font-mono text-lg font-semibold text-slate-100">
-                  {item.levelDisplay}
-                </div>
-                <div
-                  className={`mt-1 text-sm font-medium ${
-                    (item.changePercent ?? 0) >= 0 ? "text-emerald-300" : "text-orange-300"
-                  }`}
-                >
-                  {item.changePercent === null ? "N/A" : `${formatSigned(item.changePercent)}%`}
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-              <div className="rounded-md border border-slate-800 bg-slate-950/60 px-3 py-2">
-                <div className="text-slate-500">相对 200日均线</div>
-                <div className="mt-1 font-medium text-slate-100">{item.distanceDisplay}</div>
-              </div>
-              <div className="rounded-md border border-slate-800 bg-slate-950/60 px-3 py-2">
-                <div className="text-slate-500">趋势备注</div>
-                <div className="mt-1 font-medium text-slate-100">{item.note}</div>
-              </div>
-            </div>
-            {item.stale ? (
-              <div className="mt-3 text-xs text-orange-300">沿用最近一次成功数据</div>
-            ) : null}
-          </div>
-        ))}
-      </div>
+  if (score < 90) {
+    return {
+      text: "text-orange-600",
+      badge: "bg-orange-50 text-orange-700",
+    };
+  }
 
-      <div className="mt-4 rounded-lg border border-dashed border-slate-800 bg-slate-950/40 px-4 py-3 text-xs leading-5 text-slate-500">
-        后续可以继续扩展：周涨跌、月涨跌、成交量、广度指标、行业风险扩散和回测曲线。
-      </div>
-    </section>
-  );
+  return {
+    text: "text-red-600",
+    badge: "bg-red-50 text-red-600",
+  };
 }
 
-function AiSummary() {
-  return (
-    <section className="risk-glass mt-6 rounded-lg border-cyan-400/20 p-5 shadow-[0_0_50px_rgba(34,211,238,0.08)]">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex items-center gap-3">
-          <div className="rounded-lg border border-cyan-300/30 bg-cyan-300/10 p-2">
-            <BrainCircuit className="h-5 w-5 text-cyan-200" aria-hidden="true" />
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold tracking-normal text-white">
-              智能风险总结
-            </h2>
-            <p className="mt-1 text-xs text-slate-500">
-              基于规则模型生成 · 暂未接入 GPT
-            </p>
-          </div>
-        </div>
-        <div className="rounded-md border border-orange-300/30 bg-orange-300/10 px-3 py-1.5 text-xs font-medium text-orange-200">
-          当前结论：{snapshot.posture}
-        </div>
-      </div>
-
-      <p className="mt-5 max-w-5xl text-base leading-8 text-slate-200">
-        {snapshot.summary}
-      </p>
-    </section>
-  );
-}
-
-function getLevelColor(level: RiskDashboardFactor["riskLevel"]) {
+function getFactorTone(level: RiskDashboardFactor["riskLevel"]) {
   if (level === "低风险") {
     return {
-      badge: "border-emerald-400/30 bg-emerald-400/10 text-emerald-200",
-      bar: "bg-emerald-400",
+      text: "text-emerald-700",
+      badge: "bg-emerald-50 text-emerald-700",
+      bar: "bg-emerald-500",
     };
   }
 
   if (level === "中性") {
     return {
-      badge: "border-yellow-300/30 bg-yellow-300/10 text-yellow-100",
-      bar: "bg-yellow-300",
+      text: "text-amber-700",
+      badge: "bg-amber-50 text-amber-700",
+      bar: "bg-amber-400",
     };
   }
 
   if (level === "高风险") {
     return {
-      badge: "border-orange-400/30 bg-orange-400/10 text-orange-200",
-      bar: "bg-orange-400",
+      text: "text-orange-600",
+      badge: "bg-orange-50 text-orange-700",
+      bar: "bg-orange-500",
     };
   }
 
   return {
-    badge: "border-red-400/30 bg-red-400/10 text-red-200",
+    text: "text-red-600",
+    badge: "bg-red-50 text-red-600",
     bar: "bg-red-500",
   };
 }
 
-function getScoreTone(score: number): "green" | "yellow" | "orange" | "red" {
-  if (score < 40) {
-    return "green";
+function shortFactorSource(factor: RiskDashboardFactor) {
+  if (factor.id === "volatility") {
+    return "VIX";
   }
 
-  if (score < 60) {
-    return "yellow";
+  if (factor.id === "credit") {
+    return "HY Spread";
   }
 
-  if (score < 80) {
-    return "orange";
+  if (factor.id === "yieldCurve") {
+    return "10Y-2Y";
   }
 
-  return "red";
+  if (factor.id === "trend") {
+    return "SPX vs 200MA";
+  }
+
+  return "50MA Slope";
 }
 
-function formatDateTime(value: string) {
-  return new Intl.DateTimeFormat("zh-CN", {
-    dateStyle: "medium",
-    timeStyle: "short",
-    timeZone: "Asia/Tokyo",
-  }).format(new Date(value));
+function returnClass(value: number) {
+  return value >= 0 ? "text-emerald-700" : "text-red-600";
+}
+
+function formatPercent(value: number) {
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(2)}%`;
 }
