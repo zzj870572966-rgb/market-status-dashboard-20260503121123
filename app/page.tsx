@@ -342,7 +342,7 @@ function RiskFactors() {
           <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
         </div>
         <div className="hidden text-xs text-emerald-900/48 sm:block">
-          鼠标悬停可查看详细数据
+          原始值、对比基准与 Z-Score 直接显示
         </div>
       </div>
 
@@ -361,7 +361,6 @@ function RiskFactorCard({ factor }: { factor: RiskDashboardFactor }) {
 
   return (
     <article
-      title={`${factor.rawDisplay} / ${factor.benchmarkLabel}: ${factor.benchmarkDisplay}`}
       className="rounded-lg border border-emerald-800/12 bg-white/58 p-4 shadow-[0_10px_26px_rgba(67,96,70,0.06)] transition duration-200 hover:border-emerald-700/24 hover:bg-white/86"
     >
       <div className="flex items-start gap-3">
@@ -379,8 +378,19 @@ function RiskFactorCard({ factor }: { factor: RiskDashboardFactor }) {
       </div>
 
       <div className="mt-4 space-y-2 text-sm">
+        <DataRow
+          label="当前值"
+          value={factor.rawDisplay}
+          valueClass="text-emerald-950/86"
+        />
+        <DataRow
+          label="对比基准"
+          value={factor.benchmarkDisplay}
+          valueClass="text-emerald-950/72"
+        />
         <DataRow label="Z-Score" value={formatSigned(factor.zScore)} valueClass={tone.text} />
         <DataRow label="权重" value={`${(factor.weight * 100).toFixed(0)}%`} />
+        <DataRow label="窗口" value={factor.window} valueClass="text-emerald-950/62" />
       </div>
 
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-emerald-100">
