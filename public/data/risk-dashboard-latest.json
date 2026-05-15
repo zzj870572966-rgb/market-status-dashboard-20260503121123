@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-13",
-  "generatedAt": "2026-05-14T17:13:02.258Z",
+  "generatedAt": "2026-05-15T09:36:10.431Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-14T17:13:02.258Z",
+        "updatedAt": "2026-05-15T09:36:10.431Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,18 +24,18 @@
       "fallback": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-05-14T17:13:02.258Z",
+        "updatedAt": "2026-05-15T09:36:10.431Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
       }
     }
   },
-  "riskScore": 39,
-  "weightedZ": -0.4535,
-  "rawWeightedZ": -0.4535,
+  "riskScore": 38,
+  "weightedZ": -0.497,
+  "rawWeightedZ": -0.497,
   "crisisFlag": false,
-  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.45",
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
   "riskLevel": "贪婪",
   "posture": "偏进攻",
   "factors": [
@@ -103,30 +103,30 @@
       "id": "yieldCurve",
       "name": "收益率曲线风险",
       "source": "FRED: DGS10 - DGS2",
-      "rawValue": 46,
-      "rawDisplay": "+46 bp",
-      "rawStdDev": 6.9676,
-      "benchmarkValue": 55.936,
+      "rawValue": 48,
+      "rawDisplay": "+48 bp",
+      "rawStdDev": 6.9628,
+      "benchmarkValue": 55.94,
       "benchmarkDisplay": "+56 bp",
       "benchmarkLabel": "250日均值",
-      "riskValue": -46,
-      "riskBenchmarkValue": -55.936,
-      "riskStdDev": 6.9676,
-      "rawZScore": 1.43,
-      "clippedZScore": 1.43,
-      "zScore": 1.43,
+      "riskValue": -48,
+      "riskBenchmarkValue": -55.94,
+      "riskStdDev": 6.9628,
+      "rawZScore": 1.14,
+      "clippedZScore": 1.14,
+      "zScore": 1.14,
       "weight": 0.15,
-      "contribution": 0.21,
-      "riskLevel": "极高风险",
-      "progress": 81,
-      "trend": "up",
+      "contribution": 0.17,
+      "riskLevel": "高风险",
+      "progress": 76,
+      "trend": "down",
       "window": "250 个交易日",
       "windowDays": 250,
       "note": "10Y-2Y 利差越低、倒挂越深，周期压力越高。",
       "manualLabel": "10Y - 2Y 利差",
       "manualUnit": "bp",
       "manualStep": 1,
-      "date": "2026-05-12",
+      "date": "2026-05-13",
       "stale": false
     },
     {
@@ -222,7 +222,7 @@
       "stale": false
     }
   },
-  "summary": "当前市场温度为 39/100，处于贪婪区间。主要风险贡献来自动能、收益率曲线、信用。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
+  "summary": "当前市场温度为 38/100，处于贪婪区间。主要风险贡献来自动能、信用、收益率曲线。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
     "formula": "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
     "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",
