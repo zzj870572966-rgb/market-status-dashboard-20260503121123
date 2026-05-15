@@ -198,9 +198,14 @@ function MarketPerformancePanel({
   const spx = snapshot.indices.sp500;
   const ndx = snapshot.indices.nasdaq100;
   const sparklineRows = latestRecords.slice().reverse();
+  const aiAnalysis = buildMarketPerformanceAnalysis(
+    spx.changePercent,
+    ndx.changePercent,
+    marketReaction,
+  );
 
   return (
-    <section className="risk-glass rounded-lg p-5">
+    <section className="risk-glass flex h-full flex-col rounded-lg p-5">
       <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-emerald-950">
         市场表现（美股）
         <Info className="h-4 w-4 text-emerald-900/48" aria-hidden="true" />
@@ -225,8 +230,80 @@ function MarketPerformancePanel({
           {marketReaction}
         </span>
       </div>
+
+      <div className="mt-5 flex flex-1 flex-col justify-between rounded-lg border border-emerald-800/12 bg-[linear-gradient(135deg,rgba(236,253,245,0.62),rgba(255,253,246,0.72))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.74)]">
+        <div>
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-emerald-950">
+            <BrainCircuit className="h-4 w-4 text-emerald-700" aria-hidden="true" />
+            AI 市场分析
+          </div>
+          <p className="text-sm leading-7 text-emerald-950/76">
+            {aiAnalysis.summary}
+          </p>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+          {aiAnalysis.points.map((point) => (
+            <div
+              key={point.label}
+              className="rounded-md border border-emerald-800/10 bg-white/48 px-3 py-2"
+            >
+              <div className="text-[11px] text-emerald-900/50">{point.label}</div>
+              <div className="mt-1 text-sm font-medium text-emerald-950/78">
+                {point.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
+}
+
+function buildMarketPerformanceAnalysis(
+  spxChange: number | null,
+  ndxChange: number | null,
+  marketReaction: string,
+) {
+  const spx = spxChange ?? 0;
+  const ndx = ndxChange ?? 0;
+  const spread = ndx - spx;
+  const direction =
+    marketReaction === "双涨"
+      ? "两大指数同步上涨，说明日内风险偏好有所修复，买盘并非只集中在单一板块。"
+      : marketReaction === "双跌"
+        ? "两大指数同步下跌，说明市场承压较为一致，短期风险偏好仍偏弱。"
+        : "标普与纳指表现分化，说明资金结构存在轮动，单日指数方向信号需要结合风险因子观察。";
+  const leadership =
+    Math.abs(spread) < 0.25
+      ? "纳指与标普强弱接近，市场内部结构较为均衡。"
+      : spread > 0
+        ? "纳指相对强于标普，成长股和科技权重对市场形成支撑。"
+        : "标普相对强于纳指，市场更偏向防御或价值风格。";
+  const riskContext =
+    snapshot.riskScore >= 75
+      ? "但当前标准化风险评分仍处于高位，反弹更适合作为风险缓和观察，而不是短线追涨信号。"
+      : snapshot.riskScore >= 60
+        ? "当前风险仍偏高，需要观察上涨是否能持续扩散到更多风险因子。"
+        : "当前风险评分未进入高压区，市场表现与风险模型暂时没有明显冲突。";
+
+  return {
+    summary: `${direction}${leadership}${riskContext}`,
+    points: [
+      {
+        label: "指数共振",
+        value: marketReaction,
+      },
+      {
+        label: "纳指相对标普",
+        value: `${formatSigned(spread)} 个百分点`,
+      },
+      {
+        label: "风险语境",
+        value: snapshot.riskLevel,
+      },
+    ],
+  };
 }
 
 function IndexRow({
