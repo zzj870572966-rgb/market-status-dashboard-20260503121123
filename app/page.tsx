@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import DcaStrategyPanel from "@/components/DcaStrategyPanel";
+import ManualRiskOverridePanel from "@/components/ManualRiskOverridePanel";
 import TerminalHoverNav from "@/components/TerminalHoverNav";
 import { getDcaStrategy } from "@/lib/dcaStrategy";
 import { getMarketReactionCategory } from "@/lib/historyFilters";
@@ -66,6 +67,7 @@ export default function HomePage() {
         </section>
 
         <RiskFactors />
+        <ManualRiskOverridePanel snapshot={snapshot} />
         <DcaStrategyPanel riskScore={snapshot.riskScore} />
         <AiRiskSummary />
         <RecentRecords />
