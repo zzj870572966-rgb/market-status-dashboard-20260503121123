@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-05-14",
-  "generatedAt": "2026-05-15T13:50:44.726Z",
+  "generatedAt": "2026-05-15T14:34:28.131Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-05-15T13:50:44.726Z",
+        "updatedAt": "2026-05-15T14:34:28.131Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,18 +24,18 @@
       "fallback": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-05-15T13:50:44.726Z",
+        "updatedAt": "2026-05-15T14:34:28.131Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
       }
     }
   },
-  "riskScore": 37,
-  "weightedZ": -0.5445,
-  "rawWeightedZ": -0.5445,
+  "riskScore": 35,
+  "weightedZ": -0.6395,
+  "rawWeightedZ": -0.6395,
   "crisisFlag": false,
-  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.54",
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.64",
   "riskLevel": "贪婪",
   "posture": "偏进攻",
   "factors": [
@@ -73,30 +73,30 @@
       "id": "credit",
       "name": "信用风险",
       "source": "FRED: BAMLH0A0HYM2",
-      "rawValue": 2.82,
-      "rawDisplay": "2.82%",
-      "rawStdDev": 0.155,
-      "benchmarkValue": 2.9362,
-      "benchmarkDisplay": "2.94%",
+      "rawValue": 2.76,
+      "rawDisplay": "2.76%",
+      "rawStdDev": 0.1539,
+      "benchmarkValue": 2.9342,
+      "benchmarkDisplay": "2.93%",
       "benchmarkLabel": "250日均值",
-      "riskValue": 2.82,
-      "riskBenchmarkValue": 2.9362,
-      "riskStdDev": 0.155,
-      "rawZScore": -0.75,
-      "clippedZScore": -0.75,
-      "zScore": -0.75,
+      "riskValue": 2.76,
+      "riskBenchmarkValue": 2.9342,
+      "riskStdDev": 0.1539,
+      "rawZScore": -1.13,
+      "clippedZScore": -1.13,
+      "zScore": -1.13,
       "weight": 0.25,
-      "contribution": -0.19,
+      "contribution": -0.28,
       "riskLevel": "低风险",
-      "progress": 32,
-      "trend": "flat",
+      "progress": 24,
+      "trend": "down",
       "window": "250 个交易日",
       "windowDays": 250,
       "note": "高收益债利差越宽，信用压力与融资风险越高。",
       "manualLabel": "高收益债利差",
       "manualUnit": "%",
       "manualStep": 0.01,
-      "date": "2026-05-13",
+      "date": "2026-05-14",
       "stale": false
     },
     {
@@ -222,7 +222,7 @@
       "stale": false
     }
   },
-  "summary": "当前市场温度为 37/100，处于贪婪区间。主要风险贡献来自动能、信用、收益率曲线。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
+  "summary": "当前市场温度为 35/100，处于贪婪区间。主要风险贡献来自动能、信用、收益率曲线。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
     "formula": "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
     "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",
