@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-18T11:41:52.141Z",
+  "generatedAt": "2026-05-18T17:03:04.332Z",
   "source": "FRED daily historical series",
   "startDate": "2025-01-01",
   "endDate": "2026-05-15",
@@ -488,7 +488,7 @@
       "spxChange": 0.88,
       "ndxChange": 0.58,
       "vix": 15.06,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.53",
       "debug": {
@@ -531,7 +531,7 @@
       "spxChange": 0.61,
       "ndxChange": 1.33,
       "vix": 15.1,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.61",
       "debug": {
@@ -574,7 +574,7 @@
       "spxChange": 0.53,
       "ndxChange": 0.22,
       "vix": 15.02,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.66",
       "debug": {
@@ -617,7 +617,7 @@
       "spxChange": -0.29,
       "ndxChange": -0.58,
       "vix": 14.85,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.64",
       "debug": {
@@ -1477,7 +1477,7 @@
       "spxChange": -0.5,
       "ndxChange": -1.21,
       "vix": 18.98,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.4",
       "debug": {
@@ -1520,7 +1520,7 @@
       "spxChange": -0.47,
       "ndxChange": -1.24,
       "vix": 19.43,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.55",
       "debug": {
@@ -1563,7 +1563,7 @@
       "spxChange": 0.01,
       "ndxChange": 0.22,
       "vix": 19.1,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.53",
       "debug": {
@@ -1606,7 +1606,7 @@
       "spxChange": -1.59,
       "ndxChange": -2.75,
       "vix": 21.13,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.8",
       "debug": {
@@ -1649,7 +1649,7 @@
       "spxChange": 1.59,
       "ndxChange": 1.62,
       "vix": 19.63,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.61",
       "debug": {
@@ -1692,7 +1692,7 @@
       "spxChange": -1.76,
       "ndxChange": -2.2,
       "vix": 22.78,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.1",
       "debug": {
@@ -1735,7 +1735,7 @@
       "spxChange": -1.22,
       "ndxChange": -0.36,
       "vix": 23.51,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.25",
       "debug": {
@@ -1778,7 +1778,7 @@
       "spxChange": 1.12,
       "ndxChange": 1.36,
       "vix": 21.93,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.92",
       "debug": {
@@ -1821,7 +1821,7 @@
       "spxChange": -1.78,
       "ndxChange": -2.79,
       "vix": 24.87,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.31",
       "debug": {
@@ -1864,7 +1864,7 @@
       "spxChange": 0.55,
       "ndxChange": 0.74,
       "vix": 23.37,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.14",
       "debug": {
@@ -1907,7 +1907,7 @@
       "spxChange": -2.7,
       "ndxChange": -3.81,
       "vix": 27.86,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.77",
       "debug": {
@@ -1950,7 +1950,7 @@
       "spxChange": -0.76,
       "ndxChange": -0.28,
       "vix": 26.92,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.77",
       "debug": {
@@ -1993,7 +1993,7 @@
       "spxChange": 0.49,
       "ndxChange": 1.13,
       "vix": 24.23,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.53",
       "debug": {
@@ -2036,7 +2036,7 @@
       "spxChange": -1.39,
       "ndxChange": -1.89,
       "vix": 24.66,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.78",
       "debug": {
@@ -2079,7 +2079,7 @@
       "spxChange": 2.13,
       "ndxChange": 2.49,
       "vix": 21.77,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.35",
       "debug": {
@@ -2122,7 +2122,7 @@
       "spxChange": 0.64,
       "ndxChange": 0.55,
       "vix": 20.51,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.17",
       "debug": {
@@ -2165,7 +2165,7 @@
       "spxChange": -1.07,
       "ndxChange": -1.66,
       "vix": 21.7,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.34",
       "debug": {
@@ -2208,7 +2208,7 @@
       "spxChange": 1.08,
       "ndxChange": 1.3,
       "vix": 19.9,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.12",
       "debug": {
@@ -2251,7 +2251,7 @@
       "spxChange": -0.22,
       "ndxChange": -0.3,
       "vix": 19.8,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.08",
       "debug": {
@@ -2294,7 +2294,7 @@
       "spxChange": 0.08,
       "ndxChange": 0.39,
       "vix": 19.28,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.05",
       "debug": {
@@ -2337,7 +2337,7 @@
       "spxChange": 1.76,
       "ndxChange": 2.16,
       "vix": 17.48,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.69",
       "debug": {
@@ -2380,7 +2380,7 @@
       "spxChange": 0.16,
       "ndxChange": 0.53,
       "vix": 17.15,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.65",
       "debug": {
@@ -2423,7 +2423,7 @@
       "spxChange": -1.12,
       "ndxChange": -1.83,
       "vix": 18.33,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.84",
       "debug": {
@@ -2466,7 +2466,7 @@
       "spxChange": -0.33,
       "ndxChange": -0.59,
       "vix": 18.69,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.91",
       "debug": {
@@ -2509,7 +2509,7 @@
       "spxChange": -1.97,
       "ndxChange": -2.61,
       "vix": 21.65,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.38",
       "debug": {
@@ -2552,7 +2552,7 @@
       "spxChange": 0.55,
       "ndxChange": -0.02,
       "vix": 22.28,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.48",
       "debug": {
@@ -2595,7 +2595,7 @@
       "spxChange": 0.38,
       "ndxChange": 0.82,
       "vix": 21.77,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.39",
       "debug": {
@@ -2638,7 +2638,7 @@
       "spxChange": 0.67,
       "ndxChange": 0.75,
       "vix": 21.51,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.27",
       "debug": {
@@ -2681,7 +2681,7 @@
       "spxChange": -4.84,
       "ndxChange": -5.41,
       "vix": 30.02,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 2.2,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.49",
       "debug": {
@@ -2724,7 +2724,7 @@
       "spxChange": -5.97,
       "ndxChange": -6.07,
       "vix": 45.31,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 2.2,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=3.83",
       "debug": {
@@ -2767,7 +2767,7 @@
       "spxChange": -0.23,
       "ndxChange": 0.19,
       "vix": 46.98,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 2.2,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=3.76",
       "debug": {
@@ -2853,7 +2853,7 @@
       "spxChange": 9.52,
       "ndxChange": 12.02,
       "vix": 33.62,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.38",
       "debug": {
@@ -2896,7 +2896,7 @@
       "spxChange": -3.46,
       "ndxChange": -4.19,
       "vix": 40.72,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.68",
       "debug": {
@@ -2939,7 +2939,7 @@
       "spxChange": 1.81,
       "ndxChange": 1.89,
       "vix": 37.56,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.33",
       "debug": {
@@ -2982,7 +2982,7 @@
       "spxChange": 0.79,
       "ndxChange": 0.57,
       "vix": 30.89,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.88",
       "debug": {
@@ -3025,7 +3025,7 @@
       "spxChange": -0.17,
       "ndxChange": 0.18,
       "vix": 30.12,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.8",
       "debug": {
@@ -3068,7 +3068,7 @@
       "spxChange": -2.24,
       "ndxChange": -3.04,
       "vix": 32.64,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.98",
       "debug": {
@@ -3111,7 +3111,7 @@
       "spxChange": 0.13,
       "ndxChange": 0,
       "vix": 29.65,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.72",
       "debug": {
@@ -3154,7 +3154,7 @@
       "spxChange": -2.36,
       "ndxChange": -2.46,
       "vix": 33.82,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.94",
       "debug": {
@@ -3197,7 +3197,7 @@
       "spxChange": 2.51,
       "ndxChange": 2.63,
       "vix": 30.57,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.63",
       "debug": {
@@ -3240,7 +3240,7 @@
       "spxChange": 1.67,
       "ndxChange": 2.28,
       "vix": 28.45,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.37",
       "debug": {
@@ -3283,7 +3283,7 @@
       "spxChange": 2.03,
       "ndxChange": 2.79,
       "vix": 26.47,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.24",
       "debug": {
@@ -3326,7 +3326,7 @@
       "spxChange": 0.74,
       "ndxChange": 1.14,
       "vix": 24.84,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.11",
       "debug": {
@@ -3369,7 +3369,7 @@
       "spxChange": 0.06,
       "ndxChange": -0.03,
       "vix": 25.15,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.13",
       "debug": {
@@ -3412,7 +3412,7 @@
       "spxChange": 0.58,
       "ndxChange": 0.61,
       "vix": 24.17,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.08",
       "debug": {
@@ -3455,7 +3455,7 @@
       "spxChange": 0.15,
       "ndxChange": 0.13,
       "vix": 24.7,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.2",
       "debug": {
@@ -3498,7 +3498,7 @@
       "spxChange": 0.63,
       "ndxChange": 1.1,
       "vix": 24.6,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.07",
       "debug": {
@@ -3541,7 +3541,7 @@
       "spxChange": 1.47,
       "ndxChange": 1.6,
       "vix": 22.68,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.84",
       "debug": {
@@ -3584,7 +3584,7 @@
       "spxChange": -0.64,
       "ndxChange": -0.67,
       "vix": 23.64,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.85",
       "debug": {
@@ -3627,7 +3627,7 @@
       "spxChange": -0.77,
       "ndxChange": -0.88,
       "vix": 24.76,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.92",
       "debug": {
@@ -3670,7 +3670,7 @@
       "spxChange": 0.43,
       "ndxChange": 0.39,
       "vix": 23.55,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.85",
       "debug": {
@@ -3713,7 +3713,7 @@
       "spxChange": 0.58,
       "ndxChange": 0.98,
       "vix": 22.48,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.68",
       "debug": {
@@ -3756,7 +3756,7 @@
       "spxChange": -0.07,
       "ndxChange": -0.01,
       "vix": 21.9,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.63",
       "debug": {
@@ -4573,7 +4573,7 @@
       "spxChange": 1.03,
       "ndxChange": 0.99,
       "vix": 16.77,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.51",
       "debug": {
@@ -4616,7 +4616,7 @@
       "spxChange": 0.09,
       "ndxChange": 0.17,
       "vix": 17.16,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.51",
       "debug": {
@@ -4659,7 +4659,7 @@
       "spxChange": 0.55,
       "ndxChange": 0.66,
       "vix": 16.95,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.54",
       "debug": {
@@ -4702,7 +4702,7 @@
       "spxChange": -0.27,
       "ndxChange": -0.37,
       "vix": 17.26,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.54",
       "debug": {
@@ -4745,7 +4745,7 @@
       "spxChange": 0.38,
       "ndxChange": 0.24,
       "vix": 18.02,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
       "debug": {
@@ -4831,7 +4831,7 @@
       "spxChange": 0.94,
       "ndxChange": 1.42,
       "vix": 19.11,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.53",
       "debug": {
@@ -4917,7 +4917,7 @@
       "spxChange": -0.03,
       "ndxChange": 0,
       "vix": 20.14,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.43",
       "debug": {
@@ -4960,7 +4960,7 @@
       "spxChange": -0.22,
       "ndxChange": -0.43,
       "vix": 20.62,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.47",
       "debug": {
@@ -5003,7 +5003,7 @@
       "spxChange": 0.96,
       "ndxChange": 1.06,
       "vix": 19.83,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.56",
       "debug": {
@@ -5046,7 +5046,7 @@
       "spxChange": 1.11,
       "ndxChange": 1.53,
       "vix": 17.48,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.78",
       "debug": {
@@ -5089,7 +5089,7 @@
       "spxChange": 0,
       "ndxChange": 0.21,
       "vix": 16.76,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.84",
       "debug": {
@@ -5132,7 +5132,7 @@
       "spxChange": 0.8,
       "ndxChange": 0.94,
       "vix": 16.59,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.89",
       "debug": {
@@ -5175,7 +5175,7 @@
       "spxChange": 0.52,
       "ndxChange": 0.39,
       "vix": 16.32,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.93",
       "debug": {
@@ -5218,7 +5218,7 @@
       "spxChange": 0.52,
       "ndxChange": 0.64,
       "vix": 16.73,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.96",
       "debug": {
@@ -5261,7 +5261,7 @@
       "spxChange": -0.11,
       "ndxChange": -0.89,
       "vix": 16.83,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.96",
       "debug": {
@@ -5304,7 +5304,7 @@
       "spxChange": 0.47,
       "ndxChange": 0.73,
       "vix": 16.64,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.04",
       "debug": {
@@ -5347,7 +5347,7 @@
       "spxChange": 0.83,
       "ndxChange": 0.99,
       "vix": 16.38,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.11",
       "debug": {
@@ -5390,7 +5390,7 @@
       "spxChange": -0.79,
       "ndxChange": -0.79,
       "vix": 17.79,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.01",
       "debug": {
@@ -5433,7 +5433,7 @@
       "spxChange": -0.07,
       "ndxChange": 0.07,
       "vix": 16.81,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.02",
       "debug": {
@@ -5476,7 +5476,7 @@
       "spxChange": 0.61,
       "ndxChange": 0.72,
       "vix": 15.94,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.04",
       "debug": {
@@ -5519,7 +5519,7 @@
       "spxChange": 0.27,
       "ndxChange": -0.16,
       "vix": 15.78,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.06",
       "debug": {
@@ -5562,7 +5562,7 @@
       "spxChange": -0.33,
       "ndxChange": -0.21,
       "vix": 16.4,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.01",
       "debug": {
@@ -5605,7 +5605,7 @@
       "spxChange": 0.14,
       "ndxChange": 0.33,
       "vix": 17.2,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.99",
       "debug": {
@@ -5648,7 +5648,7 @@
       "spxChange": -0.4,
       "ndxChange": 0.13,
       "vix": 17.38,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.98",
       "debug": {
@@ -5691,7 +5691,7 @@
       "spxChange": 0.32,
       "ndxChange": 0.1,
       "vix": 17.16,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.97",
       "debug": {
@@ -5734,7 +5734,7 @@
       "spxChange": 0.54,
       "ndxChange": 0.76,
       "vix": 16.52,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.03",
       "debug": {
@@ -5777,7 +5777,7 @@
       "spxChange": -0.01,
       "ndxChange": -0.07,
       "vix": 16.41,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.01",
       "debug": {
@@ -5820,7 +5820,7 @@
       "spxChange": 0.14,
       "ndxChange": 0.5,
       "vix": 16.65,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.98",
       "debug": {
@@ -5863,7 +5863,7 @@
       "spxChange": 0.06,
       "ndxChange": -0.5,
       "vix": 16.5,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.97",
       "debug": {
@@ -5906,7 +5906,7 @@
       "spxChange": 0.78,
       "ndxChange": 0.43,
       "vix": 15.37,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.07",
       "debug": {
@@ -5949,7 +5949,7 @@
       "spxChange": 0.07,
       "ndxChange": 0.25,
       "vix": 15.39,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.06",
       "debug": {
@@ -5992,7 +5992,7 @@
       "spxChange": 0.4,
       "ndxChange": 0.23,
       "vix": 14.93,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.05",
       "debug": {
@@ -6035,7 +6035,7 @@
       "spxChange": 0.02,
       "ndxChange": 0.36,
       "vix": 15.03,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.05",
       "debug": {
@@ -6078,7 +6078,7 @@
       "spxChange": -0.3,
       "ndxChange": -0.21,
       "vix": 15.98,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.92",
       "debug": {
@@ -6121,7 +6121,7 @@
       "spxChange": -0.12,
       "ndxChange": 0.16,
       "vix": 15.48,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.87",
       "debug": {
@@ -6164,7 +6164,7 @@
       "spxChange": -0.37,
       "ndxChange": -0.55,
       "vix": 16.72,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.79",
       "debug": {
@@ -6207,7 +6207,7 @@
       "spxChange": -1.6,
       "ndxChange": -1.96,
       "vix": 20.38,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.46",
       "debug": {
@@ -6250,7 +6250,7 @@
       "spxChange": 1.47,
       "ndxChange": 1.87,
       "vix": 17.52,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.69",
       "debug": {
@@ -6293,7 +6293,7 @@
       "spxChange": -0.49,
       "ndxChange": -0.73,
       "vix": 17.85,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.65",
       "debug": {
@@ -6336,7 +6336,7 @@
       "spxChange": 0.73,
       "ndxChange": 1.29,
       "vix": 16.77,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.73",
       "debug": {
@@ -6379,7 +6379,7 @@
       "spxChange": -0.08,
       "ndxChange": 0.32,
       "vix": 16.57,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.73",
       "debug": {
@@ -6422,7 +6422,7 @@
       "spxChange": 0.78,
       "ndxChange": 0.95,
       "vix": 15.15,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.82",
       "debug": {
@@ -6465,7 +6465,7 @@
       "spxChange": -0.25,
       "ndxChange": -0.36,
       "vix": 16.25,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.75",
       "debug": {
@@ -6508,7 +6508,7 @@
       "spxChange": 1.13,
       "ndxChange": 1.33,
       "vix": 14.73,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.9",
       "debug": {
@@ -6551,7 +6551,7 @@
       "spxChange": 0.32,
       "ndxChange": 0.04,
       "vix": 14.49,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.93",
       "debug": {
@@ -6594,7 +6594,7 @@
       "spxChange": 0.03,
       "ndxChange": -0.07,
       "vix": 14.83,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.89",
       "debug": {
@@ -6637,7 +6637,7 @@
       "spxChange": -0.29,
       "ndxChange": -0.51,
       "vix": 15.09,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.89",
       "debug": {
@@ -6680,7 +6680,7 @@
       "spxChange": -0.01,
       "ndxChange": 0.01,
       "vix": 14.99,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.87",
       "debug": {
@@ -6723,7 +6723,7 @@
       "spxChange": -0.59,
       "ndxChange": -1.39,
       "vix": 15.57,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.79",
       "debug": {
@@ -6766,7 +6766,7 @@
       "spxChange": -0.24,
       "ndxChange": -0.58,
       "vix": 15.69,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.74",
       "debug": {
@@ -6809,7 +6809,7 @@
       "spxChange": -0.4,
       "ndxChange": -0.46,
       "vix": 16.6,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.66",
       "debug": {
@@ -6852,7 +6852,7 @@
       "spxChange": 1.52,
       "ndxChange": 1.54,
       "vix": 14.22,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.88",
       "debug": {
@@ -6895,7 +6895,7 @@
       "spxChange": -0.43,
       "ndxChange": -0.31,
       "vix": 14.79,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.86",
       "debug": {
@@ -6938,7 +6938,7 @@
       "spxChange": 0.41,
       "ndxChange": 0.43,
       "vix": 14.62,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.96",
       "debug": {
@@ -6981,7 +6981,7 @@
       "spxChange": 0.24,
       "ndxChange": 0.17,
       "vix": 14.85,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.95",
       "debug": {
@@ -7024,7 +7024,7 @@
       "spxChange": 0.32,
       "ndxChange": 0.58,
       "vix": 14.43,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.95",
       "debug": {
@@ -7067,7 +7067,7 @@
       "spxChange": -0.64,
       "ndxChange": -1.22,
       "vix": 15.36,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.86",
       "debug": {
@@ -7110,7 +7110,7 @@
       "spxChange": -0.69,
       "ndxChange": -0.79,
       "vix": 17.17,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.67",
       "debug": {
@@ -7153,7 +7153,7 @@
       "spxChange": 0.51,
       "ndxChange": 0.79,
       "vix": 16.35,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.73",
       "debug": {
@@ -7196,7 +7196,7 @@
       "spxChange": 0.83,
       "ndxChange": 0.93,
       "vix": 15.3,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.79",
       "debug": {
@@ -7239,7 +7239,7 @@
       "spxChange": -0.32,
       "ndxChange": 0.08,
       "vix": 15.18,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.79",
       "debug": {
@@ -7282,7 +7282,7 @@
       "spxChange": 0.21,
       "ndxChange": 0.46,
       "vix": 15.11,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.76",
       "debug": {
@@ -7325,7 +7325,7 @@
       "spxChange": 0.27,
       "ndxChange": 0.33,
       "vix": 15.04,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.72",
       "debug": {
@@ -7368,7 +7368,7 @@
       "spxChange": 0.3,
       "ndxChange": 0.04,
       "vix": 15.35,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.69",
       "debug": {
@@ -7411,7 +7411,7 @@
       "spxChange": 0.85,
       "ndxChange": 0.6,
       "vix": 14.71,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.77",
       "debug": {
@@ -7454,7 +7454,7 @@
       "spxChange": -0.05,
       "ndxChange": 0.42,
       "vix": 14.76,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.75",
       "debug": {
@@ -7497,7 +7497,7 @@
       "spxChange": 0.47,
       "ndxChange": 0.84,
       "vix": 15.69,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.74",
       "debug": {
@@ -7540,7 +7540,7 @@
       "spxChange": -0.13,
       "ndxChange": -0.08,
       "vix": 16.36,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.69",
       "debug": {
@@ -7583,7 +7583,7 @@
       "spxChange": -0.1,
       "ndxChange": -0.21,
       "vix": 15.72,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.72",
       "debug": {
@@ -7626,7 +7626,7 @@
       "spxChange": 0.48,
       "ndxChange": 0.95,
       "vix": 15.7,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.77",
       "debug": {
@@ -7669,7 +7669,7 @@
       "spxChange": 0.49,
       "ndxChange": 0.7,
       "vix": 15.45,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.81",
       "debug": {
@@ -7712,7 +7712,7 @@
       "spxChange": 0.44,
       "ndxChange": 0.55,
       "vix": 16.1,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.77",
       "debug": {
@@ -7755,7 +7755,7 @@
       "spxChange": -0.55,
       "ndxChange": -0.73,
       "vix": 16.64,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.75",
       "debug": {
@@ -7798,7 +7798,7 @@
       "spxChange": -0.28,
       "ndxChange": -0.31,
       "vix": 16.18,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.76",
       "debug": {
@@ -7841,7 +7841,7 @@
       "spxChange": -0.5,
       "ndxChange": -0.43,
       "vix": 16.74,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.63",
       "debug": {
@@ -7884,7 +7884,7 @@
       "spxChange": 0.59,
       "ndxChange": 0.44,
       "vix": 15.29,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.73",
       "debug": {
@@ -7927,7 +7927,7 @@
       "spxChange": 0.26,
       "ndxChange": 0.44,
       "vix": 16.12,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.66",
       "debug": {
@@ -7970,7 +7970,7 @@
       "spxChange": 0.41,
       "ndxChange": 0.28,
       "vix": 16.28,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.65",
       "debug": {
@@ -8013,7 +8013,7 @@
       "spxChange": 0.34,
       "ndxChange": 0.49,
       "vix": 16.29,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.66",
       "debug": {
@@ -8056,7 +8056,7 @@
       "spxChange": 0.06,
       "ndxChange": 0.37,
       "vix": 16.63,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.62",
       "debug": {
@@ -8099,7 +8099,7 @@
       "spxChange": 0.01,
       "ndxChange": -0.43,
       "vix": 16.65,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.62",
       "debug": {
@@ -8142,7 +8142,7 @@
       "spxChange": 0.36,
       "ndxChange": 0.78,
       "vix": 16.37,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.68",
       "debug": {
@@ -8185,7 +8185,7 @@
       "spxChange": -0.38,
       "ndxChange": -0.55,
       "vix": 17.24,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.57",
       "debug": {
@@ -8228,7 +8228,7 @@
       "spxChange": 0.58,
       "ndxChange": 1.19,
       "vix": 16.3,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.6",
       "debug": {
@@ -8271,7 +8271,7 @@
       "spxChange": -0.28,
       "ndxChange": -0.15,
       "vix": 16.43,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
       "debug": {
@@ -8744,7 +8744,7 @@
       "spxChange": 0.79,
       "ndxChange": 1.04,
       "vix": 16.37,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
       "debug": {
@@ -8787,7 +8787,7 @@
       "spxChange": 1.23,
       "ndxChange": 1.83,
       "vix": 15.79,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.62",
       "debug": {
@@ -8830,7 +8830,7 @@
       "spxChange": 0.23,
       "ndxChange": 0.74,
       "vix": 16.42,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.57",
       "debug": {
@@ -8873,7 +8873,7 @@
       "spxChange": 0,
       "ndxChange": 0.41,
       "vix": 16.92,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.55",
       "debug": {
@@ -8916,7 +8916,7 @@
       "spxChange": -0.99,
       "ndxChange": -1.47,
       "vix": 16.91,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.44",
       "debug": {
@@ -9475,7 +9475,7 @@
       "spxChange": -0.83,
       "ndxChange": -1.2,
       "vix": 24.69,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.47",
       "debug": {
@@ -9518,7 +9518,7 @@
       "spxChange": 0.38,
       "ndxChange": 0.56,
       "vix": 23.66,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.39",
       "debug": {
@@ -9561,7 +9561,7 @@
       "spxChange": -1.56,
       "ndxChange": -2.38,
       "vix": 26.42,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.64",
       "debug": {
@@ -9604,7 +9604,7 @@
       "spxChange": 0.98,
       "ndxChange": 0.77,
       "vix": 23.43,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.48",
       "debug": {
@@ -10464,7 +10464,7 @@
       "spxChange": 0.64,
       "ndxChange": 0.46,
       "vix": 14.08,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.45",
       "debug": {
@@ -10507,7 +10507,7 @@
       "spxChange": 0.46,
       "ndxChange": 0.5,
       "vix": 14,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
       "debug": {
@@ -10550,7 +10550,7 @@
       "spxChange": 0.32,
       "ndxChange": 0.27,
       "vix": 13.47,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.52",
       "debug": {
@@ -10593,7 +10593,7 @@
       "spxChange": -0.03,
       "ndxChange": -0.05,
       "vix": 13.6,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.48",
       "debug": {
@@ -10851,7 +10851,7 @@
       "spxChange": 0.62,
       "ndxChange": 0.94,
       "vix": 14.75,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.45",
       "debug": {
@@ -11754,7 +11754,7 @@
       "spxChange": -1.23,
       "ndxChange": -1.38,
       "vix": 21.77,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.5",
       "debug": {
@@ -11969,7 +11969,7 @@
       "spxChange": -1.57,
       "ndxChange": -2.04,
       "vix": 20.82,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.51",
       "debug": {
@@ -12012,7 +12012,7 @@
       "spxChange": 0.05,
       "ndxChange": 0.18,
       "vix": 20.6,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.48",
       "debug": {
@@ -12055,7 +12055,7 @@
       "spxChange": 0.1,
       "ndxChange": -0.13,
       "vix": 20.29,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.48",
       "debug": {
@@ -12141,7 +12141,7 @@
       "spxChange": -0.28,
       "ndxChange": -0.41,
       "vix": 20.23,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.42",
       "debug": {
@@ -12227,7 +12227,7 @@
       "spxChange": -1.04,
       "ndxChange": -1.21,
       "vix": 21.01,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.56",
       "debug": {
@@ -12270,7 +12270,7 @@
       "spxChange": 0.77,
       "ndxChange": 1.09,
       "vix": 19.55,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.43",
       "debug": {
@@ -12356,7 +12356,7 @@
       "spxChange": -0.54,
       "ndxChange": -1.16,
       "vix": 18.63,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.41",
       "debug": {
@@ -12399,7 +12399,7 @@
       "spxChange": -0.43,
       "ndxChange": -0.3,
       "vix": 19.86,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.61",
       "debug": {
@@ -12442,7 +12442,7 @@
       "spxChange": 0.04,
       "ndxChange": 0.13,
       "vix": 21.44,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.66",
       "debug": {
@@ -12485,7 +12485,7 @@
       "spxChange": -0.94,
       "ndxChange": -1.09,
       "vix": 23.57,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.93",
       "debug": {
@@ -12528,7 +12528,7 @@
       "spxChange": 0.78,
       "ndxChange": 1.51,
       "vix": 21.15,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.68",
       "debug": {
@@ -12571,7 +12571,7 @@
       "spxChange": -0.56,
       "ndxChange": -0.29,
       "vix": 23.75,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.87",
       "debug": {
@@ -12614,7 +12614,7 @@
       "spxChange": -1.33,
       "ndxChange": -1.51,
       "vix": 29.49,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.29",
       "debug": {
@@ -12657,7 +12657,7 @@
       "spxChange": 0.83,
       "ndxChange": 1.32,
       "vix": 25.5,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.14",
       "debug": {
@@ -12700,7 +12700,7 @@
       "spxChange": -0.21,
       "ndxChange": -0.04,
       "vix": 24.93,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.02",
       "debug": {
@@ -12743,7 +12743,7 @@
       "spxChange": -0.08,
       "ndxChange": 0.03,
       "vix": 24.23,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.03",
       "debug": {
@@ -12786,7 +12786,7 @@
       "spxChange": -1.52,
       "ndxChange": -1.73,
       "vix": 27.29,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.42",
       "debug": {
@@ -12829,7 +12829,7 @@
       "spxChange": -0.61,
       "ndxChange": -0.62,
       "vix": 27.19,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.45",
       "debug": {
@@ -12872,7 +12872,7 @@
       "spxChange": 1.01,
       "ndxChange": 1.13,
       "vix": 23.51,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.2",
       "debug": {
@@ -12915,7 +12915,7 @@
       "spxChange": 0.25,
       "ndxChange": 0.51,
       "vix": 22.37,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.15",
       "debug": {
@@ -12958,7 +12958,7 @@
       "spxChange": -1.36,
       "ndxChange": -1.43,
       "vix": 25.09,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.37",
       "debug": {
@@ -13001,7 +13001,7 @@
       "spxChange": -0.27,
       "ndxChange": -0.29,
       "vix": 24.06,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.47",
       "debug": {
@@ -13044,7 +13044,7 @@
       "spxChange": -1.51,
       "ndxChange": -1.88,
       "vix": 26.78,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.57",
       "debug": {
@@ -13087,7 +13087,7 @@
       "spxChange": 1.15,
       "ndxChange": 1.22,
       "vix": 26.15,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.45",
       "debug": {
@@ -13130,7 +13130,7 @@
       "spxChange": -0.37,
       "ndxChange": -0.77,
       "vix": 26.95,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.56",
       "debug": {
@@ -13173,7 +13173,7 @@
       "spxChange": 0.54,
       "ndxChange": 0.67,
       "vix": 25.33,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.47",
       "debug": {
@@ -13216,7 +13216,7 @@
       "spxChange": -1.74,
       "ndxChange": -2.38,
       "vix": 27.44,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.79",
       "debug": {
@@ -13259,7 +13259,7 @@
       "spxChange": -1.67,
       "ndxChange": -1.93,
       "vix": 31.05,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.12",
       "debug": {
@@ -13302,7 +13302,7 @@
       "spxChange": -0.39,
       "ndxChange": -0.78,
       "vix": 30.61,
-      "dcaMultiplier": 2.5,
+      "dcaMultiplier": 2.2,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.22",
       "debug": {
@@ -13345,7 +13345,7 @@
       "spxChange": 2.91,
       "ndxChange": 3.43,
       "vix": 25.25,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.7",
       "debug": {
@@ -13388,7 +13388,7 @@
       "spxChange": 0.72,
       "ndxChange": 1.18,
       "vix": 24.54,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.51",
       "debug": {
@@ -13431,7 +13431,7 @@
       "spxChange": 0.11,
       "ndxChange": 0.11,
       "vix": 23.87,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.48",
       "debug": {
@@ -13474,7 +13474,7 @@
       "spxChange": 0.44,
       "ndxChange": 0.61,
       "vix": 24.17,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.4",
       "debug": {
@@ -13517,7 +13517,7 @@
       "spxChange": 0.08,
       "ndxChange": 0.04,
       "vix": 25.78,
-      "dcaMultiplier": 1.8,
+      "dcaMultiplier": 1.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.54",
       "debug": {
@@ -13560,7 +13560,7 @@
       "spxChange": 2.51,
       "ndxChange": 2.9,
       "vix": 21.04,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.97",
       "debug": {
@@ -13603,7 +13603,7 @@
       "spxChange": 0.62,
       "ndxChange": 0.72,
       "vix": 19.49,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.76",
       "debug": {
@@ -13646,7 +13646,7 @@
       "spxChange": -0.11,
       "ndxChange": 0.14,
       "vix": 19.23,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.8",
       "debug": {
@@ -13689,7 +13689,7 @@
       "spxChange": 1.02,
       "ndxChange": 1.06,
       "vix": 19.12,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.71",
       "debug": {
@@ -13732,7 +13732,7 @@
       "spxChange": 1.18,
       "ndxChange": 1.81,
       "vix": 18.36,
-      "dcaMultiplier": 1.4,
+      "dcaMultiplier": 1.3,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.49",
       "debug": {
@@ -14420,7 +14420,7 @@
       "spxChange": 1.46,
       "ndxChange": 2.08,
       "vix": 17.39,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.47",
       "debug": {
@@ -14463,7 +14463,7 @@
       "spxChange": -0.38,
       "ndxChange": -0.12,
       "vix": 17.08,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.44",
       "debug": {
@@ -14506,7 +14506,7 @@
       "spxChange": 0.84,
       "ndxChange": 2.35,
       "vix": 17.19,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.46",
       "debug": {
@@ -14635,7 +14635,7 @@
       "spxChange": 0.58,
       "ndxChange": 1.04,
       "vix": 17.87,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.5",
       "debug": {
@@ -14678,7 +14678,7 @@
       "spxChange": 0.77,
       "ndxChange": 0.73,
       "vix": 17.26,
-      "dcaMultiplier": 0.6,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
       "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.67",
       "debug": {
@@ -14713,28 +14713,28 @@
     },
     {
       "date": "2026-05-15",
-      "riskScore": 35,
-      "weightedZ": -0.631,
-      "clippedWeightedRiskZ": -0.631,
-      "rawWeightedRiskZ": -0.631,
+      "riskScore": 38,
+      "weightedZ": -0.4735,
+      "clippedWeightedRiskZ": -0.4735,
+      "rawWeightedRiskZ": -0.4735,
       "sentiment": "贪婪",
       "spxChange": -1.24,
       "ndxChange": -1.54,
-      "vix": 17.26,
-      "dcaMultiplier": 0.6,
+      "vix": 18.43,
+      "dcaMultiplier": 0.7,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.63",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.47",
       "debug": {
-        "clippedWeightedRiskZ": -0.631,
-        "rawWeightedRiskZ": -0.631,
+        "clippedWeightedRiskZ": -0.4735,
+        "rawWeightedRiskZ": -0.4735,
         "factors": {
           "volatility": {
-            "rawZ": -0.29,
-            "clippedZ": -0.29
+            "rawZ": 0.07,
+            "clippedZ": 0.07
           },
           "credit": {
-            "rawZ": -1.13,
-            "clippedZ": -1.13
+            "rawZ": -0.86,
+            "clippedZ": -0.86
           },
           "yieldCurve": {
             "rawZ": 1.28,
@@ -14750,7 +14750,7 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.63"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.47"
       },
       "source": "FRED"
     }

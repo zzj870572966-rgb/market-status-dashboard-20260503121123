@@ -555,11 +555,11 @@ export function getRiskLevel(score: number): RiskLevel {
 
 export function getDcaMultiplier(score: number) {
   if (score < 20) {
-    return 0.3;
+    return 0.5;
   }
 
   if (score < 40) {
-    return 0.6;
+    return 0.7;
   }
 
   if (score < 60) {
@@ -567,15 +567,15 @@ export function getDcaMultiplier(score: number) {
   }
 
   if (score < 75) {
-    return 1.4;
+    return 1.3;
   }
 
   if (score < 90) {
-    return 1.8;
+    return 1.7;
   }
 
   if (score < 97) {
-    return 2.5;
+    return 2.2;
   }
 
   return 3;

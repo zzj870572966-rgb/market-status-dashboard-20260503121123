@@ -31,7 +31,7 @@ export const DCA_BANDS: DcaBand[] = [
     min: 0,
     max: 20,
     state: "极度贪婪",
-    multiplier: 0.3,
+    multiplier: 0.5,
     advice: "极度谨慎，减少投入",
     description:
       "市场情绪过热，长期资金保持最低节奏，避免在高估与乐观情绪中加速买入。",
@@ -40,7 +40,7 @@ export const DCA_BANDS: DcaBand[] = [
     min: 20,
     max: 40,
     state: "贪婪",
-    multiplier: 0.6,
+    multiplier: 0.7,
     advice: "适当降低定投",
     description:
       "市场风险补偿偏低，保留现金流弹性，等待更好的长期配置窗口。",
@@ -57,7 +57,7 @@ export const DCA_BANDS: DcaBand[] = [
     min: 60,
     max: 75,
     state: "恐慌",
-    multiplier: 1.4,
+    multiplier: 1.3,
     advice: "增加定投",
     description:
       "市场进入恐慌区间，长期指数资产的风险补偿开始改善，可温和提高分批投入力度。",
@@ -66,7 +66,7 @@ export const DCA_BANDS: DcaBand[] = [
     min: 75,
     max: 90,
     state: "高恐慌",
-    multiplier: 1.8,
+    multiplier: 1.7,
     advice: "提高定投",
     description:
       "市场处于高恐慌阶段，逆向定投价值上升，但仍需保持现金流稳定与分批纪律。",
@@ -75,7 +75,7 @@ export const DCA_BANDS: DcaBand[] = [
     min: 90,
     max: 97,
     state: "极度恐慌",
-    multiplier: 2.5,
+    multiplier: 2.2,
     advice: "强力加仓",
     description:
       "市场处于极度恐慌阶段，逆向定投价值提升，但仍需遵守现金流与风控边界。",
