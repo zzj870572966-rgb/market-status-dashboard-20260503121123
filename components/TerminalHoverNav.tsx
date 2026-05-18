@@ -63,7 +63,7 @@ export default function TerminalHoverNav({
 
   return (
     <nav
-      className="pointer-events-none fixed left-5 top-4 z-[80]"
+      className="pointer-events-none fixed left-5 top-4 z-[80] h-10 w-12"
       aria-label="页面导航"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -79,7 +79,9 @@ export default function TerminalHoverNav({
       </button>
 
       {open ? (
-        <div className={`pointer-events-auto mt-2 w-60 rounded-lg border p-2 ${menuClass}`}>
+        <div
+          className={`pointer-events-auto fixed left-[4.75rem] top-4 w-60 rounded-lg border p-2 ${menuClass}`}
+        >
           {items.map((item) => {
             const Icon = item.icon;
             const isActive = item.key === active;
