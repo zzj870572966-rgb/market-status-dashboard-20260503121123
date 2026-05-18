@@ -35,18 +35,18 @@ export default function TerminalHoverNav({
 }: TerminalHoverNavProps) {
   const isLight = tone === "light";
   const shellClass = isLight
-    ? "border-stone-300/70 bg-[#fffdf8]/92 shadow-[0_12px_28px_rgba(80,68,54,0.10)]"
-    : "border-emerald-400/15 bg-[#06120d]/94 shadow-[0_12px_30px_rgba(0,0,0,0.28)]";
+    ? "border-emerald-900/10 bg-[#fffdf8]/86 text-emerald-950 shadow-[0_14px_34px_rgba(80,68,54,0.10)]"
+    : "border-emerald-400/14 bg-[#06120d]/90 text-emerald-50 shadow-[0_14px_34px_rgba(0,0,0,0.30)]";
   const inactiveClass = isLight
-    ? "text-stone-600 hover:bg-stone-100/80 hover:text-stone-950"
-    : "text-emerald-50/68 hover:bg-emerald-400/10 hover:text-emerald-50";
+    ? "text-emerald-950/58 hover:bg-emerald-50/75 hover:text-emerald-950"
+    : "text-emerald-50/62 hover:bg-emerald-400/10 hover:text-emerald-50";
   const activeClass = isLight
-    ? "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-800/12"
-    : "bg-emerald-400/14 text-emerald-100 ring-1 ring-emerald-400/18";
+    ? "border-emerald-800/14 bg-emerald-50/90 text-emerald-800 shadow-[0_8px_20px_rgba(4,120,87,0.08)]"
+    : "border-emerald-300/18 bg-emerald-400/14 text-emerald-100 shadow-[0_8px_22px_rgba(16,185,129,0.10)]";
 
   return (
     <nav
-      className={`fixed left-4 top-4 z-[80] flex w-12 flex-col gap-1.5 rounded-lg border p-1.5 ${shellClass}`}
+      className={`fixed left-1/2 top-4 z-[80] flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-xl border px-1.5 py-1.5 backdrop-blur-xl ${shellClass}`}
       aria-label="页面导航"
     >
       {items.map((item) => {
@@ -57,13 +57,12 @@ export default function TerminalHoverNav({
           <Link
             key={item.key}
             href={item.href}
-            title={item.label}
-            aria-label={item.label}
-            className={`flex h-9 w-9 items-center justify-center rounded-md transition duration-200 ${
+            className={`flex h-10 items-center gap-2 rounded-lg border border-transparent px-3 text-sm font-medium tracking-normal transition duration-200 ${
               isActive ? activeClass : inactiveClass
             }`}
           >
-            <Icon className="h-5 w-5" aria-hidden="true" />
+            <Icon className="h-4 w-4" aria-hidden="true" />
+            <span className="whitespace-nowrap">{item.label}</span>
           </Link>
         );
       })}
