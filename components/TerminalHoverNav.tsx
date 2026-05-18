@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Database, Gauge, Menu, X } from "lucide-react";
+import { CalendarRange, Database, Gauge, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 interface TerminalHoverNavProps {
-  active: "overview" | "history";
+  active: "overview" | "history" | "weekly";
   tone?: "light" | "dark";
 }
 
@@ -21,6 +21,12 @@ const items = [
     label: "历史风险数据",
     href: "/history",
     icon: Database,
+  },
+  {
+    key: "weekly",
+    label: "周度定投评分",
+    href: "/weekly",
+    icon: CalendarRange,
   },
 ] as const;
 
