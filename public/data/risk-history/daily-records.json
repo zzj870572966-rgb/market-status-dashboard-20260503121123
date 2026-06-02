@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-30T08:09:50.668Z",
+  "generatedAt": "2026-06-02T12:52:25.384Z",
   "source": "FRED daily historical series",
   "startDate": "2025-01-01",
-  "endDate": "2026-05-28",
+  "endDate": "2026-06-01",
   "records": [
     {
       "date": "2025-01-02",
@@ -15095,6 +15095,92 @@
         },
         "crisisFlag": false,
         "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.97"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-05-29",
+      "riskScore": 26,
+      "weightedZ": -1.041,
+      "clippedWeightedRiskZ": -1.041,
+      "rawWeightedRiskZ": -1.041,
+      "sentiment": "贪婪",
+      "spxChange": 0.22,
+      "ndxChange": 0.36,
+      "vix": 15.32,
+      "dcaMultiplier": 0.7,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.04",
+      "debug": {
+        "clippedWeightedRiskZ": -1.041,
+        "rawWeightedRiskZ": -1.041,
+        "factors": {
+          "volatility": {
+            "rawZ": -0.86,
+            "clippedZ": -0.86
+          },
+          "credit": {
+            "rawZ": -1.31,
+            "clippedZ": -1.31
+          },
+          "yieldCurve": {
+            "rawZ": 1.26,
+            "clippedZ": 1.26
+          },
+          "trend": {
+            "rawZ": -1.21,
+            "clippedZ": -1.21
+          },
+          "momentum": {
+            "rawZ": -2.53,
+            "clippedZ": -2.53
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.04"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-06-01",
+      "riskScore": 26,
+      "weightedZ": -1.0235,
+      "clippedWeightedRiskZ": -1.0235,
+      "rawWeightedRiskZ": -1.0235,
+      "sentiment": "贪婪",
+      "spxChange": 0.26,
+      "ndxChange": 0.6,
+      "vix": 15.32,
+      "dcaMultiplier": 0.7,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.02",
+      "debug": {
+        "clippedWeightedRiskZ": -1.0235,
+        "rawWeightedRiskZ": -1.0235,
+        "factors": {
+          "volatility": {
+            "rawZ": -0.86,
+            "clippedZ": -0.86
+          },
+          "credit": {
+            "rawZ": -1.17,
+            "clippedZ": -1.17
+          },
+          "yieldCurve": {
+            "rawZ": 1.26,
+            "clippedZ": 1.26
+          },
+          "trend": {
+            "rawZ": -1.26,
+            "clippedZ": -1.26
+          },
+          "momentum": {
+            "rawZ": -2.58,
+            "clippedZ": -2.58
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-1.02"
       },
       "source": "FRED"
     }
