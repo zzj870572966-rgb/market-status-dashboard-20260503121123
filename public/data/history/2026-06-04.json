@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-04",
-  "generatedAt": "2026-06-05T00:00:05.193Z",
+  "generatedAt": "2026-06-05T05:21:42.591Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
     "sources": {
       "stooq": {
-        "ok": true,
+        "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-05T00:00:05.193Z",
-        "message": "更新成功",
-        "succeeded": [
-          "S&P 500",
-          "Nasdaq 100"
-        ],
-        "failed": []
+        "updatedAt": "2026-06-05T05:21:42.591Z",
+        "message": "更新失败，全部沿用旧值",
+        "succeeded": [],
+        "failed": [
+          "S&P 500: Stooq ^SPX returned no usable daily quote row",
+          "Nasdaq 100: Stooq ^NDX returned no usable daily quote row"
+        ]
       },
       "fred": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-05T00:00:05.193Z",
+        "updatedAt": "2026-06-05T05:21:42.591Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-05T00:00:05.193Z",
+        "updatedAt": "2026-06-05T05:21:42.591Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,7 +43,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-05T00:00:05.193Z",
+        "updatedAt": "2026-06-05T05:21:42.591Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -62,7 +62,7 @@
       "changePercent": -0.34,
       "date": "2026-06-04",
       "source": "S&P 500",
-      "stale": false
+      "stale": true
     },
     "nasdaq100": {
       "value": 30407.81,
@@ -71,7 +71,7 @@
       "changePercent": -0.82,
       "date": "2026-06-04",
       "source": "Nasdaq 100",
-      "stale": false
+      "stale": true
     }
   },
   "volatility": {
@@ -139,8 +139,8 @@
     },
     "cryptoFearGreed": {
       "value": 12,
-      "previous": 11,
-      "change": 1,
+      "previous": 12,
+      "change": 0,
       "changePercent": null,
       "date": "2026-06-05",
       "source": "Alternative.me",
