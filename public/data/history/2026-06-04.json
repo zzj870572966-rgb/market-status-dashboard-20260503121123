@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-04",
-  "generatedAt": "2026-06-08T23:58:56.809Z",
+  "generatedAt": "2026-06-09T09:52:58.327Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-08T23:58:56.809Z",
+        "updatedAt": "2026-06-09T09:52:58.327Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-08T23:58:56.809Z",
+        "updatedAt": "2026-06-09T09:52:58.327Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-08T23:58:56.809Z",
+        "updatedAt": "2026-06-09T09:52:58.327Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,7 +43,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-08T23:58:56.809Z",
+        "updatedAt": "2026-06-09T09:52:58.327Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -138,11 +138,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 8,
-      "previous": 12,
-      "change": -4,
+      "value": 10,
+      "previous": 8,
+      "change": 2,
       "changePercent": null,
-      "date": "2026-06-08",
+      "date": "2026-06-09",
       "source": "Alternative.me",
       "classification": "Extreme Fear",
       "stale": false
