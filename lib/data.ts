@@ -54,6 +54,8 @@ function createFallbackSnapshot(): MarketSnapshot {
       sources: {
         stooq: staleSource,
         fred: staleSource,
+        yahoo: staleSource,
+        treasury: staleSource,
         alternative: staleSource,
         manual: staleSource,
       },

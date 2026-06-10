@@ -4,6 +4,8 @@ import { buildDcaAssessment } from "../lib/dcaAssessment";
 import { fetchCryptoFearGreed } from "../lib/fetchers/alternative";
 import { fetchFredSeries } from "../lib/fetchers/fred";
 import { fetchStooqDaily } from "../lib/fetchers/stooq";
+import { fetchTreasuryYieldCurveHistory } from "../lib/fetchers/treasury";
+import { fetchYahooDaily } from "../lib/fetchers/yahoo";
 import { calculateMarketScore } from "../lib/marketScore";
 import type {
   HistoryIndex,
@@ -31,6 +33,8 @@ async function main() {
   const statuses: Record<SourceKey, SourceStatus> = {
     stooq: createStatus("Stooq daily prices"),
     fred: createStatus("FRED daily series"),
+    yahoo: createStatus("Yahoo Finance daily fallback"),
+    treasury: createStatus("US Treasury yield curve fallback"),
     alternative: createStatus("Alternative.me Crypto Fear & Greed"),
     manual: createStatus("Manual JSON inputs"),
   };
@@ -41,6 +45,8 @@ async function main() {
     updateAlternative(snapshot, statuses.alternative),
     updateManual(snapshot, statuses.manual),
   ]);
+  await updateYahooFallback(snapshot, statuses.yahoo);
+  await updateTreasuryFallback(snapshot, statuses.treasury);
 
   finalizeStatuses(statuses);
   snapshot.generatedAt = now;
@@ -150,6 +156,115 @@ async function updateFred(snapshot: MarketSnapshot, status: SourceStatus) {
     snapshot.rates.us10y,
     snapshot.rates.us2y,
   );
+}
+
+async function updateYahooFallback(snapshot: MarketSnapshot, status: SourceStatus) {
+  const requests = [
+    {
+      label: "S&P 500",
+      symbol: "^GSPC",
+      shouldUpdate: snapshot.indices.sp500.stale,
+      apply: (point: NumericPoint) => {
+        snapshot.indices.sp500 = point;
+      },
+    },
+    {
+      label: "Nasdaq 100",
+      symbol: "^NDX",
+      shouldUpdate: snapshot.indices.nasdaq100.stale,
+      apply: (point: NumericPoint) => {
+        snapshot.indices.nasdaq100 = point;
+      },
+    },
+    {
+      label: "VIX",
+      symbol: "^VIX",
+      shouldUpdate: snapshot.volatility.vix.stale,
+      apply: (point: NumericPoint) => {
+        snapshot.volatility.vix = point;
+      },
+    },
+    {
+      label: "VXN",
+      symbol: "^VXN",
+      shouldUpdate: snapshot.volatility.vxn.stale,
+      apply: (point: NumericPoint) => {
+        snapshot.volatility.vxn = point;
+      },
+    },
+  ];
+
+  const activeRequests = requests.filter((request) => request.shouldUpdate);
+
+  if (activeRequests.length === 0) {
+    return;
+  }
+
+  const results = await Promise.allSettled(
+    activeRequests.map(async (request) => ({
+      request,
+      result: await fetchYahooDaily(request.symbol),
+    })),
+  );
+
+  results.forEach((result, index) => {
+    const request = activeRequests[index];
+
+    if (result.status === "fulfilled") {
+      const point = pointFromStooq(
+        `Yahoo Finance: ${request.symbol}`,
+        result.value.result.latest.close,
+        result.value.result.previous?.close ?? null,
+        result.value.result.latest.date,
+      );
+      request.apply(point);
+      status.succeeded.push(`${request.label} (${request.symbol})`);
+      return;
+    }
+
+    status.failed.push(`${request.label} (${request.symbol}): ${getErrorMessage(result.reason)}`);
+  });
+}
+
+async function updateTreasuryFallback(snapshot: MarketSnapshot, status: SourceStatus) {
+  if (!snapshot.rates.us10y.stale && !snapshot.rates.us2y.stale) {
+    return;
+  }
+
+  try {
+    const history = await fetchTreasuryYieldCurveHistory();
+    const tenYear = latestAndPrevious(history.us10y);
+    const twoYear = latestAndPrevious(history.us2y);
+
+    if (tenYear.latest && shouldReplacePoint(snapshot.rates.us10y, tenYear.latest.date)) {
+      snapshot.rates.us10y = pointFromObservation(
+        "US Treasury Daily Yield Curve",
+        tenYear.latest.value,
+        tenYear.previous?.value ?? null,
+        tenYear.latest.date,
+        "%",
+      );
+      status.succeeded.push("10Y Treasury");
+    }
+
+    if (twoYear.latest && shouldReplacePoint(snapshot.rates.us2y, twoYear.latest.date)) {
+      snapshot.rates.us2y = pointFromObservation(
+        "US Treasury Daily Yield Curve",
+        twoYear.latest.value,
+        twoYear.previous?.value ?? null,
+        twoYear.latest.date,
+        "%",
+      );
+      status.succeeded.push("2Y Treasury");
+    }
+
+    snapshot.rates.yieldCurve2s10s = buildYieldCurvePoint(
+      snapshot.rates.us10y,
+      snapshot.rates.us2y,
+    );
+  } catch (error) {
+    status.failed.push(`US Treasury yield curve: ${getErrorMessage(error)}`);
+  }
 }
 
 async function updateAlternative(snapshot: MarketSnapshot, status: SourceStatus) {
@@ -350,10 +465,10 @@ function markStale<T extends NumericPoint>(point: T): T {
 
 function finalizeStatuses(statuses: Record<SourceKey, SourceStatus>) {
   Object.values(statuses).forEach((status) => {
-    status.ok = status.failed.length === 0 && status.succeeded.length > 0;
+    status.ok = status.failed.length === 0;
     status.partial = status.succeeded.length > 0 && status.failed.length > 0;
     if (status.ok) {
-      status.message = "更新成功";
+      status.message = status.succeeded.length > 0 ? "更新成功" : "本次未触发";
     } else if (status.partial) {
       status.message = "部分更新成功，失败项沿用旧值";
     } else {
@@ -383,6 +498,19 @@ function maxDate(dates: Array<string | undefined | null>) {
   }
 
   return valid.sort((a, b) => a.localeCompare(b))[valid.length - 1];
+}
+
+function shouldReplacePoint(point: NumericPoint, nextDate: string) {
+  return Boolean(point.stale || !point.date || nextDate > point.date);
+}
+
+function latestAndPrevious(points: Array<{ date: string; value: number }>) {
+  const clean = [...points].sort((a, b) => a.date.localeCompare(b.date));
+
+  return {
+    latest: clean[clean.length - 1] ?? null,
+    previous: clean[clean.length - 2] ?? null,
+  };
 }
 
 function isNearbyTradingSnapshot(previousDate: string, nextDate: string) {
@@ -445,6 +573,8 @@ function createEmptySnapshot(): MarketSnapshot {
       sources: {
         stooq: createStatus("等待首次更新"),
         fred: createStatus("等待首次更新"),
+        yahoo: createStatus("等待首次更新"),
+        treasury: createStatus("等待首次更新"),
         alternative: createStatus("等待首次更新"),
         manual: createStatus("等待首次更新"),
       },

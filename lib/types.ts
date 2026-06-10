@@ -7,7 +7,13 @@ export type StatusLevel =
   | "manual"
   | "stale";
 
-export type SourceKey = "stooq" | "fred" | "alternative" | "manual";
+export type SourceKey =
+  | "stooq"
+  | "fred"
+  | "yahoo"
+  | "treasury"
+  | "alternative"
+  | "manual";
 
 export interface NumericPoint {
   value: number | null;

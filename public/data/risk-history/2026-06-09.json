@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-09",
-  "generatedAt": "2026-06-10T05:23:57.956Z",
+  "generatedAt": "2026-06-10T15:19:33.401Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,42 +9,48 @@
       "fred": {
         "ok": false,
         "partial": true,
-        "updatedAt": "2026-06-10T05:23:57.956Z",
+        "updatedAt": "2026-06-10T15:19:33.401Z",
         "message": "部分更新成功",
         "succeeded": [
-          "ICE BofA US High Yield Spread (BAMLH0A0HYM2)",
-          "S&P 500 (SP500)"
+          "ICE BofA US High Yield Spread (BAMLH0A0HYM2)"
         ],
         "failed": [
           "VIX (VIXCLS): FRED VIXCLS responded with 504",
           "10Y Treasury Yield (DGS10): FRED DGS10 responded with 504",
           "2Y Treasury Yield (DGS2): FRED DGS2 responded with 504",
+          "S&P 500 (SP500): FRED SP500 responded with 504",
           "Nasdaq 100 (NASDAQ100): FRED NASDAQ100 responded with 504"
         ]
       },
       "fallback": {
         "ok": false,
         "partial": true,
-        "updatedAt": "2026-06-10T05:23:57.956Z",
+        "updatedAt": "2026-06-10T15:19:33.401Z",
         "message": "部分更新成功",
         "succeeded": [
           "波动率风险: 沿用最近一次成功数据",
           "收益率曲线风险: 沿用最近一次成功数据",
+          "趋势风险: 沿用最近一次成功数据",
+          "动能风险: 沿用最近一次成功数据",
+          "标普500: 沿用最近一次成功数据",
           "纳斯达克100: 沿用最近一次成功数据"
         ],
         "failed": [
           "波动率风险: VIX 没有可用数据",
           "收益率曲线风险: 10Y Treasury 没有可用数据",
+          "趋势风险: S&P 500 没有可用数据",
+          "动能风险: S&P 500 没有可用数据",
+          "标普500: S&P 500 没有可用数据",
           "纳斯达克100: Nasdaq 100 没有可用数据"
         ]
       }
     }
   },
-  "riskScore": 30,
-  "weightedZ": -0.868,
-  "rawWeightedZ": -0.868,
+  "riskScore": 31,
+  "weightedZ": -0.8155,
+  "rawWeightedZ": -0.8155,
   "crisisFlag": false,
-  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.87",
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.82",
   "riskLevel": "贪婪",
   "posture": "偏进攻",
   "factors": [
@@ -82,30 +88,30 @@
       "id": "credit",
       "name": "信用风险",
       "source": "FRED: BAMLH0A0HYM2",
-      "rawValue": 2.75,
-      "rawDisplay": "2.75%",
-      "rawStdDev": 0.1496,
-      "benchmarkValue": 2.907,
+      "rawValue": 2.78,
+      "rawDisplay": "2.78%",
+      "rawStdDev": 0.1497,
+      "benchmarkValue": 2.906,
       "benchmarkDisplay": "2.91%",
       "benchmarkLabel": "250日均值",
-      "riskValue": 2.75,
-      "riskBenchmarkValue": 2.907,
-      "riskStdDev": 0.1496,
-      "rawZScore": -1.05,
-      "clippedZScore": -1.05,
-      "zScore": -1.05,
+      "riskValue": 2.78,
+      "riskBenchmarkValue": 2.906,
+      "riskStdDev": 0.1497,
+      "rawZScore": -0.84,
+      "clippedZScore": -0.84,
+      "zScore": -0.84,
       "weight": 0.25,
-      "contribution": -0.26,
+      "contribution": -0.21,
       "riskLevel": "低风险",
-      "progress": 26,
-      "trend": "down",
+      "progress": 30,
+      "trend": "up",
       "window": "250 个交易日",
       "windowDays": 250,
       "note": "高收益债利差越宽，信用压力与融资风险越高。",
       "manualLabel": "高收益债利差",
       "manualUnit": "%",
       "manualStep": 0.01,
-      "date": "2026-06-08",
+      "date": "2026-06-09",
       "stale": false
     },
     {
@@ -166,7 +172,7 @@
       "manualUnit": "%",
       "manualStep": 0.01,
       "date": "2026-06-09",
-      "stale": false
+      "stale": true
     },
     {
       "id": "momentum",
@@ -196,7 +202,7 @@
       "manualUnit": "%",
       "manualStep": 0.01,
       "date": "2026-06-09",
-      "stale": false
+      "stale": true
     }
   ],
   "indices": {
@@ -213,7 +219,7 @@
       "note": "位于 200日均线上方",
       "source": "FRED: SP500",
       "date": "2026-06-09",
-      "stale": false
+      "stale": true
     },
     "nasdaq100": {
       "name": "纳斯达克100",
@@ -231,7 +237,7 @@
       "stale": true
     }
   },
-  "summary": "部分数据源暂未更新，系统已沿用最近一次成功数据。当前市场温度为 30/100，处于贪婪区间。主要风险贡献来自动能、信用、波动率。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
+  "summary": "部分数据源暂未更新，系统已沿用最近一次成功数据。当前市场温度为 31/100，处于贪婪区间。主要风险贡献来自动能、波动率、信用。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
     "formula": "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
     "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",

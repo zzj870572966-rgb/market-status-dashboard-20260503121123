@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fetchFredSeriesHistory } from "../lib/fetchers/fred";
+import { fetchTreasuryYieldCurveHistory } from "../lib/fetchers/treasury";
+import { fetchYahooSeriesHistory } from "../lib/fetchers/yahoo";
 import { buildRealRiskHistorySnapshot, type RiskHistorySeries } from "../lib/riskHistory";
 import {
   RISK_FACTOR_WEIGHTS,
@@ -68,8 +70,12 @@ const requests: SeriesRequest[] = [
 async function main() {
   const previous = await readJson<RiskDashboardSnapshot | null>(latestPath, null);
   const fredStatus = createStatus("FRED daily historical series");
+  const yahooStatus = createStatus("Yahoo Finance daily fallback");
+  const treasuryStatus = createStatus("US Treasury yield curve fallback");
   const fallbackStatus = createStatus("Local JSON fallback");
   const series = await fetchAllSeries(fredStatus);
+  await fillYahooFallbackSeries(series, yahooStatus);
+  await fillTreasuryFallbackSeries(series, treasuryStatus);
   const factors = buildFactors(series, previous, fallbackStatus);
   const indices = buildIndices(series, previous, fallbackStatus);
 
@@ -101,6 +107,8 @@ async function main() {
         : "所有风险模型数据源已成功更新。",
       sources: finalizeStatuses({
         fred: fredStatus,
+        yahoo: yahooStatus,
+        treasury: treasuryStatus,
         fallback: fallbackStatus,
       }),
     },
@@ -160,6 +168,81 @@ async function fetchAllSeries(status: RiskDataSourceStatus) {
   });
 
   return result;
+}
+
+async function fillYahooFallbackSeries(
+  series: Partial<Record<SeriesKey, FredSeriesPoint[]>>,
+  status: RiskDataSourceStatus,
+) {
+  const requests = [
+    { key: "vix" as const, label: "VIX", symbol: "^VIX" },
+    { key: "sp500" as const, label: "S&P 500", symbol: "^GSPC" },
+    { key: "nasdaq100" as const, label: "Nasdaq 100", symbol: "^NDX" },
+  ];
+
+  const results = await Promise.allSettled(
+    requests.map(async (request) => ({
+      request,
+      result: await fetchYahooSeriesHistory(request.symbol, "3y"),
+    })),
+  );
+
+  results.forEach((entry, index) => {
+    const request = requests[index];
+
+    if (entry.status === "fulfilled") {
+      const currentDate = latestDate(series[request.key]);
+      const yahooDate = latestDate(entry.value.result);
+
+      if (!currentDate || (yahooDate && yahooDate > currentDate)) {
+        series[request.key] = entry.value.result;
+        status.succeeded.push(`${request.label} (${request.symbol})`);
+      }
+
+      return;
+    }
+
+    status.failed.push(`${request.label} (${request.symbol}): ${getErrorMessage(entry.reason)}`);
+  });
+}
+
+async function fillTreasuryFallbackSeries(
+  series: Partial<Record<SeriesKey, FredSeriesPoint[]>>,
+  status: RiskDataSourceStatus,
+) {
+  try {
+    const history = await fetchTreasuryYieldCurveHistory();
+
+    if (shouldReplaceSeries(series.us10y, history.us10y)) {
+      series.us10y = history.us10y;
+      status.succeeded.push("10Y Treasury");
+    }
+
+    if (shouldReplaceSeries(series.us2y, history.us2y)) {
+      series.us2y = history.us2y;
+      status.succeeded.push("2Y Treasury");
+    }
+  } catch (error) {
+    status.failed.push(`US Treasury yield curve: ${getErrorMessage(error)}`);
+  }
+}
+
+function shouldReplaceSeries(
+  current: FredSeriesPoint[] | undefined,
+  replacement: FredSeriesPoint[],
+) {
+  const currentDate = latestDate(current);
+  const replacementDate = latestDate(replacement);
+
+  return Boolean(!currentDate || (replacementDate && replacementDate > currentDate));
+}
+
+function latestDate(points: FredSeriesPoint[] | undefined) {
+  if (!points || points.length === 0) {
+    return null;
+  }
+
+  return [...points].sort((a, b) => a.date.localeCompare(b.date))[points.length - 1]?.date ?? null;
 }
 
 function buildFactors(
@@ -390,11 +473,11 @@ function resolveAsOf(
 
 function finalizeStatuses(statuses: Record<string, RiskDataSourceStatus>) {
   Object.values(statuses).forEach((status) => {
-    status.ok = status.failed.length === 0 && status.succeeded.length > 0;
+    status.ok = status.failed.length === 0;
     status.partial = status.succeeded.length > 0 && status.failed.length > 0;
 
     if (status.ok) {
-      status.message = "更新成功";
+      status.message = status.succeeded.length > 0 ? "更新成功" : "本次未触发";
     } else if (status.partial) {
       status.message = "部分更新成功";
     } else if (status.failed.length > 0) {
