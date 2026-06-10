@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-04",
-  "generatedAt": "2026-06-09T09:52:58.327Z",
+  "generatedAt": "2026-06-10T05:22:46.234Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-09T09:52:58.327Z",
+        "updatedAt": "2026-06-10T05:22:46.234Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-09T09:52:58.327Z",
+        "updatedAt": "2026-06-10T05:22:46.234Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -33,7 +33,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-09T09:52:58.327Z",
+        "updatedAt": "2026-06-10T05:22:46.234Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -43,12 +43,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-09T09:52:58.327Z",
+        "updatedAt": "2026-06-10T05:22:46.234Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
-          "Valuation",
-          "Options Structure"
+          "Options Structure",
+          "Valuation"
         ],
         "failed": []
       }
@@ -138,11 +138,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 10,
-      "previous": 8,
-      "change": 2,
+      "value": 9,
+      "previous": 10,
+      "change": -1,
       "changePercent": null,
-      "date": "2026-06-09",
+      "date": "2026-06-10",
       "source": "Alternative.me",
       "classification": "Extreme Fear",
       "stale": false
