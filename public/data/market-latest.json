@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-10",
-  "generatedAt": "2026-06-11T02:38:16.700Z",
+  "generatedAt": "2026-06-11T10:43:02.676Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -46,7 +46,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新成功",
         "succeeded": [
           "10Y Treasury",
@@ -57,7 +57,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -67,12 +67,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-11T02:38:16.700Z",
+        "updatedAt": "2026-06-11T10:43:02.676Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
-          "Options Structure",
-          "Valuation"
+          "Valuation",
+          "Options Structure"
         ],
         "failed": []
       }
@@ -89,9 +89,9 @@
       "stale": false
     },
     "nasdaq100": {
-      "value": 28508.0273,
+      "value": 28508.0293,
       "previous": 29084.5,
-      "change": -576.4727,
+      "change": -576.4707,
       "changePercent": -1.98,
       "date": "2026-06-10",
       "source": "Yahoo Finance: ^NDX",
@@ -100,11 +100,11 @@
   },
   "volatility": {
     "vix": {
-      "value": 22.22,
-      "previous": 19.87,
-      "change": 2.35,
-      "changePercent": 11.83,
-      "date": "2026-06-10",
+      "value": 20.77,
+      "previous": 22.22,
+      "change": -1.45,
+      "changePercent": -6.53,
+      "date": "2026-06-11",
       "source": "Yahoo Finance: ^VIX",
       "stale": false
     },
@@ -163,8 +163,8 @@
     },
     "cryptoFearGreed": {
       "value": 12,
-      "previous": 9,
-      "change": 3,
+      "previous": 12,
+      "change": 0,
       "changePercent": null,
       "date": "2026-06-11",
       "source": "Alternative.me",
