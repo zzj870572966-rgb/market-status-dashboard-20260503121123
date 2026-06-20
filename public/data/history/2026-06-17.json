@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-17",
-  "generatedAt": "2026-06-18T10:42:57.887Z",
+  "generatedAt": "2026-06-20T05:18:23.911Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,7 +62,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-18T10:42:57.887Z",
+        "updatedAt": "2026-06-20T05:18:23.911Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -95,51 +95,51 @@
   },
   "volatility": {
     "vix": {
-      "value": 16.41,
-      "previous": 16.2,
-      "change": 0.21,
-      "changePercent": 1.3,
-      "date": "2026-06-16",
+      "value": 18.44,
+      "previous": 16.41,
+      "change": 2.03,
+      "changePercent": 12.37,
+      "date": "2026-06-17",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 26.95,
-      "previous": 25.92,
-      "change": 1.03,
-      "changePercent": 3.97,
-      "date": "2026-06-16",
+      "value": 28.56,
+      "previous": 26.95,
+      "change": 1.61,
+      "changePercent": 5.97,
+      "date": "2026-06-17",
       "source": "VXN",
       "stale": false
     }
   },
   "rates": {
     "us10y": {
-      "value": 4.43,
-      "previous": 4.47,
-      "change": -0.04,
-      "changePercent": -0.89,
-      "date": "2026-06-16",
+      "value": 4.49,
+      "previous": 4.43,
+      "change": 0.06,
+      "changePercent": 1.35,
+      "date": "2026-06-17",
       "source": "10Y Treasury",
       "unit": "%",
       "stale": false
     },
     "us2y": {
-      "value": 4.05,
-      "previous": 4.07,
-      "change": -0.02,
-      "changePercent": -0.49,
-      "date": "2026-06-16",
+      "value": 4.2,
+      "previous": 4.05,
+      "change": 0.15,
+      "changePercent": 3.7,
+      "date": "2026-06-17",
       "source": "2Y Treasury",
       "unit": "%",
       "stale": false
     },
     "yieldCurve2s10s": {
-      "value": 38,
-      "previous": 40,
-      "change": -2,
+      "value": 29,
+      "previous": 38,
+      "change": -9,
       "changePercent": null,
-      "date": "2026-06-16",
+      "date": "2026-06-17",
       "source": "FRED",
       "unit": "bp",
       "stale": false
@@ -157,11 +157,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 15,
-      "previous": 15,
+      "value": 23,
+      "previous": 23,
       "change": 0,
       "changePercent": null,
-      "date": "2026-06-18",
+      "date": "2026-06-20",
       "source": "Alternative.me",
       "classification": "Extreme Fear",
       "stale": false
@@ -246,8 +246,7 @@
     "title": "今日数据评估",
     "summary": "在部分数据沿用旧值的情况下，市场状态整体中性，定投节奏以纪律和再平衡为主。",
     "bullets": [
-      "部分数据源本次未成功更新，已沿用最近一次成功数据。",
-      "波动率温和，定投节奏可以保持稳定。"
+      "部分数据源本次未成功更新，已沿用最近一次成功数据。"
     ],
     "action": "按计划定投，保持仓位纪律。",
     "riskLevel": "中性"
