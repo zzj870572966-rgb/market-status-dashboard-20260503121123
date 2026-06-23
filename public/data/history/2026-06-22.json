@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-06-22",
-  "generatedAt": "2026-06-23T00:00:47.912Z",
+  "generatedAt": "2026-06-23T09:49:28.473Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,12 +62,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-06-23T00:00:47.912Z",
+        "updatedAt": "2026-06-23T09:49:28.473Z",
         "message": "更新成功",
         "succeeded": [
+          "Valuation",
           "CNN Fear & Greed",
-          "Options Structure",
-          "Valuation"
+          "Options Structure"
         ],
         "failed": []
       }
@@ -84,9 +84,9 @@
       "stale": false
     },
     "nasdaq100": {
-      "value": 30347.082,
+      "value": 30347.0801,
       "previous": 30406.1895,
-      "change": -59.1075,
+      "change": -59.1094,
       "changePercent": -0.19,
       "date": "2026-06-22",
       "source": "Yahoo Finance: ^NDX",
