@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-23T09:49:28.473Z",
+  "updatedAt": "2026-06-24T09:37:21.161Z",
   "items": [
     {
       "date": "2026-05-01",
@@ -250,6 +250,16 @@
       "nasdaq100": 30347.0801,
       "vix": 16.78,
       "cryptoFearGreed": 23,
+      "partial": true
+    },
+    {
+      "date": "2026-06-23",
+      "path": "/data/history/2026-06-23.json",
+      "score": 45,
+      "sp500": 7365.46,
+      "nasdaq100": 29347.2695,
+      "vix": 17.28,
+      "cryptoFearGreed": 17,
       "partial": true
     }
   ]
