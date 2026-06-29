@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-26T09:33:44.866Z",
+  "updatedAt": "2026-06-29T23:56:16.767Z",
   "items": [
     {
       "date": "2026-05-13",
@@ -231,6 +231,14 @@
       "path": "/data/risk-history/2026-06-26.json",
       "riskScore": 49,
       "weightedZ": -0.034,
+      "riskLevel": "中性",
+      "partial": false
+    },
+    {
+      "date": "2026-06-29",
+      "path": "/data/risk-history/2026-06-29.json",
+      "riskScore": 48,
+      "weightedZ": -0.0745,
       "riskLevel": "中性",
       "partial": false
     }
