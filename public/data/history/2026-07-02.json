@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-07-02",
-  "generatedAt": "2026-07-03T09:23:58.836Z",
+  "generatedAt": "2026-07-04T08:42:11.999Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,12 +62,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-03T09:23:58.836Z",
+        "updatedAt": "2026-07-04T08:42:11.999Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
-          "Options Structure",
-          "Valuation"
+          "Valuation",
+          "Options Structure"
         ],
         "failed": []
       }
@@ -157,11 +157,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 21,
-      "previous": 19,
-      "change": 2,
+      "value": 22,
+      "previous": 21,
+      "change": 1,
       "changePercent": null,
-      "date": "2026-07-03",
+      "date": "2026-07-04",
       "source": "Alternative.me",
       "classification": "Extreme Fear",
       "stale": false
