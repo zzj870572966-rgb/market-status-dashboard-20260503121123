@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-07-13",
-  "generatedAt": "2026-07-14T08:12:19.454Z",
+  "generatedAt": "2026-07-15T08:19:25.832Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,12 +62,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-07-14T08:12:19.454Z",
+        "updatedAt": "2026-07-15T08:19:25.832Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
-          "Options Structure",
-          "Valuation"
+          "Valuation",
+          "Options Structure"
         ],
         "failed": []
       }
@@ -95,51 +95,51 @@
   },
   "volatility": {
     "vix": {
-      "value": 15.03,
-      "previous": 15.84,
-      "change": -0.81,
-      "changePercent": -5.11,
-      "date": "2026-07-10",
+      "value": 17.16,
+      "previous": 15.03,
+      "change": 2.13,
+      "changePercent": 14.17,
+      "date": "2026-07-13",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 24.89,
-      "previous": 26.91,
-      "change": -2.02,
-      "changePercent": -7.51,
-      "date": "2026-07-10",
+      "value": 27.3,
+      "previous": 24.89,
+      "change": 2.41,
+      "changePercent": 9.68,
+      "date": "2026-07-13",
       "source": "VXN",
       "stale": false
     }
   },
   "rates": {
     "us10y": {
-      "value": 4.56,
-      "previous": 4.54,
-      "change": 0.02,
-      "changePercent": 0.44,
-      "date": "2026-07-10",
+      "value": 4.62,
+      "previous": 4.56,
+      "change": 0.06,
+      "changePercent": 1.32,
+      "date": "2026-07-13",
       "source": "10Y Treasury",
       "unit": "%",
       "stale": false
     },
     "us2y": {
-      "value": 4.21,
-      "previous": 4.16,
+      "value": 4.26,
+      "previous": 4.21,
       "change": 0.05,
-      "changePercent": 1.2,
-      "date": "2026-07-10",
+      "changePercent": 1.19,
+      "date": "2026-07-13",
       "source": "2Y Treasury",
       "unit": "%",
       "stale": false
     },
     "yieldCurve2s10s": {
-      "value": 35,
-      "previous": 38,
-      "change": -3,
+      "value": 36,
+      "previous": 35,
+      "change": 1,
       "changePercent": null,
-      "date": "2026-07-10",
+      "date": "2026-07-13",
       "source": "FRED",
       "unit": "bp",
       "stale": false
@@ -157,11 +157,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 22,
-      "previous": 28,
-      "change": -6,
+      "value": 25,
+      "previous": 22,
+      "change": 3,
       "changePercent": null,
-      "date": "2026-07-14",
+      "date": "2026-07-15",
       "source": "Alternative.me",
       "classification": "Extreme Fear",
       "stale": false
@@ -232,14 +232,13 @@
     "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
   },
   "score": {
-    "value": 51,
+    "value": 55,
     "label": "中性",
     "level": "neutral",
     "drivers": [
       "Nasdaq 100 下跌显示成长股承压。",
       "VIX 仍在可控区间。",
-      "CNN Fear & Greed 处于相对均衡区间。",
-      "Crypto Fear & Greed 偏恐惧。"
+      "CNN Fear & Greed 处于相对均衡区间。"
     ]
   },
   "assessment": {
