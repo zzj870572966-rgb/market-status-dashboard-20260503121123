@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-15T08:19:27.821Z",
+  "updatedAt": "2026-07-16T08:19:10.158Z",
   "items": [
     {
       "date": "2026-05-13",
@@ -335,6 +335,14 @@
       "path": "/data/risk-history/2026-07-15.json",
       "riskScore": 39,
       "weightedZ": -0.45,
+      "riskLevel": "贪婪",
+      "partial": false
+    },
+    {
+      "date": "2026-07-16",
+      "path": "/data/risk-history/2026-07-16.json",
+      "riskScore": 39,
+      "weightedZ": -0.454,
       "riskLevel": "贪婪",
       "partial": false
     }
