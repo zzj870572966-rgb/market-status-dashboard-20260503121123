@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-04T08:42:21.640Z",
+  "generatedAt": "2026-08-05T08:40:51.254Z",
   "source": "FRED daily historical series",
   "startDate": "2025-01-01",
-  "endDate": "2026-08-03",
+  "endDate": "2026-08-04",
   "records": [
     {
       "date": "2025-01-02",
@@ -16950,27 +16950,27 @@
     {
       "date": "2026-07-31",
       "riskScore": 47,
-      "weightedZ": -0.126,
-      "clippedWeightedRiskZ": -0.126,
-      "rawWeightedRiskZ": -0.126,
+      "weightedZ": -0.1085,
+      "clippedWeightedRiskZ": -0.1085,
+      "rawWeightedRiskZ": -0.1085,
       "sentiment": "中性",
       "spxChange": 0.7,
       "ndxChange": 0.6,
       "vix": 15.99,
       "dcaMultiplier": 1,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.13",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.11",
       "debug": {
-        "clippedWeightedRiskZ": -0.126,
-        "rawWeightedRiskZ": -0.126,
+        "clippedWeightedRiskZ": -0.1085,
+        "rawWeightedRiskZ": -0.1085,
         "factors": {
           "volatility": {
             "rawZ": -0.66,
             "clippedZ": -0.66
           },
           "credit": {
-            "rawZ": -0.25,
-            "clippedZ": -0.25
+            "rawZ": -0.18,
+            "clippedZ": -0.18
           },
           "yieldCurve": {
             "rawZ": 0.64,
@@ -16986,34 +16986,34 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.13"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.11"
       },
       "source": "FRED"
     },
     {
       "date": "2026-08-03",
-      "riskScore": 46,
-      "weightedZ": -0.1545,
-      "clippedWeightedRiskZ": -0.1545,
-      "rawWeightedRiskZ": -0.1545,
+      "riskScore": 44,
+      "weightedZ": -0.2545,
+      "clippedWeightedRiskZ": -0.2545,
+      "rawWeightedRiskZ": -0.2545,
       "sentiment": "中性",
       "spxChange": 1.48,
       "ndxChange": 1.78,
-      "vix": 15.99,
+      "vix": 15.86,
       "dcaMultiplier": 1,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.15",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25",
       "debug": {
-        "clippedWeightedRiskZ": -0.1545,
-        "rawWeightedRiskZ": -0.1545,
+        "clippedWeightedRiskZ": -0.2545,
+        "rawWeightedRiskZ": -0.2545,
         "factors": {
           "volatility": {
-            "rawZ": -0.66,
-            "clippedZ": -0.66
+            "rawZ": -0.7,
+            "clippedZ": -0.7
           },
           "credit": {
-            "rawZ": -0.25,
-            "clippedZ": -0.25
+            "rawZ": -0.61,
+            "clippedZ": -0.61
           },
           "yieldCurve": {
             "rawZ": 0.84,
@@ -17029,7 +17029,50 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.15"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-08-04",
+      "riskScore": 44,
+      "weightedZ": -0.253,
+      "clippedWeightedRiskZ": -0.253,
+      "rawWeightedRiskZ": -0.253,
+      "sentiment": "中性",
+      "spxChange": 1.79,
+      "ndxChange": 3.32,
+      "vix": 16.5,
+      "dcaMultiplier": 1,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25",
+      "debug": {
+        "clippedWeightedRiskZ": -0.253,
+        "rawWeightedRiskZ": -0.253,
+        "factors": {
+          "volatility": {
+            "rawZ": -0.51,
+            "clippedZ": -0.51
+          },
+          "credit": {
+            "rawZ": -0.61,
+            "clippedZ": -0.61
+          },
+          "yieldCurve": {
+            "rawZ": 1.03,
+            "clippedZ": 1.03
+          },
+          "trend": {
+            "rawZ": -1.17,
+            "clippedZ": -1.17
+          },
+          "momentum": {
+            "rawZ": 0.24,
+            "clippedZ": 0.24
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25"
       },
       "source": "FRED"
     }
