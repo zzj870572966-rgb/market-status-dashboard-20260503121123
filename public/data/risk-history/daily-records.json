@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-25T11:41:37.736Z",
+  "generatedAt": "2026-09-29T02:26:01.665Z",
   "source": "FRED daily historical series",
   "startDate": "2025-01-01",
-  "endDate": "2026-09-24",
+  "endDate": "2026-09-28",
   "records": [
     {
       "date": "2025-01-02",
@@ -18497,24 +18497,24 @@
     },
     {
       "date": "2026-09-22",
-      "riskScore": 47,
-      "weightedZ": -0.126,
-      "clippedWeightedRiskZ": -0.126,
-      "rawWeightedRiskZ": -0.126,
+      "riskScore": 46,
+      "weightedZ": -0.176,
+      "clippedWeightedRiskZ": -0.176,
+      "rawWeightedRiskZ": -0.176,
       "sentiment": "中性",
       "spxChange": 0,
       "ndxChange": 0.82,
-      "vix": 14.87,
+      "vix": 14.21,
       "dcaMultiplier": 1,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.13",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.18",
       "debug": {
-        "clippedWeightedRiskZ": -0.126,
-        "rawWeightedRiskZ": -0.126,
+        "clippedWeightedRiskZ": -0.176,
+        "rawWeightedRiskZ": -0.176,
         "factors": {
           "volatility": {
-            "rawZ": -1,
-            "clippedZ": -1
+            "rawZ": -1.2,
+            "clippedZ": -1.2
           },
           "credit": {
             "rawZ": -1.06,
@@ -18534,7 +18534,7 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.13"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.18"
       },
       "source": "FRED"
     },
@@ -18583,28 +18583,28 @@
     },
     {
       "date": "2026-09-24",
-      "riskScore": 50,
-      "weightedZ": 0.0025,
-      "clippedWeightedRiskZ": 0.0025,
-      "rawWeightedRiskZ": 0.0025,
+      "riskScore": 53,
+      "weightedZ": 0.11,
+      "clippedWeightedRiskZ": 0.11,
+      "rawWeightedRiskZ": 0.11,
       "sentiment": "中性",
       "spxChange": -0.02,
       "ndxChange": 0.03,
       "vix": 15.67,
       "dcaMultiplier": 1,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.11",
       "debug": {
-        "clippedWeightedRiskZ": 0.0025,
-        "rawWeightedRiskZ": 0.0025,
+        "clippedWeightedRiskZ": 0.11,
+        "rawWeightedRiskZ": 0.11,
         "factors": {
           "volatility": {
-            "rawZ": -0.76,
-            "clippedZ": -0.76
+            "rawZ": -0.75,
+            "clippedZ": -0.75
           },
           "credit": {
-            "rawZ": -0.77,
-            "clippedZ": -0.77
+            "rawZ": -0.35,
+            "clippedZ": -0.35
           },
           "yieldCurve": {
             "rawZ": 1.77,
@@ -18620,7 +18620,93 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.11"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-09-25",
+      "riskScore": 54,
+      "weightedZ": 0.1525,
+      "clippedWeightedRiskZ": 0.1525,
+      "rawWeightedRiskZ": 0.1525,
+      "sentiment": "中性",
+      "spxChange": 0.51,
+      "ndxChange": 0.42,
+      "vix": 14.87,
+      "dcaMultiplier": 1,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.15",
+      "debug": {
+        "clippedWeightedRiskZ": 0.1525,
+        "rawWeightedRiskZ": 0.1525,
+        "factors": {
+          "volatility": {
+            "rawZ": -0.99,
+            "clippedZ": -0.99
+          },
+          "credit": {
+            "rawZ": 0.42,
+            "clippedZ": 0.42
+          },
+          "yieldCurve": {
+            "rawZ": 1.32,
+            "clippedZ": 1.32
+          },
+          "trend": {
+            "rawZ": 0.1,
+            "clippedZ": 0.1
+          },
+          "momentum": {
+            "rawZ": 0.41,
+            "clippedZ": 0.41
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.15"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-09-28",
+      "riskScore": 59,
+      "weightedZ": 0.3755,
+      "clippedWeightedRiskZ": 0.3755,
+      "rawWeightedRiskZ": 0.3755,
+      "sentiment": "中性",
+      "spxChange": -0.77,
+      "ndxChange": -1.08,
+      "vix": 16.07,
+      "dcaMultiplier": 1,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.38",
+      "debug": {
+        "clippedWeightedRiskZ": 0.3755,
+        "rawWeightedRiskZ": 0.3755,
+        "factors": {
+          "volatility": {
+            "rawZ": -0.63,
+            "clippedZ": -0.63
+          },
+          "credit": {
+            "rawZ": 0.42,
+            "clippedZ": 0.42
+          },
+          "yieldCurve": {
+            "rawZ": 1.65,
+            "clippedZ": 1.65
+          },
+          "trend": {
+            "rawZ": 0.63,
+            "clippedZ": 0.63
+          },
+          "momentum": {
+            "rawZ": 0.43,
+            "clippedZ": 0.43
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.38"
       },
       "source": "FRED"
     }
