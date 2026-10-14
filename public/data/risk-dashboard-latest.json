@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-13",
-  "generatedAt": "2026-10-14T01:30:00.211Z",
+  "asOf": "2026-10-14",
+  "generatedAt": "2026-10-14T11:27:41.826Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-14T01:30:00.211Z",
+        "updatedAt": "2026-10-14T11:27:41.826Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,18 +24,17 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-14T01:30:00.211Z",
+        "updatedAt": "2026-10-14T11:27:41.826Z",
         "message": "更新成功",
         "succeeded": [
-          "VIX (^VIX)",
-          "Nasdaq 100 (^NDX)"
+          "VIX (^VIX)"
         ],
         "failed": []
       },
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-14T01:30:00.211Z",
+        "updatedAt": "2026-10-14T11:27:41.826Z",
         "message": "更新成功",
         "succeeded": [
           "10Y Treasury",
@@ -46,7 +45,7 @@
       "fallback": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-14T01:30:00.211Z",
+        "updatedAt": "2026-10-14T11:27:41.826Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -54,10 +53,10 @@
     }
   },
   "riskScore": 60,
-  "weightedZ": 0.4015,
-  "rawWeightedZ": 0.4015,
+  "weightedZ": 0.409,
+  "rawWeightedZ": 0.409,
   "crisisFlag": false,
-  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.4",
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=0.41",
   "riskLevel": "恐慌",
   "posture": "偏防御",
   "factors": [
@@ -65,22 +64,22 @@
       "id": "volatility",
       "name": "波动率风险",
       "source": "FRED: VIXCLS",
-      "rawValue": 15.27,
-      "rawDisplay": "15.27",
-      "rawStdDev": 3.2948,
-      "benchmarkValue": 17.9995,
-      "benchmarkDisplay": "18.00",
+      "rawValue": 15.35,
+      "rawDisplay": "15.35",
+      "rawStdDev": 3.2943,
+      "benchmarkValue": 17.9778,
+      "benchmarkDisplay": "17.98",
       "benchmarkLabel": "250日均值",
-      "riskValue": 15.27,
-      "riskBenchmarkValue": 17.9995,
-      "riskStdDev": 3.2948,
-      "rawZScore": -0.83,
-      "clippedZScore": -0.83,
-      "zScore": -0.83,
+      "riskValue": 15.35,
+      "riskBenchmarkValue": 17.9778,
+      "riskStdDev": 3.2943,
+      "rawZScore": -0.8,
+      "clippedZScore": -0.8,
+      "zScore": -0.8,
       "weight": 0.25,
-      "contribution": -0.21,
+      "contribution": -0.2,
       "riskLevel": "低风险",
-      "progress": 30,
+      "progress": 31,
       "trend": "up",
       "window": "250 个交易日",
       "windowDays": 250,
@@ -88,7 +87,7 @@
       "manualLabel": "VIX",
       "manualUnit": "",
       "manualStep": 0.01,
-      "date": "2026-10-13",
+      "date": "2026-10-14",
       "stale": false
     },
     {
