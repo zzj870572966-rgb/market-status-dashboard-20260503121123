@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
-  "generatedAt": "2026-10-20T11:08:32.610Z",
+  "asOf": "2026-10-20",
+  "generatedAt": "2026-10-21T11:24:30.065Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,7 +62,7 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-20T11:08:32.610Z",
+        "updatedAt": "2026-10-21T11:24:30.065Z",
         "message": "更新成功",
         "succeeded": [
           "CNN Fear & Greed",
@@ -75,71 +75,71 @@
   },
   "indices": {
     "sp500": {
-      "value": 7690.73,
-      "previous": 7659.4399,
-      "change": 31.2901,
-      "changePercent": 0.41,
-      "date": "2026-10-19",
+      "value": 7712.5698,
+      "previous": 7690.73,
+      "change": 21.8398,
+      "changePercent": 0.28,
+      "date": "2026-10-20",
       "source": "Yahoo Finance: ^GSPC",
       "stale": false
     },
     "nasdaq100": {
-      "value": 29529.3496,
-      "previous": 29187.5508,
-      "change": 341.7988,
-      "changePercent": 1.17,
-      "date": "2026-10-19",
+      "value": 29490.2793,
+      "previous": 29529.3496,
+      "change": -39.0703,
+      "changePercent": -0.13,
+      "date": "2026-10-20",
       "source": "Yahoo Finance: ^NDX",
       "stale": false
     }
   },
   "volatility": {
     "vix": {
-      "value": 19.99,
-      "previous": 16.46,
-      "change": 3.53,
-      "changePercent": 21.45,
-      "date": "2026-10-16",
+      "value": 18.44,
+      "previous": 19.99,
+      "change": -1.55,
+      "changePercent": -7.75,
+      "date": "2026-10-19",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 27.13,
-      "previous": 22.89,
-      "change": 4.24,
-      "changePercent": 18.52,
-      "date": "2026-10-16",
+      "value": 25.56,
+      "previous": 27.13,
+      "change": -1.57,
+      "changePercent": -5.79,
+      "date": "2026-10-19",
       "source": "VXN",
       "stale": false
     }
   },
   "rates": {
     "us10y": {
-      "value": 5.09,
-      "previous": 5.1,
-      "change": -0.01,
-      "changePercent": -0.2,
-      "date": "2026-10-16",
+      "value": 5.15,
+      "previous": 5.09,
+      "change": 0.06,
+      "changePercent": 1.18,
+      "date": "2026-10-19",
       "source": "10Y Treasury",
       "unit": "%",
       "stale": false
     },
     "us2y": {
-      "value": 4.74,
-      "previous": 4.77,
-      "change": -0.03,
-      "changePercent": -0.63,
-      "date": "2026-10-16",
+      "value": 4.77,
+      "previous": 4.74,
+      "change": 0.03,
+      "changePercent": 0.63,
+      "date": "2026-10-19",
       "source": "2Y Treasury",
       "unit": "%",
       "stale": false
     },
     "yieldCurve2s10s": {
-      "value": 35,
-      "previous": 33,
-      "change": 2,
+      "value": 38,
+      "previous": 35,
+      "change": 3,
       "changePercent": null,
-      "date": "2026-10-16",
+      "date": "2026-10-19",
       "source": "FRED",
       "unit": "bp",
       "stale": false
@@ -157,11 +157,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 55,
+      "value": 63,
       "previous": 55,
-      "change": 0,
+      "change": 8,
       "changePercent": null,
-      "date": "2026-10-20",
+      "date": "2026-10-21",
       "source": "Alternative.me",
       "classification": "Greed",
       "stale": false
