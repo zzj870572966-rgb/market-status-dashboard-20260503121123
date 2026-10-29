@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-27",
-  "generatedAt": "2026-10-28T01:56:28.236Z",
+  "asOf": "2026-10-28",
+  "generatedAt": "2026-10-29T02:00:52.710Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,12 +62,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-10-28T01:56:28.236Z",
+        "updatedAt": "2026-10-29T02:00:52.710Z",
         "message": "更新成功",
         "succeeded": [
-          "CNN Fear & Greed",
+          "Valuation",
           "Options Structure",
-          "Valuation"
+          "CNN Fear & Greed"
         ],
         "failed": []
       }
@@ -75,71 +75,71 @@
   },
   "indices": {
     "sp500": {
-      "value": 7722.6001,
-      "previous": 7676.77,
-      "change": 45.8301,
-      "changePercent": 0.6,
-      "date": "2026-10-27",
+      "value": 7743.98,
+      "previous": 7722.6001,
+      "change": 21.3799,
+      "changePercent": 0.28,
+      "date": "2026-10-28",
       "source": "Yahoo Finance: ^GSPC",
       "stale": false
     },
     "nasdaq100": {
-      "value": 29651.4414,
-      "previous": 29273.4004,
-      "change": 378.041,
-      "changePercent": 1.29,
-      "date": "2026-10-27",
+      "value": 29813.1563,
+      "previous": 29651.4395,
+      "change": 161.7168,
+      "changePercent": 0.55,
+      "date": "2026-10-28",
       "source": "Yahoo Finance: ^NDX",
       "stale": false
     }
   },
   "volatility": {
     "vix": {
-      "value": 18.39,
-      "previous": 19.45,
-      "change": -1.06,
-      "changePercent": -5.45,
-      "date": "2026-10-26",
+      "value": 17.52,
+      "previous": 18.39,
+      "change": -0.87,
+      "changePercent": -4.73,
+      "date": "2026-10-27",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 26.4,
-      "previous": 28.3,
-      "change": -1.9,
-      "changePercent": -6.71,
-      "date": "2026-10-26",
+      "value": 24.91,
+      "previous": 26.4,
+      "change": -1.49,
+      "changePercent": -5.64,
+      "date": "2026-10-27",
       "source": "VXN",
       "stale": false
     }
   },
   "rates": {
     "us10y": {
-      "value": 5,
+      "value": 4.99,
       "previous": 5,
-      "change": 0,
-      "changePercent": 0,
-      "date": "2026-10-26",
+      "change": -0.01,
+      "changePercent": -0.2,
+      "date": "2026-10-27",
       "source": "10Y Treasury",
       "unit": "%",
       "stale": false
     },
     "us2y": {
-      "value": 4.68,
-      "previous": 4.69,
-      "change": -0.01,
-      "changePercent": -0.21,
-      "date": "2026-10-26",
+      "value": 4.7,
+      "previous": 4.68,
+      "change": 0.02,
+      "changePercent": 0.43,
+      "date": "2026-10-27",
       "source": "2Y Treasury",
       "unit": "%",
       "stale": false
     },
     "yieldCurve2s10s": {
-      "value": 32,
-      "previous": 31,
-      "change": 1,
+      "value": 29,
+      "previous": 32,
+      "change": -3,
       "changePercent": null,
-      "date": "2026-10-26",
+      "date": "2026-10-27",
       "source": "FRED",
       "unit": "bp",
       "stale": false
@@ -158,10 +158,10 @@
     },
     "cryptoFearGreed": {
       "value": 51,
-      "previous": 48,
-      "change": 3,
+      "previous": 51,
+      "change": 0,
       "changePercent": null,
-      "date": "2026-10-28",
+      "date": "2026-10-29",
       "source": "Alternative.me",
       "classification": "Neutral",
       "stale": false
@@ -232,11 +232,10 @@
     "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
   },
   "score": {
-    "value": 64,
+    "value": 60,
     "label": "中性",
     "level": "neutral",
     "drivers": [
-      "Nasdaq 100 风险偏好改善。",
       "VIX 仍在可控区间。",
       "CNN Fear & Greed 处于相对均衡区间。"
     ]
@@ -245,7 +244,8 @@
     "title": "今日数据评估",
     "summary": "在部分数据沿用旧值的情况下，市场状态整体中性，定投节奏以纪律和再平衡为主。",
     "bullets": [
-      "部分数据源本次未成功更新，已沿用最近一次成功数据。"
+      "部分数据源本次未成功更新，已沿用最近一次成功数据。",
+      "波动率温和，定投节奏可以保持稳定。"
     ],
     "action": "按计划定投，保持仓位纪律。",
     "riskLevel": "中性"
