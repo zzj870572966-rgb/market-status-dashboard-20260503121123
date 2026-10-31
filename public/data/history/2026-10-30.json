@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-30",
+  "generatedAt": "2026-10-31T01:56:34.210Z",
+  "status": {
+    "isPartial": true,
+    "message": "部分数据暂未更新，已保留最近一次成功数据。",
+    "sources": {
+      "stooq": {
+        "ok": false,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "更新失败，全部沿用旧值",
+        "succeeded": [],
+        "failed": [
+          "S&P 500: Stooq ^SPX responded with 403",
+          "Nasdaq 100: Stooq ^NDX responded with 403"
+        ]
+      },
+      "fred": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "更新成功",
+        "succeeded": [
+          "VIX",
+          "VXN",
+          "10Y Treasury",
+          "2Y Treasury"
+        ],
+        "failed": []
+      },
+      "yahoo": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "更新成功",
+        "succeeded": [
+          "S&P 500 (^GSPC)",
+          "Nasdaq 100 (^NDX)"
+        ],
+        "failed": []
+      },
+      "treasury": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "本次未触发",
+        "succeeded": [],
+        "failed": []
+      },
+      "alternative": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "更新成功",
+        "succeeded": [
+          "Crypto Fear & Greed"
+        ],
+        "failed": []
+      },
+      "manual": {
+        "ok": true,
+        "partial": false,
+        "updatedAt": "2026-10-31T01:56:34.210Z",
+        "message": "更新成功",
+        "succeeded": [
+          "CNN Fear & Greed",
+          "Options Structure",
+          "Valuation"
+        ],
+        "failed": []
+      }
+    }
+  },
+  "indices": {
+    "sp500": {
+      "value": 7580.0698,
+      "previous": 7720.3901,
+      "change": -140.3203,
+      "changePercent": -1.82,
+      "date": "2026-10-30",
+      "source": "Yahoo Finance: ^GSPC",
+      "stale": false
+    },
+    "nasdaq100": {
+      "value": 28384.8457,
+      "previous": 29402.5098,
+      "change": -1017.6641,
+      "changePercent": -3.46,
+      "date": "2026-10-30",
+      "source": "Yahoo Finance: ^NDX",
+      "stale": false
+    }
+  },
+  "volatility": {
+    "vix": {
+      "value": 17.2,
+      "previous": 16.91,
+      "change": 0.29,
+      "changePercent": 1.71,
+      "date": "2026-10-29",
+      "source": "VIX",
+      "stale": false
+    },
+    "vxn": {
+      "value": 25.18,
+      "previous": 23.78,
+      "change": 1.4,
+      "changePercent": 5.89,
+      "date": "2026-10-29",
+      "source": "VXN",
+      "stale": false
+    }
+  },
+  "rates": {
+    "us10y": {
+      "value": 4.98,
+      "previous": 5.05,
+      "change": -0.07,
+      "changePercent": -1.39,
+      "date": "2026-10-29",
+      "source": "10Y Treasury",
+      "unit": "%",
+      "stale": false
+    },
+    "us2y": {
+      "value": 4.61,
+      "previous": 4.67,
+      "change": -0.06,
+      "changePercent": -1.28,
+      "date": "2026-10-29",
+      "source": "2Y Treasury",
+      "unit": "%",
+      "stale": false
+    },
+    "yieldCurve2s10s": {
+      "value": 37,
+      "previous": 38,
+      "change": -1,
+      "changePercent": null,
+      "date": "2026-10-29",
+      "source": "FRED",
+      "unit": "bp",
+      "stale": false
+    }
+  },
+  "sentiment": {
+    "cnnFearGreed": {
+      "value": 52,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "classification": "Neutral",
+      "stale": false
+    },
+    "cryptoFearGreed": {
+      "value": 30,
+      "previous": 30,
+      "change": 0,
+      "changePercent": null,
+      "date": "2026-10-31",
+      "source": "Alternative.me",
+      "classification": "Fear",
+      "stale": false
+    }
+  },
+  "valuation": {
+    "date": "2026-01-02",
+    "source": "manual",
+    "summary": "S&P 500 P/E 与 CAPE 处于偏高但未极端区间，长期回报预期需要保持保守。",
+    "sp500PE": {
+      "value": 22.5,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "unit": "x",
+      "stale": false
+    },
+    "cape": {
+      "value": 34,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "unit": "x",
+      "stale": false
+    }
+  },
+  "optionsStructure": {
+    "date": "2026-01-02",
+    "source": "manual",
+    "spxNetGamma": {
+      "status": "neutral",
+      "label": "中性 Gamma",
+      "description": "SPX 当前接近中性 Gamma 区间，价格波动可能更多受宏观与现货动量影响。"
+    },
+    "spxZeroGamma": {
+      "value": 5900,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "spxPutWall": {
+      "value": 5700,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "spxCallWall": {
+      "value": 6100,
+      "previous": null,
+      "change": null,
+      "changePercent": null,
+      "date": "2026-01-02",
+      "source": "manual",
+      "stale": false
+    },
+    "ndxQqqPutWall": "NDX 21000 / QQQ 510",
+    "ndxQqqCallWall": "NDX 22000 / QQQ 535",
+    "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
+  },
+  "score": {
+    "value": 49,
+    "label": "中性",
+    "level": "neutral",
+    "drivers": [
+      "S&P 500 日线回撤增加短期压力。",
+      "Nasdaq 100 下跌显示成长股承压。",
+      "VIX 仍在可控区间。",
+      "CNN Fear & Greed 处于相对均衡区间。"
+    ]
+  },
+  "assessment": {
+    "title": "今日数据评估",
+    "summary": "在部分数据沿用旧值的情况下，市场状态整体中性，定投节奏以纪律和再平衡为主。",
+    "bullets": [
+      "部分数据源本次未成功更新，已沿用最近一次成功数据。",
+      "波动率温和，定投节奏可以保持稳定。"
+    ],
+    "action": "按计划定投，保持仓位纪律。",
+    "riskLevel": "中性"
+  }
+}
