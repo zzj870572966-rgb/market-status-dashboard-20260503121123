@@ -1,139 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-31T01:56:35.235Z",
+  "generatedAt": "2026-11-03T03:47:58.805Z",
   "source": "FRED daily historical series",
   "startDate": "2025-01-01",
-  "endDate": "2026-10-30",
+  "endDate": "2026-11-02",
   "records": [
-    {
-      "date": "2025-02-07",
-      "riskScore": 47,
-      "weightedZ": -0.1065,
-      "clippedWeightedRiskZ": -0.1065,
-      "rawWeightedRiskZ": -0.1065,
-      "sentiment": "中性",
-      "spxChange": -0.95,
-      "ndxChange": -1.3,
-      "vix": 16.54,
-      "dcaMultiplier": 1,
-      "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.11",
-      "debug": {
-        "clippedWeightedRiskZ": -0.1065,
-        "rawWeightedRiskZ": -0.1065,
-        "factors": {
-          "volatility": {
-            "rawZ": 0.17,
-            "clippedZ": 0.17
-          },
-          "credit": {
-            "rawZ": -1.52,
-            "clippedZ": -1.52
-          },
-          "yieldCurve": {
-            "rawZ": -1.13,
-            "clippedZ": -1.13
-          },
-          "trend": {
-            "rawZ": 1.35,
-            "clippedZ": 1.35
-          },
-          "momentum": {
-            "rawZ": 0.99,
-            "clippedZ": 0.99
-          }
-        },
-        "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.11"
-      },
-      "source": "FRED"
-    },
-    {
-      "date": "2025-02-10",
-      "riskScore": 44,
-      "weightedZ": -0.2505,
-      "clippedWeightedRiskZ": -0.2505,
-      "rawWeightedRiskZ": -0.2505,
-      "sentiment": "中性",
-      "spxChange": 0.67,
-      "ndxChange": 1.24,
-      "vix": 15.81,
-      "dcaMultiplier": 1,
-      "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25",
-      "debug": {
-        "clippedWeightedRiskZ": -0.2505,
-        "rawWeightedRiskZ": -0.2505,
-        "factors": {
-          "volatility": {
-            "rawZ": -0.05,
-            "clippedZ": -0.05
-          },
-          "credit": {
-            "rawZ": -1.55,
-            "clippedZ": -1.55
-          },
-          "yieldCurve": {
-            "rawZ": -1.23,
-            "clippedZ": -1.23
-          },
-          "trend": {
-            "rawZ": 0.96,
-            "clippedZ": 0.96
-          },
-          "momentum": {
-            "rawZ": 0.95,
-            "clippedZ": 0.95
-          }
-        },
-        "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.25"
-      },
-      "source": "FRED"
-    },
-    {
-      "date": "2025-02-11",
-      "riskScore": 44,
-      "weightedZ": -0.2405,
-      "clippedWeightedRiskZ": -0.2405,
-      "rawWeightedRiskZ": -0.2405,
-      "sentiment": "中性",
-      "spxChange": 0.03,
-      "ndxChange": -0.29,
-      "vix": 16.02,
-      "dcaMultiplier": 1,
-      "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.24",
-      "debug": {
-        "clippedWeightedRiskZ": -0.2405,
-        "rawWeightedRiskZ": -0.2405,
-        "factors": {
-          "volatility": {
-            "rawZ": 0.01,
-            "clippedZ": 0.01
-          },
-          "credit": {
-            "rawZ": -1.53,
-            "clippedZ": -1.53
-          },
-          "yieldCurve": {
-            "rawZ": -1.29,
-            "clippedZ": -1.29
-          },
-          "trend": {
-            "rawZ": 0.98,
-            "clippedZ": 0.98
-          },
-          "momentum": {
-            "rawZ": 0.93,
-            "clippedZ": 0.93
-          }
-        },
-        "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=-0.24"
-      },
-      "source": "FRED"
-    },
     {
       "date": "2025-02-12",
       "riskScore": 44,
@@ -18669,28 +18540,28 @@
     },
     {
       "date": "2026-10-30",
-      "riskScore": 79,
-      "weightedZ": 1.344,
-      "clippedWeightedRiskZ": 1.344,
-      "rawWeightedRiskZ": 1.344,
+      "riskScore": 83,
+      "weightedZ": 1.5665,
+      "clippedWeightedRiskZ": 1.5665,
+      "rawWeightedRiskZ": 1.5665,
       "sentiment": "高恐慌",
       "spxChange": -1.82,
       "ndxChange": -3.46,
       "vix": 19.42,
       "dcaMultiplier": 1.7,
       "crisisFlag": false,
-      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.34",
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.57",
       "debug": {
-        "clippedWeightedRiskZ": 1.344,
-        "rawWeightedRiskZ": 1.344,
+        "clippedWeightedRiskZ": 1.5665,
+        "rawWeightedRiskZ": 1.5665,
         "factors": {
           "volatility": {
             "rawZ": 0.43,
             "clippedZ": 0.43
           },
           "credit": {
-            "rawZ": 1.98,
-            "clippedZ": 1.98
+            "rawZ": 2.87,
+            "clippedZ": 2.87
           },
           "yieldCurve": {
             "rawZ": 0.96,
@@ -18706,7 +18577,50 @@
           }
         },
         "crisisFlag": false,
-        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.34"
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.57"
+      },
+      "source": "FRED"
+    },
+    {
+      "date": "2026-11-02",
+      "riskScore": 86,
+      "weightedZ": 1.8185,
+      "clippedWeightedRiskZ": 1.8185,
+      "rawWeightedRiskZ": 1.8185,
+      "sentiment": "高恐慌",
+      "spxChange": -0.51,
+      "ndxChange": -1.39,
+      "vix": 21.15,
+      "dcaMultiplier": 1.7,
+      "crisisFlag": false,
+      "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.82",
+      "debug": {
+        "clippedWeightedRiskZ": 1.8185,
+        "rawWeightedRiskZ": 1.8185,
+        "factors": {
+          "volatility": {
+            "rawZ": 0.95,
+            "clippedZ": 0.95
+          },
+          "credit": {
+            "rawZ": 2.87,
+            "clippedZ": 2.87
+          },
+          "yieldCurve": {
+            "rawZ": 1.44,
+            "clippedZ": 1.44
+          },
+          "trend": {
+            "rawZ": 2.77,
+            "clippedZ": 2.77
+          },
+          "momentum": {
+            "rawZ": 1.16,
+            "clippedZ": 1.16
+          }
+        },
+        "crisisFlag": false,
+        "crisisReason": "未触发危机级条件，rawWeightedRiskZ=1.82"
       },
       "source": "FRED"
     }
