@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-11-10",
-  "generatedAt": "2026-11-11T02:26:57.404Z",
+  "asOf": "2026-11-11",
+  "generatedAt": "2026-11-12T03:30:40.979Z",
   "status": {
     "isPartial": true,
     "message": "部分数据暂未更新，已保留最近一次成功数据。",
@@ -9,7 +9,7 @@
       "stooq": {
         "ok": false,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "更新失败，全部沿用旧值",
         "succeeded": [],
         "failed": [
@@ -20,7 +20,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "更新成功",
         "succeeded": [
           "VIX",
@@ -33,7 +33,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "更新成功",
         "succeeded": [
           "S&P 500 (^GSPC)",
@@ -44,7 +44,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
@@ -52,7 +52,7 @@
       "alternative": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "更新成功",
         "succeeded": [
           "Crypto Fear & Greed"
@@ -62,12 +62,12 @@
       "manual": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-11T02:26:57.404Z",
+        "updatedAt": "2026-11-12T03:30:40.979Z",
         "message": "更新成功",
         "succeeded": [
-          "CNN Fear & Greed",
           "Valuation",
-          "Options Structure"
+          "Options Structure",
+          "CNN Fear & Greed"
         ],
         "failed": []
       }
@@ -75,40 +75,40 @@
   },
   "indices": {
     "sp500": {
-      "value": 7520.9302,
-      "previous": 7549.9399,
-      "change": -29.0097,
-      "changePercent": -0.38,
-      "date": "2026-11-10",
+      "value": 7619.3799,
+      "previous": 7520.9302,
+      "change": 98.4497,
+      "changePercent": 1.31,
+      "date": "2026-11-11",
       "source": "Yahoo Finance: ^GSPC",
       "stale": false
     },
     "nasdaq100": {
-      "value": 27740.7949,
-      "previous": 27907.6309,
-      "change": -166.836,
-      "changePercent": -0.6,
-      "date": "2026-11-10",
+      "value": 28374.252,
+      "previous": 27740.7891,
+      "change": 633.4629,
+      "changePercent": 2.28,
+      "date": "2026-11-11",
       "source": "Yahoo Finance: ^NDX",
       "stale": false
     }
   },
   "volatility": {
     "vix": {
-      "value": 19.92,
-      "previous": 25.64,
-      "change": -5.72,
-      "changePercent": -22.31,
-      "date": "2026-11-09",
+      "value": 19.46,
+      "previous": 19.92,
+      "change": -0.46,
+      "changePercent": -2.31,
+      "date": "2026-11-10",
       "source": "VIX",
       "stale": false
     },
     "vxn": {
-      "value": 28.97,
-      "previous": 34.02,
-      "change": -5.05,
-      "changePercent": -14.84,
-      "date": "2026-11-09",
+      "value": 28.57,
+      "previous": 28.97,
+      "change": -0.4,
+      "changePercent": -1.38,
+      "date": "2026-11-10",
       "source": "VXN",
       "stale": false
     }
@@ -157,11 +157,11 @@
       "stale": false
     },
     "cryptoFearGreed": {
-      "value": 29,
-      "previous": 32,
-      "change": -3,
+      "value": 28,
+      "previous": 29,
+      "change": -1,
       "changePercent": null,
-      "date": "2026-11-11",
+      "date": "2026-11-12",
       "source": "Alternative.me",
       "classification": "Fear",
       "stale": false
@@ -232,21 +232,23 @@
     "interpretation": "期权结构目前没有给出极端方向信号。若指数跌破 Put Wall，下方对冲压力可能放大；若突破 Call Wall，上方可能出现获利了结或做市商压制。"
   },
   "score": {
-    "value": 60,
-    "label": "中性",
-    "level": "neutral",
+    "value": 69,
+    "label": "偏积极",
+    "level": "positive",
     "drivers": [
+      "S&P 500 日线表现偏强。",
+      "Nasdaq 100 风险偏好改善。",
       "VIX 仍在可控区间。",
       "CNN Fear & Greed 处于相对均衡区间。"
     ]
   },
   "assessment": {
     "title": "今日数据评估",
-    "summary": "在部分数据沿用旧值的情况下，市场状态整体中性，定投节奏以纪律和再平衡为主。",
+    "summary": "在部分数据沿用旧值的情况下，市场状态偏积极，但仍需要观察估值和情绪是否过热。",
     "bullets": [
       "部分数据源本次未成功更新，已沿用最近一次成功数据。"
     ],
-    "action": "按计划定投，保持仓位纪律。",
-    "riskLevel": "中性"
+    "action": "可以正常执行计划，但不追高。",
+    "riskLevel": "偏积极"
   }
 }
