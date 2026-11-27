@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-11-26",
-  "generatedAt": "2026-11-26T09:15:47.716Z",
+  "asOf": "2026-11-27",
+  "generatedAt": "2026-11-27T09:31:12.732Z",
   "status": {
     "isPartial": false,
     "message": "所有风险模型数据源已成功更新。",
@@ -9,7 +9,7 @@
       "fred": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-26T09:15:47.716Z",
+        "updatedAt": "2026-11-27T09:31:12.732Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (VIXCLS)",
@@ -24,7 +24,7 @@
       "yahoo": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-26T09:15:47.716Z",
+        "updatedAt": "2026-11-27T09:31:12.732Z",
         "message": "更新成功",
         "succeeded": [
           "VIX (^VIX)",
@@ -35,7 +35,7 @@
       "treasury": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-26T09:15:47.716Z",
+        "updatedAt": "2026-11-27T09:31:12.732Z",
         "message": "更新成功",
         "succeeded": [
           "10Y Treasury",
@@ -46,18 +46,18 @@
       "fallback": {
         "ok": true,
         "partial": false,
-        "updatedAt": "2026-11-26T09:15:47.716Z",
+        "updatedAt": "2026-11-27T09:31:12.732Z",
         "message": "本次未触发",
         "succeeded": [],
         "failed": []
       }
     }
   },
-  "riskScore": 92,
-  "weightedZ": 2.3925,
-  "rawWeightedZ": 2.4935,
+  "riskScore": 90,
+  "weightedZ": 2.245,
+  "rawWeightedZ": 2.346,
   "crisisFlag": false,
-  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.49",
+  "crisisReason": "未触发危机级条件，rawWeightedRiskZ=2.35",
   "riskLevel": "极度恐慌",
   "posture": "高度防御",
   "factors": [
@@ -65,22 +65,22 @@
       "id": "volatility",
       "name": "波动率风险",
       "source": "FRED: VIXCLS",
-      "rawValue": 26.91,
-      "rawDisplay": "26.91",
-      "rawStdDev": 3.759,
-      "benchmarkValue": 18.3265,
-      "benchmarkDisplay": "18.33",
+      "rawValue": 24.73,
+      "rawDisplay": "24.73",
+      "rawStdDev": 3.7769,
+      "benchmarkValue": 18.3606,
+      "benchmarkDisplay": "18.36",
       "benchmarkLabel": "250日均值",
-      "riskValue": 26.91,
-      "riskBenchmarkValue": 18.3265,
-      "riskStdDev": 3.759,
-      "rawZScore": 2.28,
-      "clippedZScore": 2.28,
-      "zScore": 2.28,
+      "riskValue": 24.73,
+      "riskBenchmarkValue": 18.3606,
+      "riskStdDev": 3.7769,
+      "rawZScore": 1.69,
+      "clippedZScore": 1.69,
+      "zScore": 1.69,
       "weight": 0.25,
-      "contribution": 0.57,
+      "contribution": 0.42,
       "riskLevel": "极高风险",
-      "progress": 91,
+      "progress": 84,
       "trend": "down",
       "window": "250 个交易日",
       "windowDays": 250,
@@ -88,7 +88,7 @@
       "manualLabel": "VIX",
       "manualUnit": "",
       "manualStep": 0.01,
-      "date": "2026-11-26",
+      "date": "2026-11-27",
       "stale": false
     },
     {
@@ -244,7 +244,7 @@
       "stale": false
     }
   },
-  "summary": "当前市场温度为 92/100，处于极度恐慌区间。主要风险贡献来自信用、波动率、趋势。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
+  "summary": "当前市场温度为 90/100，处于极度恐慌区间。主要风险贡献来自信用、趋势、波动率。该模型面向长期指数配置和逆向定投参考，强调分批执行、现金流稳定与风险纪律，不构成短线交易信号。",
   "model": {
     "formula": "clippedWeightedRiskZ = 0.25×VIX_z + 0.25×Credit_z + 0.15×YieldCurve_z + 0.15×Trend_z + 0.20×Momentum_z",
     "normalization": "RiskScore = crisisFlag ? 100 : min(99, max(1, round(50 + 50 × tanh(clippedWeightedRiskZ / 2))))",
